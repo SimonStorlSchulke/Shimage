@@ -12,4 +12,8 @@ public class GraphEdit : Godot.GraphEdit
     void onDisconnectionRequest(string from, int fromSlot, string to, int toSlot) {
         DisconnectNode(from, fromSlot, to, toSlot);
     }
+
+    public void EvaluateTree() {
+        GD.Print("Evaluate Tree");
+    }
 }

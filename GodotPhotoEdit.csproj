@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="code\GraphEdit.cs" />
     <Compile Include="code\imaging\imaging.cs" />
+    <Compile Include="code\nodesImageSource.cs" />
+    <Compile Include="code\nodes\ImageSource.cs" />
     <Compile Include="code\nodes\NodeBase.cs" />
     <Compile Include="code\nodes\SimpleNode.cs" />
     <Compile Include="code\ui\AddNode.cs" />

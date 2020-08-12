@@ -16,12 +16,12 @@ public class Viewer : Sprite {
         //Example image Manipulation
         img.Load("res://TestImages/kylo.png");
 
-        PointFilter f = new ExampleFilter(new Color(1, 0, 0));
+        PointFilter f = new ExampleFilter(new Color(1, .4f, .4f));
         f.Apply(img);
 
         tex.CreateFromImage(img);
 
-        this.Texture = tex;
+        Texture = tex;
 
     }
 
@@ -31,6 +31,5 @@ public class Viewer : Sprite {
         
         if (e.IsAction("zoom_out"))
             Scale *= (1 - zoomSpeed);
-        
     }
 }

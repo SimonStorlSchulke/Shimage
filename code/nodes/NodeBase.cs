@@ -10,7 +10,9 @@ public abstract class NodeBase : GraphNode
     }
 
     void onCloseRequest() {
+        GD.Print("DELETE");
         QueueFree();
+
     }
 
     void onResizeRequest(Vector2 newSize) {
