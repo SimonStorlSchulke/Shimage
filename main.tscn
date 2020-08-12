@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
 [ext_resource path="res://TestImages/IMG_20200610_075109.jpg" type="Texture" id=2]
 [ext_resource path="res://code/ui/AddNode.cs" type="Script" id=3]
 [ext_resource path="res://code/GraphEdit.cs" type="Script" id=4]
+[ext_resource path="res://code/ui/Viewer.cs" type="Script" id=5]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -98,9 +99,13 @@ size_flags_horizontal = 3
 margin_right = 716.0
 margin_bottom = 284.0
 size_flags_vertical = 3
+
+[node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/TextureRect"]
+position = Vector2( 367.696, 155.564 )
+scale = Vector2( 0.185, 0.185 )
+z_index = -1
 texture = ExtResource( 2 )
-expand = true
-stretch_mode = 6
+script = ExtResource( 5 )
 
 [node name="Nodeeditor" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
 margin_top = 292.0
@@ -133,7 +138,7 @@ margin_right = 716.0
 margin_bottom = 284.0
 size_flags_vertical = 3
 right_disconnects = true
-scroll_offset = Vector2( -716, -260 )
+scroll_offset = Vector2( 0, -260 )
 script = ExtResource( 4 )
 
 [node name="Sidebar" type="Panel" parent="VBoxContainer/HSplitContainer"]

@@ -61,6 +61,7 @@
     <Compile Include="code\nodes\NodeBase.cs" />
     <Compile Include="code\nodes\SimpleNode.cs" />
     <Compile Include="code\ui\AddNode.cs" />
+    <Compile Include="code\ui\Viewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
