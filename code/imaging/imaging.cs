@@ -6,13 +6,8 @@ public abstract class PointFilter {
     //Runs on every Pixel;
     protected abstract Color Operation(Color col);
 
-    public PointFilter() {
-
-    }
-
-    public void Apply(Image img, Image mask) {
+    public void Apply(Image img, Image mask = null) {
         Color colA = new Color();
-        Color colB = new Color();
         img.Lock();
 
         if (mask != null) {
@@ -21,14 +16,10 @@ public abstract class PointFilter {
             for (int y = 0; y < img.GetHeight(); y++) {
                 for (int x = 0; x < img.GetWidth(); x++) {
                     colA = img.GetPixel(x, y);
-                    colB = Operation(colA);
-
-                    colA = Blend.NORMAL(colA, colB, mask.GetPixel(x, y).r);
-
+                    colA = Blend.NORMAL(colA, Operation(colA), mask.GetPixel(x, y).r);
                     img.SetPixel(x, y, colA);
                 }
             }
-            img.Unlock();
             mask.Unlock();
         } else {
             for (int y = 0; y < img.GetHeight(); y++) {
