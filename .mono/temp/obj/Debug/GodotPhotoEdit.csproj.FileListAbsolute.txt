@@ -1,0 +1,6 @@
+D:\dev\godot\GodotPhotoEdit\.mono\temp\bin\Debug\GodotPhotoEdit.dll
+D:\dev\godot\GodotPhotoEdit\.mono\temp\bin\Debug\GodotPhotoEdit.pdb
+D:\dev\godot\GodotPhotoEdit\.mono\temp\obj\Debug\GodotPhotoEdit.csprojAssemblyReference.cache
+D:\dev\godot\GodotPhotoEdit\.mono\temp\obj\Debug\GodotPhotoEdit.csproj.CoreCompileInputs.cache
+D:\dev\godot\GodotPhotoEdit\.mono\temp\obj\Debug\GodotPhotoEdit.dll
+D:\dev\godot\GodotPhotoEdit\.mono\temp\obj\Debug\GodotPhotoEdit.pdb
