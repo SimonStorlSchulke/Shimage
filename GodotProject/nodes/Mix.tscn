@@ -1,0 +1,99 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://maintheme.tres" type="Theme" id=1]
+[ext_resource path="res://style/nodes/frame_styleboxflat.tres" type="StyleBox" id=2]
+[ext_resource path="res://code/nodes/NodeMix.cs" type="Script" id=3]
+
+[node name="GraphNode" type="GraphNode"]
+margin_left = 2.45953
+margin_top = -0.629959
+margin_right = 239.459
+margin_bottom = 115.37
+theme = ExtResource( 1 )
+custom_styles/frame = ExtResource( 2 )
+title = "Mix"
+show_close = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 0.992157, 0.952941, 0.0196078, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 0.992157, 0.952941, 0.0196078, 1 )
+slot/1/left_enabled = true
+slot/1/left_type = 0
+slot/1/left_color = Color( 0.992157, 0.952941, 0.0196078, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 0.992157, 0.952941, 0.0196078, 1 )
+slot/2/left_enabled = true
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="C1" type="HBoxContainer" parent="."]
+margin_left = 28.0
+margin_top = 28.0
+margin_right = 208.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="C1"]
+margin_right = 22.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 22, 0 )
+color = Color( 0.0156863, 0.0156863, 0.0156863, 1 )
+
+[node name="label" type="Label" parent="C1"]
+margin_left = 26.0
+margin_right = 65.0
+margin_bottom = 22.0
+text = "Val 2"
+
+[node name="C2" type="HBoxContainer" parent="."]
+margin_left = 28.0
+margin_top = 51.0
+margin_right = 208.0
+margin_bottom = 73.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="C2"]
+margin_right = 22.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 22, 22 )
+color = Color( 0.0156863, 0.0156863, 0.0156863, 1 )
+
+[node name="label" type="Label" parent="C2"]
+margin_left = 26.0
+margin_right = 65.0
+margin_bottom = 22.0
+text = "Val 2"
+
+[node name="Factor" type="HBoxContainer" parent="."]
+margin_left = 28.0
+margin_top = 74.0
+margin_right = 208.0
+margin_bottom = 96.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="Factor"]
+margin_right = 47.0
+margin_bottom = 22.0
+text = "Factor"
+
+[node name="HSlider" type="HSlider" parent="Factor"]
+margin_left = 51.0
+margin_right = 180.0
+margin_bottom = 16.0
+size_flags_horizontal = 3

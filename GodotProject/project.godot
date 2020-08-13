@@ -28,10 +28,15 @@ config/icon="res://icon.png"
 
 window/size/width=1400
 window/size/height=700
+window/energy_saving/keep_screen_on=false
 
 [gdnative]
 
 singletons=[ "res://git_api.gdnlib" ]
+
+[global]
+
+icon=false
 
 [input]
 

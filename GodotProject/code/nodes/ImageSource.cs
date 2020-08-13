@@ -15,6 +15,8 @@ public class ImageSource : NodeBase {
 
     public override void _Ready() {
         base._Ready();
+        SetSlot(0, false, 0, COLORBLACK, true, SLOTTYPE_RGBA, SLOTCOLOR_RGBA);
+        
         fileDialog = GetNode<FileDialog>("FileDialog");
         pathInput = GetNode<TextEdit>("VBoxContainer/HBoxContainer/Path");
         viewer = GetNode<TextureRect>("VBoxContainer/ImageViewer");
@@ -51,5 +53,9 @@ public class ImageSource : NodeBase {
     void OnFileSelected(string path) {
         pathInput.Text = path;
         setImage(path);
+    }
+
+    public override void Execute() {
+
     }
 }
