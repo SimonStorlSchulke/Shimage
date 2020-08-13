@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
+[ext_resource path="res://code/Parser.cs" type="Script" id=2]
 [ext_resource path="res://code/ui/AddNode.cs" type="Script" id=3]
 [ext_resource path="res://code/GraphEdit.cs" type="Script" id=4]
 [ext_resource path="res://code/ui/Viewer.cs" type="Script" id=5]
+[ext_resource path="res://code/ButtonGetTree.gd" type="Script" id=6]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -22,7 +24,7 @@ __meta__ = {
 }
 
 [node name="Topbar" type="Panel" parent="VBoxContainer"]
-margin_right = 1600.0
+margin_right = 1400.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
@@ -85,18 +87,18 @@ __meta__ = {
 
 [node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
 margin_top = 24.0
-margin_right = 1600.0
-margin_bottom = 900.0
+margin_right = 1400.0
+margin_bottom = 700.0
 size_flags_vertical = 3
 
 [node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HSplitContainer"]
-margin_right = 1292.0
-margin_bottom = 876.0
+margin_right = 1092.0
+margin_bottom = 676.0
 size_flags_horizontal = 3
 
 [node name="ViewerContainer" type="CenterContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
-margin_right = 1292.0
-margin_bottom = 434.0
+margin_right = 1092.0
+margin_bottom = 334.0
 rect_clip_content = true
 size_flags_vertical = 3
 
@@ -107,20 +109,23 @@ z_index = -1
 script = ExtResource( 5 )
 
 [node name="Nodeeditor" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
-margin_top = 442.0
-margin_right = 1292.0
-margin_bottom = 876.0
+margin_top = 342.0
+margin_right = 1092.0
+margin_bottom = 676.0
 size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="Header" type="Panel" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor"]
-margin_right = 1292.0
+margin_right = 1092.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
 [node name="Menus" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/Header"]
 margin_right = 40.0
 margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AddNode" type="MenuButton" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/Header/Menus"]
 margin_right = 75.0
@@ -133,20 +138,24 @@ margin_left = 79.0
 margin_right = 176.0
 margin_bottom = 24.0
 text = "Evaluate Tree"
+script = ExtResource( 6 )
 
 [node name="GraphEdit" type="GraphEdit" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor"]
 margin_top = 24.0
-margin_right = 1292.0
-margin_bottom = 434.0
+margin_right = 1092.0
+margin_bottom = 334.0
 size_flags_vertical = 3
 right_disconnects = true
-scroll_offset = Vector2( -8, -238 )
+scroll_offset = Vector2( -200, -238 )
 script = ExtResource( 4 )
 
+[node name="Parser" type="Node" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit"]
+script = ExtResource( 2 )
+
 [node name="Sidebar" type="Panel" parent="VBoxContainer/HSplitContainer"]
-margin_left = 1300.0
-margin_right = 1600.0
-margin_bottom = 876.0
+margin_left = 1100.0
+margin_right = 1400.0
+margin_bottom = 676.0
 rect_min_size = Vector2( 300, 0 )
 
 [node name="Label" type="Label" parent="VBoxContainer/HSplitContainer/Sidebar"]
@@ -156,5 +165,6 @@ text = "Inspector"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/Header/Menus/Button" to="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit/Parser" method="OnEvaluateTreePressed"]
 [connection signal="connection_request" from="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit" to="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit" method="onConnectionRequest"]
 [connection signal="disconnection_request" from="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit" to="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit" method="onDisconnectionRequest"]

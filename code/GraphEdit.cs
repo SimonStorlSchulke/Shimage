@@ -1,12 +1,28 @@
 using Godot;
 
-public class GraphEdit : Godot.GraphEdit
-{
+using System.Collections.Generic;
+
+/*
+public struct Connection {
+    public GraphNode from;
+    public int fromSlot;
+
+    public GraphNode to;
+    public int toSlot;
+
+    public Connection(GraphNode from, int fromSlot, GraphNode to, int toSlot) {
+        this.from = from;
+        this.fromSlot = fromSlot;
+        this.to = to;
+        this.toSlot = toSlot;
+    }
+}*/
+
+public class GraphEdit : Godot.GraphEdit {
 
     void onConnectionRequest(string from, int fromSlot, string to, int toSlot) {
-        if (from != to) {
+        if (from != to)
             ConnectNode(from, fromSlot, to, toSlot);
-        }
     }
 
     void onDisconnectionRequest(string from, int fromSlot, string to, int toSlot) {

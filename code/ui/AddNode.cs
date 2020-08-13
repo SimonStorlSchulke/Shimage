@@ -4,10 +4,11 @@ using System;
 
 public class AddNode : MenuButton {
     static PopupMenu popup;
-    static GraphNode[] Nodes;
+    static NodeBase[] Nodes;
 
     static List<PackedScene> graphNodes = new List<PackedScene>();
     static GraphEdit ge;
+    int nodeCount;
 
     public override void _Ready() {
         popup = GetPopup();
@@ -16,8 +17,11 @@ public class AddNode : MenuButton {
     }
 
     void AddGraphNode(int ID) {
-        var graphNode = (GraphNode)graphNodes[ID].Instance();
+        var graphNode = (NodeBase)graphNodes[ID].Instance();
+        graphNode.Name = nodeCount + graphNode.nodename;
         ge.AddChild(graphNode);
+        GD.Print(ge.GetChildren());
+        nodeCount++;
     }
 
     //Collect Nodes from nodes directory and add them to the List

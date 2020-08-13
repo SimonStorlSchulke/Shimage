@@ -63,6 +63,7 @@
     <Compile Include="code\nodes\ImageSource.cs" />
     <Compile Include="code\nodes\NodeBase.cs" />
     <Compile Include="code\nodes\SimpleNode.cs" />
+    <Compile Include="code\Parser.cs" />
     <Compile Include="code\ui\AddNode.cs" />
     <Compile Include="code\ui\Viewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

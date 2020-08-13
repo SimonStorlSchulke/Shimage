@@ -3,7 +3,7 @@ using System;
 
 public abstract class NodeBase : GraphNode
 {
-
+    public string nodename;
     public override void _Ready() {
         Connect("close_request", this, nameof(onCloseRequest));
         Connect("resize_request", this, nameof(onResizeRequest));

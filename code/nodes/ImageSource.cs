@@ -9,6 +9,10 @@ public class ImageSource : NodeBase {
     ImageTexture tex = new ImageTexture();
     FileDialog fileDialog;
 
+    public ImageSource() {
+        nodename = "Image Source";
+    }
+
     public override void _Ready() {
         base._Ready();
         fileDialog = GetNode<FileDialog>("FileDialog");
@@ -48,6 +52,4 @@ public class ImageSource : NodeBase {
         pathInput.Text = path;
         setImage(path);
     }
-
-
 }
