@@ -1,3 +1,5 @@
-GodotPhotoEdit
+# GodotPhotoEdit
 
-Aims to become an
+Aims to become a Node Based Photo Editor
+
+![img](img.png)
