@@ -1,5 +1,5 @@
 # GodotPhotoEdit
 
-Aims to become a Node Based Photo Editor. Written in C# with Godot.
+Aims to become a simple Photo Editor with a Filter Stack. Written in C# with Godot.
 
 ![img](img.png)

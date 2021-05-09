@@ -1,0 +1,160 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://maintheme.tres" type="Theme" id=1]
+[ext_resource path="res://code/FilterStack.cs" type="Script" id=3]
+[ext_resource path="res://code/ui/Viewer.cs" type="Script" id=5]
+
+[sub_resource type="CSharpScript" id=3]
+script/source = "using Godot;
+using System;
+
+public class BtnApplyFillters : Node
+{
+    // Declare member variables here. Examples:
+    // private int a = 2;
+    // private string b = \"text\";
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        
+    }
+
+//  // Called every frame. 'delta' is the elapsed time since the previous frame.
+//  public override void _Process(float delta)
+//  {
+//      
+//  }
+}
+"
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
+expand_margin_left = 13.0
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Topbar" type="Panel" parent="VBoxContainer"]
+margin_right = 1400.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+
+[node name="Menus" type="HBoxContainer" parent="VBoxContainer/Topbar"]
+margin_right = 191.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File" type="MenuButton" parent="VBoxContainer/Topbar/Menus"]
+margin_right = 35.0
+margin_bottom = 24.0
+text = "File"
+items = [ "Open Graph", null, 0, false, false, 0, 0, null, "", false, "Save as", null, 0, false, false, 1, 0, null, "", false, "Save", null, 0, false, false, 2, 0, null, "", false ]
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Edit" type="MenuButton" parent="VBoxContainer/Topbar/Menus"]
+margin_left = 39.0
+margin_right = 75.0
+margin_bottom = 24.0
+text = "Edit"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File3" type="MenuButton" parent="VBoxContainer/Topbar/Menus"]
+margin_left = 79.0
+margin_right = 114.0
+margin_bottom = 24.0
+text = "File"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File4" type="MenuButton" parent="VBoxContainer/Topbar/Menus"]
+margin_left = 118.0
+margin_right = 153.0
+margin_bottom = 24.0
+text = "File"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File5" type="MenuButton" parent="VBoxContainer/Topbar/Menus"]
+margin_left = 157.0
+margin_right = 192.0
+margin_bottom = 24.0
+text = "File"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="VBoxContainer/Topbar/Menus"]
+margin_left = 196.0
+margin_right = 288.0
+margin_bottom = 24.0
+text = "Apply Filters"
+script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 1400.0
+margin_bottom = 700.0
+size_flags_vertical = 3
+
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HSplitContainer"]
+margin_right = 1162.0
+margin_bottom = 676.0
+size_flags_horizontal = 3
+
+[node name="ViewerContainer" type="CenterContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
+margin_right = 1162.0
+margin_bottom = 676.0
+rect_clip_content = true
+size_flags_vertical = 3
+
+[node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer"]
+position = Vector2( 367.696, 154.039 )
+scale = Vector2( 0.3, 0.3 )
+z_index = -1
+script = ExtResource( 5 )
+
+[node name="Sidebar" type="Panel" parent="VBoxContainer/HSplitContainer"]
+margin_left = 1170.0
+margin_right = 1400.0
+margin_bottom = 676.0
+rect_min_size = Vector2( 230, 0 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="FilterStackContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="VBoxContainer/Topbar/Menus/Button" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Viewer" method="OnApplyFilters"]

@@ -9,20 +9,29 @@ public class Viewer : Sprite {
     ImageTexture tex = new ImageTexture();
     Image img = new Image();
 
+    public static Viewer instance = null;
+
     public override void _Ready() {
+        if (instance == null) {
+            instance = this;
+        }
+        GD.PushError("Only one Viewer instance is supported cuurently");
 
-        //var Aspect = new Vector2(Texture.GetWidth(), Texture.GetHeight()).Normalized();
-
-        //Example image Manipulation
         img.Load("res://TestImages/kylo.png");
+        tex.CreateFromImage(img);
+        Texture = tex;
+    }
 
-        PointFilter f = new ExampleFilter(new Color(1, .4f, .4f));
-        f.Apply(img);
+
+    public void OnApplyFilters() {
+
+        foreach (PointFilter filter in FilterStack.filterList)
+        {
+            filter.Apply(img);
+        }
 
         tex.CreateFromImage(img);
-
         Texture = tex;
-
     }
 
     public override void _Input(InputEvent e) {
