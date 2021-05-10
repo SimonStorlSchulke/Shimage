@@ -25,11 +25,10 @@ public class Viewer : Sprite {
 
 
     public void OnApplyFilters() {
-
-        GD.Print(FilterStack.filterList);
+        img.Load("res://TestImages/kylo.png"); //TODO - remove redundant loading
         foreach (PointFilter filter in FilterStack.filterList)
         {
-            GD.Print(filter.filterName);
+            GD.Print("Apply " + filter.filterName);
             filter.Apply(img);
         }
 

@@ -57,3 +57,14 @@ color = Color( 0.917647, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SpinBox" type="SpinBox" parent="."]
+margin_left = 2.52269
+margin_top = 39.5221
+margin_right = 76.5227
+margin_bottom = 63.5221
+step = 0.01
+value = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}

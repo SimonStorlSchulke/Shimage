@@ -11,6 +11,14 @@ public enum PropertyType {
 }
 */
 
+public struct floatInf {
+    public float val;
+
+    public floatInf(float v) {
+        val = v;
+    }
+}
+
 public abstract class PointFilter {
 
     //TODO: restrict possible types (float, int, Color...)
@@ -80,6 +88,14 @@ public abstract class PointFilter {
                 HBox.AddChild(slider);
             }
 
+            if (propType == typeof(floatInf)) {
+                SpinBox spinbox = new SpinBox();
+                spinbox.MaxValue = 10000;
+                spinbox.Step = 0.01;
+                spinbox.Value = ((floatInf)prop.Value).val;
+                HBox.AddChild(spinbox);
+            }
+
             if (propType == typeof(Color)) {
                 ColorPickerButton picker = new ColorPickerButton();
                 picker.RectMinSize = new Vector2(32, 0);
@@ -103,7 +119,6 @@ public abstract class PointFilter {
     }
 
     void PropsFromUI() {
-        GD.Print("TRY IT");
         Godot.Collections.Array propsUi = ui.GetNode("UIList").GetChildren();
         propsUi.RemoveAt(0); //Ignore Label
 
@@ -122,8 +137,10 @@ public abstract class PointFilter {
                 value = (valueUi as ColorPickerButton).Color;
             }
 
-            //TODO Exception Handling
-            GD.Print(key + " " + value);
+            if (tProp == typeof(SpinBox)) {
+                value = new floatInf((float)(valueUi as SpinBox).Value);
+            }
+
             this.properties[key] = value;
         }
 
@@ -165,6 +182,21 @@ public abstract class PointFilter {
 
         protected override Color Operation(Color col) {
             col *= (float)this.properties["H"];
+            return col;
+        }
+    }
+
+    //NOT WORKING
+    public class FilterExposure : PointFilter {
+
+        public FilterExposure(float value) {
+            this.filterName = "Exposure";
+            this.properties.Add("Exposure", new floatInf(value));
+            this.BuildUI();
+        }
+
+        protected override Color Operation(Color col) {
+            col *= ((floatInf)this.properties["Exposure"]).val;
             return col;
         }
     }

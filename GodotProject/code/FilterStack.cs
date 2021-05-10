@@ -15,6 +15,7 @@ public class FilterStack : VBoxContainer {
     public override void _Ready() {
         filterList.Add(new FilterHSL(0.5f, 0.5f, 0.5f));
         filterList.Add(new FilterOverlayColor(new Color(1, 1, 0)));
+        filterList.Add(new FilterExposure(1.7f));
 
         BuildStack();
     }
