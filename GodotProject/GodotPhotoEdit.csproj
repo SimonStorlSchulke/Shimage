@@ -16,8 +16,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="code\FilterNode.cs" />
-    <Compile Include="code\FilterStack.cs" />
+    <Compile Include="code\ui\FilterNode.cs" />
+    <Compile Include="code\ui\FilterStack.cs" />
     <Compile Include="code\filters\Filter.cs" />
     <Compile Include="code\filters\FilterExposure.cs" />
     <Compile Include="code\filters\FilterGamma.cs" />

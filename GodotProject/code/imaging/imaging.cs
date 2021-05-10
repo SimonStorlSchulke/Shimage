@@ -1,15 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-
-/*
-public enum PropertyType {
-    FLOAT,
-    FLOAT01,
-    COLOR,
-    INT
-}
-*/
 
 public delegate Color Blendmode(Color a, Color b, float opacity);
 

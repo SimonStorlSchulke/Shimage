@@ -13,6 +13,7 @@ public class FilterGamma : PointFilter {
     protected override Color Operation(Color col) {
         Color gc = ((Color)this.properties["Color"]).Inverted();
         gc *= ((floatInf)this.properties["Gamma"]).val;
+        
         col.r = Mathf.Pow(col.r, gc.r);
         col.g = Mathf.Pow(col.g, gc.g);
         col.b = Mathf.Pow(col.b, gc.b);

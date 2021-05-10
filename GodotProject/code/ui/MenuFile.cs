@@ -8,7 +8,8 @@ public class MenuFile : MenuButton
 
     [Export]
     NodePath PathViewer = new NodePath();
-    Viewer viewer = new Viewer(); //really need assignment??
+    
+    Viewer viewer = new Viewer();
     Image img = new Image();
     ImageTexture tex = new ImageTexture();
 
@@ -21,7 +22,7 @@ public class MenuFile : MenuButton
         fileDialog = GetNode<FileDialog>("FileDialog");
         viewer = GetNode<Viewer>(PathViewer);
 
-        // TODO -only jpeg allowed for now until transparency is supported
+        // TODO -only jpg allowed for now until transparency is supported
         fileDialog.Filters = new string[]{
             //"*.bmp ; BMP",
             "*.jpg ; JPG",

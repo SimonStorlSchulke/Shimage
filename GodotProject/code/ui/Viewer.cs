@@ -74,5 +74,4 @@ public class Viewer : Sprite {
             Scale *= (1 - zoomSpeed);
         }
     }
-
 }

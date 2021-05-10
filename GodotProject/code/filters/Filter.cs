@@ -50,8 +50,9 @@ public abstract class PointFilter {
 
     public FilterNode ui = new FilterNode();
 
+    //TODO Extract UI Code to FilterNode constructor
+
     public void BuildUI() {
-        //TODO Extract some of this to FilterNode constructor
 
         ui.RectMinSize = new Vector2(200, 30 + properties.Count * 30);
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
 [ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
-[ext_resource path="res://code/FilterStack.cs" type="Script" id=3]
+[ext_resource path="res://code/ui/FilterStack.cs" type="Script" id=3]
 [ext_resource path="res://code/ui/Viewer.cs" type="Script" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
