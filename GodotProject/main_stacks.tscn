@@ -119,10 +119,8 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
-margin_top = 6.0
 margin_right = 92.0
 margin_bottom = 22.0
-custom_colors/font_color = Color( 0.333333, 0.717647, 1, 1 )
 text = "Apply Filters"
 script = SubResource( 2 )
 __meta__ = {

@@ -21,14 +21,15 @@ public class MenuFile : MenuButton
         fileDialog = GetNode<FileDialog>("FileDialog");
         viewer = GetNode<Viewer>(PathViewer);
 
+        // TODO -only jpeg allowed for now until transparency is supported
         fileDialog.Filters = new string[]{
-            "*.bmp ; BMP",
+            //"*.bmp ; BMP",
             "*.jpg ; JPG",
             "*.jpeg ; JPEG",
-            "*.png ; PNG",
-            "*.svg ; SVG",
-            "*.tga ; TGA",
-            "*.webp ; WEBP",
+            //"*.png ; PNG",
+            //"*.svg ; SVG",
+            //"*.tga ; TGA",
+            //"*.webp ; WEBP",
             };
 
         this.GetPopup().AddItem("Open Image");

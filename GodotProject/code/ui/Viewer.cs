@@ -9,11 +9,13 @@ public class Viewer : Sprite {
     ImageTexture tex = new ImageTexture();
     Image img = new Image();
 
-    string imgPath = "res://TestImages/lola.png";
+    string imgPath = "res://TestImages/lola.jpg";
 
     bool mouseHover;
 
     public static Viewer instance = null;
+
+    CenterContainer container; 
 
     public override void _Ready() {
         if (instance == null) {
@@ -26,8 +28,10 @@ public class Viewer : Sprite {
         tex.CreateFromImage(img);
         Texture = tex;
 
-        this.GetParent<CenterContainer>().Connect("mouse_entered", this, nameof(OnMouseEntered));
-        this.GetParent<CenterContainer>().Connect("mouse_exited", this, nameof(OnMouseExited));
+        Scale *= 3;
+        container = this.GetParent<CenterContainer>();
+        container.Connect("mouse_entered", this, nameof(OnMouseEntered));
+        container.Connect("mouse_exited", this, nameof(OnMouseExited));
     }
 
     public void OnMouseEntered() {
@@ -61,11 +65,14 @@ public class Viewer : Sprite {
     }
 
     public override void _Input(InputEvent e) {
-        if (e.IsAction("zoom_in") && this.mouseHover)
+
+        if (e.IsAction("zoom_in") && this.mouseHover) {
             Scale *= (1 + zoomSpeed);
+        }
         
-        if (e.IsAction("zoom_out") && this.mouseHover)
+        if (e.IsAction("zoom_out") && this.mouseHover) {
             Scale *= (1 - zoomSpeed);
+        }
     }
 
 }

@@ -18,8 +18,11 @@
   <ItemGroup>
     <Compile Include="code\FilterNode.cs" />
     <Compile Include="code\FilterStack.cs" />
-    <Compile Include="code\filters\hsl.cs" />
-    <Compile Include="code\filters\IFilter.cs" />
+    <Compile Include="code\filters\Filter.cs" />
+    <Compile Include="code\filters\FilterExposure.cs" />
+    <Compile Include="code\filters\FilterGamma.cs" />
+    <Compile Include="code\filters\FilterHueShift.cs" />
+    <Compile Include="code\filters\FilterOverlayColor.cs" />
     <Compile Include="code\imaging\imaging.cs" />
     <Compile Include="code\ui\MenuFile.cs" />
     <Compile Include="code\ui\Viewer.cs" />

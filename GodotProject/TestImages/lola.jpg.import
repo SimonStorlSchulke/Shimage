@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lola.png-4ff6a853305740cf63687bf4bf62e762.stex"
+path="res://.import/lola.jpg-9b791ea911ba2dee503b8cac04e9c08d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TestImages/lola.png"
-dest_files=[ "res://.import/lola.png-4ff6a853305740cf63687bf4bf62e762.stex" ]
+source_file="res://TestImages/lola.jpg"
+dest_files=[ "res://.import/lola.jpg-9b791ea911ba2dee503b8cac04e9c08d.stex" ]
 
 [params]
 
