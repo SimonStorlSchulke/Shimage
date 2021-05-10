@@ -14,8 +14,9 @@ public class Viewer : Sprite {
     public override void _Ready() {
         if (instance == null) {
             instance = this;
+        } else {
+            GD.PushError("Only one Viewer instance is supported cuurently");
         }
-        GD.PushError("Only one Viewer instance is supported cuurently");
 
         img.Load("res://TestImages/kylo.png");
         tex.CreateFromImage(img);
@@ -25,8 +26,10 @@ public class Viewer : Sprite {
 
     public void OnApplyFilters() {
 
+        GD.Print(FilterStack.filterList);
         foreach (PointFilter filter in FilterStack.filterList)
         {
+            GD.Print(filter.filterName);
             filter.Apply(img);
         }
 

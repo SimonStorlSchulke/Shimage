@@ -22,6 +22,7 @@ public abstract class PointFilter {
     protected abstract Color Operation(Color col);
 
     public void Apply(Image img, Image mask = null) {
+        this.PropsFromUI();
         Color colA = new Color();
         img.Lock();
 
@@ -36,9 +37,7 @@ public abstract class PointFilter {
                 }
             }
             mask.Unlock();
-        } 
-        
-        else {
+        } else {
             for (int y = 0; y < img.GetHeight(); y++) {
                 for (int x = 0; x < img.GetWidth(); x++) {
                     img.SetPixel(x, y, Operation(img.GetPixel(x, y)));
@@ -48,11 +47,12 @@ public abstract class PointFilter {
         }
     }
 
-    public FilterNode BuildUI() {
-        //TODO Extract some of this to FilterNode constructor
-        FilterNode filterUI = new FilterNode();
+    public FilterNode ui = new FilterNode();
 
-        filterUI.RectMinSize = new Vector2(200, 200);
+    public void BuildUI() {
+        //TODO Extract some of this to FilterNode constructor
+
+        ui.RectMinSize = new Vector2(200, 200);
 
         VBoxContainer uiList = new VBoxContainer();
         uiList.Name = "UIList";
@@ -61,8 +61,7 @@ public abstract class PointFilter {
         labelName.Text = this.filterName;
         uiList.AddChild(labelName);
 
-        foreach (var prop in this.properties)
-        {
+        foreach (var prop in this.properties) {
             HBoxContainer HBox = new HBoxContainer();
             Label propLabel = new Label();
             propLabel.Text = prop.Key;
@@ -70,7 +69,7 @@ public abstract class PointFilter {
             HBox.AddChild(propLabel);
 
             var propType = prop.Value.GetType();
-            
+
             if (propType == typeof(float)) {
                 HSlider slider = new HSlider();
                 slider.RectMinSize = new Vector2(120, 0);
@@ -91,55 +90,82 @@ public abstract class PointFilter {
             uiList.AddChild(HBox);
         }
 
-        filterUI.AddChild(uiList);
-        filterUI.filter = this;
-        return filterUI;
+        ui.AddChild(uiList);
+        ui.filter = this;
     }
 
     public static PointFilter GetFilterOfType(string filtertype) {
         if (filtertype == "HSL") {
-            return new FilterHSL(0.5f ,0.5f ,0.5f);
+            return new FilterHSL(0.5f, 0.5f, 0.5f);
         }
         //TODO ERROR when Filtertype is not known
-        return new FilterHSL(0.5f ,0.5f ,0.5f);
+        return new FilterHSL(0.5f, 0.5f, 0.5f);
+    }
+
+    void PropsFromUI() {
+        GD.Print("TRY IT");
+        Godot.Collections.Array propsUi = ui.GetNode("UIList").GetChildren();
+        propsUi.RemoveAt(0); //Ignore Label
+
+        foreach (HBoxContainer cPropUi in propsUi) {
+            string key = cPropUi.GetChild<Label>(0).Text;
+            object value = null;
+
+            var valueUi = cPropUi.GetChild(1);
+            Type tProp = valueUi.GetType();
+
+            if (tProp == typeof(HSlider)) {
+                value = (float)(valueUi as HSlider).Value;
+            }
+
+            if (tProp == typeof(ColorPickerButton)) {
+                value = (valueUi as ColorPickerButton).Color;
+            }
+
+            //TODO Exception Handling
+            GD.Print(key + " " + value);
+            this.properties[key] = value;
+        }
+
     }
 }
 
-public delegate Color Blendmode(Color a, Color b, float opacity);
+    public delegate Color Blendmode(Color a, Color b, float opacity);
 
+    public static class Blend {
 
-
-public static class Blend {
-
-    public static Blendmode NORMAL = delegate (Color a, Color b, float opacity) {
-        return opacity * b + (1 - opacity) * a;
-    };
-}
-
-public class FilterOverlayColor : PointFilter {
-
-    public FilterOverlayColor(Color overlayColor) {
-        this.filterName = "Overlay Color";
-        this.properties.Add("overlayColor", overlayColor);
+        public static Blendmode NORMAL = delegate (Color a, Color b, float opacity) {
+            return opacity * b + (1 - opacity) * a;
+        };
     }
 
-    protected override Color Operation(Color col) {
-        col *= (Color)this.properties["overlayColor"];
-        return col;
-    }
-}
+    public class FilterOverlayColor : PointFilter {
 
-public class FilterHSL : PointFilter {
+        public FilterOverlayColor(Color overlayColor) {
+            this.filterName = "Overlay Color";
+            this.properties.Add("overlayColor", overlayColor);
+            this.BuildUI();
+        }
 
-    public FilterHSL(float H, float S, float L) {
-        this.filterName = "HSL";
-        this.properties.Add("H", H);
-        this.properties.Add("S", S);
-        this.properties.Add("L", L);
+        protected override Color Operation(Color col) {
+            col *= (Color)this.properties["overlayColor"];
+            return col;
+        }
     }
 
-    protected override Color Operation(Color col) {
-        col *= (float)this.properties["H"];
-        return col;
+    public class FilterHSL : PointFilter {
+
+        public FilterHSL(float H, float S, float L) {
+            this.filterName = "HSL";
+            this.properties.Add("H", H);
+            this.properties.Add("S", S);
+            this.properties.Add("L", L);
+            this.BuildUI();
+        }
+
+        protected override Color Operation(Color col) {
+            col *= (float)this.properties["H"];
+            return col;
+        }
     }
-}
+

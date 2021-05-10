@@ -138,7 +138,7 @@ rect_clip_content = true
 size_flags_vertical = 3
 
 [node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer"]
-position = Vector2( 367.696, 154.039 )
+position = Vector2( 525.861, 293.176 )
 scale = Vector2( 0.3, 0.3 )
 z_index = -1
 script = ExtResource( 5 )
