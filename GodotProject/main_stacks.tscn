@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
+[ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
 [ext_resource path="res://code/FilterStack.cs" type="Script" id=3]
 [ext_resource path="res://code/ui/Viewer.cs" type="Script" id=5]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
 expand_margin_left = 13.0
 
-[sub_resource type="CSharpScript" id=3]
+[sub_resource type="CSharpScript" id=2]
 script/source = "using Godot;
 using System;
 
@@ -64,11 +65,21 @@ __meta__ = {
 margin_right = 35.0
 margin_bottom = 24.0
 text = "File"
-items = [ "Open Graph", null, 0, false, false, 0, 0, null, "", false, "Save as", null, 0, false, false, 1, 0, null, "", false, "Save", null, 0, false, false, 2, 0, null, "", false ]
 switch_on_hover = true
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+PathViewer = NodePath("../../../HSplitContainer/VSplitContainer/ViewerContainer/Viewer")
+
+[node name="FileDialog" type="FileDialog" parent="VBoxContainer/Topbar/Menus/File"]
+margin_right = 452.0
+margin_bottom = 379.0
+window_title = "Open a File"
+mode = 0
+access = 2
+current_dir = "/"
+current_path = "/"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
 margin_top = 24.0
@@ -98,7 +109,7 @@ margin_left = 665.0
 margin_right = 875.0
 margin_bottom = 676.0
 rect_min_size = Vector2( 210, 0 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar"]
 margin_right = 40.0
@@ -108,10 +119,12 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
+margin_top = 6.0
 margin_right = 92.0
 margin_bottom = 22.0
+custom_colors/font_color = Color( 0.333333, 0.717647, 1, 1 )
 text = "Apply Filters"
-script = SubResource( 3 )
+script = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -124,4 +137,6 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialog" to="VBoxContainer/Topbar/Menus/File" method="OnFileSelected"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer/Button" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Viewer" method="OnApplyFilters"]

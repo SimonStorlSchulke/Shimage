@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/kylo.png-131fcc8c6dc7778e8c0868cb678001e5.stex"
+path="res://.import/lola.png-4ff6a853305740cf63687bf4bf62e762.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TestImages/kylo.png"
-dest_files=[ "res://.import/kylo.png-131fcc8c6dc7778e8c0868cb678001e5.stex" ]
+source_file="res://TestImages/lola.png"
+dest_files=[ "res://.import/lola.png-4ff6a853305740cf63687bf4bf62e762.stex" ]
 
 [params]
 

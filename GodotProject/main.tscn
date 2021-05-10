@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
-[ext_resource path="res://code/GraphEdit.cs" type="Script" id=4]
 [ext_resource path="res://code/ui/Viewer.cs" type="Script" id=5]
-[ext_resource path="res://code/ButtonGetTree.gd" type="Script" id=6]
 
-[sub_resource type="CSharpScript" id=2]
+[sub_resource type="CSharpScript" id=1]
 script/source = "using System.Collections.Generic;
 using Godot;
 using System;
@@ -58,7 +56,7 @@ public class AddNode : MenuButton {
 }
 "
 
-[sub_resource type="CSharpScript" id=3]
+[sub_resource type="CSharpScript" id=2]
 script/source = "using Godot;
 using System;
 using System.Collections.Generic;
@@ -89,7 +87,7 @@ public class Parser : Node {
     }
 }"
 
-[sub_resource type="CSharpScript" id=1]
+[sub_resource type="CSharpScript" id=3]
 script/source = "using Godot;
 using System;
 using System.Collections.Generic;
@@ -166,7 +164,7 @@ __meta__ = {
 }
 
 [node name="Topbar" type="Panel" parent="VBoxContainer"]
-margin_right = 1400.0
+margin_right = 875.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
@@ -229,17 +227,17 @@ __meta__ = {
 
 [node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
 margin_top = 24.0
-margin_right = 1400.0
+margin_right = 875.0
 margin_bottom = 700.0
 size_flags_vertical = 3
 
 [node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HSplitContainer"]
-margin_right = 1092.0
+margin_right = 567.0
 margin_bottom = 676.0
 size_flags_horizontal = 3
 
 [node name="ViewerContainer" type="CenterContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
-margin_right = 1092.0
+margin_right = 567.0
 margin_bottom = 334.0
 rect_clip_content = true
 size_flags_vertical = 3
@@ -252,13 +250,13 @@ script = ExtResource( 5 )
 
 [node name="Nodeeditor" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
 margin_top = 342.0
-margin_right = 1092.0
+margin_right = 567.0
 margin_bottom = 676.0
 size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="Header" type="Panel" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor"]
-margin_right = 1092.0
+margin_right = 567.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
@@ -273,33 +271,31 @@ __meta__ = {
 margin_right = 75.0
 margin_bottom = 24.0
 text = "Add Node"
-script = SubResource( 2 )
+script = SubResource( 1 )
 
 [node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/Header/Menus"]
 margin_left = 79.0
 margin_right = 176.0
 margin_bottom = 24.0
 text = "Evaluate Tree"
-script = ExtResource( 6 )
 
 [node name="GraphEdit" type="GraphEdit" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor"]
 margin_top = 24.0
-margin_right = 1092.0
+margin_right = 567.0
 margin_bottom = 334.0
 size_flags_vertical = 3
 right_disconnects = true
-scroll_offset = Vector2( -200, -238 )
-script = ExtResource( 4 )
+scroll_offset = Vector2( -525, -238 )
 
 [node name="Parser" type="Node" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit"]
-script = SubResource( 3 )
+script = SubResource( 2 )
 
 [node name="Connections" type="Node" parent="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit"]
-script = SubResource( 1 )
+script = SubResource( 3 )
 
 [node name="Sidebar" type="Panel" parent="VBoxContainer/HSplitContainer"]
-margin_left = 1100.0
-margin_right = 1400.0
+margin_left = 575.0
+margin_right = 875.0
 margin_bottom = 676.0
 rect_min_size = Vector2( 300, 0 )
 
@@ -310,6 +306,7 @@ text = "Inspector"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/Header/Menus/Button" to="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit/Parser" method="OnEvaluateTreePressed"]
 [connection signal="connection_request" from="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit" to="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit" method="onConnectionRequest"]
 [connection signal="disconnection_request" from="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit" to="VBoxContainer/HSplitContainer/VSplitContainer/Nodeeditor/GraphEdit" method="onDisconnectionRequest"]
