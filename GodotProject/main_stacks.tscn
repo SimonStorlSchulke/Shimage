@@ -81,6 +81,17 @@ access = 2
 current_dir = "/"
 current_path = "/"
 
+[node name="FileDialogSave" type="FileDialog" parent="VBoxContainer/Topbar/Menus/File"]
+margin_right = 451.0
+margin_bottom = 378.0
+access = 2
+filters = PoolStringArray( "*.png" )
+current_dir = "/"
+current_path = "/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 875.0
@@ -137,4 +148,5 @@ __meta__ = {
 }
 
 [connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialog" to="VBoxContainer/Topbar/Menus/File" method="OnFileSelected"]
+[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialogSave" to="VBoxContainer/Topbar/Menus/File" method="OnSaveSelected"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer/Button" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Viewer" method="OnApplyFilters"]

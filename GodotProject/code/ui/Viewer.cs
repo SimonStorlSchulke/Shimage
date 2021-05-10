@@ -9,7 +9,7 @@ public class Viewer : Sprite {
     ImageTexture tex = new ImageTexture();
     Image img = new Image();
 
-    string imgPath = "res://TestImages/lola.jpg";
+    string imgPath = "";
 
     bool mouseHover;
 
@@ -24,9 +24,9 @@ public class Viewer : Sprite {
             GD.PushError("Only one Viewer instance is supported currently");
         }
 
-        img.Load(imgPath);
-        tex.CreateFromImage(img);
-        Texture = tex;
+        //img.Load(imgPath);
+        //tex.CreateFromImage(img);
+        //Texture = tex;
 
         Scale *= 3;
         container = this.GetParent<CenterContainer>();
@@ -49,6 +49,11 @@ public class Viewer : Sprite {
             GD.Print("NULL!");
         tex.CreateFromImage(img);
         this.Texture = tex;
+    }
+
+    public void OnSaveImage(string path) {
+        GD.Print("Save to " + path);
+        img.SavePng(path);
     }
 
 
