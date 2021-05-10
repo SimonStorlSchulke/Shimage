@@ -20,9 +20,7 @@
     <Compile Include="code\FilterStack.cs" />
     <Compile Include="code\filters\hsl.cs" />
     <Compile Include="code\filters\IFilter.cs" />
-    <Compile Include="code\GraphEdit.cs" />
     <Compile Include="code\imaging\imaging.cs" />
-    <Compile Include="code\nodesImageSource.cs" />
     <Compile Include="code\ui\Viewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

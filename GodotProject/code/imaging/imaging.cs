@@ -60,7 +60,7 @@ public abstract class PointFilter {
     public void BuildUI() {
         //TODO Extract some of this to FilterNode constructor
 
-        ui.RectMinSize = new Vector2(200, 200);
+        ui.RectMinSize = new Vector2(200, 30 + properties.Count * 30);
 
         VBoxContainer uiList = new VBoxContainer();
         uiList.Name = "UIList";
@@ -147,57 +147,85 @@ public abstract class PointFilter {
     }
 }
 
-    public delegate Color Blendmode(Color a, Color b, float opacity);
+public delegate Color Blendmode(Color a, Color b, float opacity);
 
-    public static class Blend {
+public static class Blend {
 
-        public static Blendmode NORMAL = delegate (Color a, Color b, float opacity) {
-            return opacity * b + (1 - opacity) * a;
-        };
+    public static Blendmode NORMAL = delegate (Color a, Color b, float opacity) {
+        return opacity * b + (1 - opacity) * a;
+    };
+}
+
+public class FilterOverlayColor : PointFilter {
+
+    public FilterOverlayColor(Color overlayColor) {
+        this.filterName = "Overlay Color";
+        this.properties.Add("overlayColor", overlayColor);
+        this.BuildUI();
     }
 
-    public class FilterOverlayColor : PointFilter {
+    protected override Color Operation(Color col) {
+        col *= (Color)this.properties["overlayColor"];
+        return col;
+    }
+}
 
-        public FilterOverlayColor(Color overlayColor) {
-            this.filterName = "Overlay Color";
-            this.properties.Add("overlayColor", overlayColor);
-            this.BuildUI();
-        }
+public class FilterHSL : PointFilter {
 
-        protected override Color Operation(Color col) {
-            col *= (Color)this.properties["overlayColor"];
-            return col;
-        }
+    public FilterHSL(float H, float S, float L) {
+        this.filterName = "HSL";
+        this.properties.Add("H", H);
+        this.properties.Add("S", S);
+        this.properties.Add("L", L);
+        this.BuildUI();
     }
 
-    public class FilterHSL : PointFilter {
+    protected override Color Operation(Color col) {
+        col *= (float)this.properties["H"];
+        return col;
+    }
+}
 
-        public FilterHSL(float H, float S, float L) {
-            this.filterName = "HSL";
-            this.properties.Add("H", H);
-            this.properties.Add("S", S);
-            this.properties.Add("L", L);
-            this.BuildUI();
-        }
+public class FilterShiftHue : PointFilter {
 
-        protected override Color Operation(Color col) {
-            col *= (float)this.properties["H"];
-            return col;
-        }
+    public FilterShiftHue(float hue) {
+        this.filterName = "Shift Hue";
+        this.properties.Add("Hue", hue);
+        this.BuildUI();
     }
 
-    //NOT WORKING
-    public class FilterExposure : PointFilter {
+    protected override Color Operation(Color col) {
+        float U = Mathf.Cos((float)properties["Hue"] * Mathf.Pi * 2);
+        float W = Mathf.Sin((float)properties["Hue"] * Mathf.Pi * 2);
 
-        public FilterExposure(float value) {
-            this.filterName = "Exposure";
-            this.properties.Add("Exposure", new floatInf(value));
-            this.BuildUI();
-        }
+        Color ret = new Color();
+        ret.r = (.299f + .701f * U + .168f * W) * col.r
+            + (.587f - .587f * U + .330f * W) * col.g
+            + (.114f - .114f * U - .497f * W) * col.b;
 
-        protected override Color Operation(Color col) {
-            col *= ((floatInf)this.properties["Exposure"]).val;
-            return col;
-        }
+        ret.g = (.299f - .299f * U - .328f * W) * col.r
+            + (.587f + .413f * U + .035f * W) * col.g
+            + (.114f - .114f * U + .292f * W) * col.b;
+
+        ret.b = (.299f - .3f * U + 1.25f * W) * col.r
+            + (.587f - .588f * U - 1.05f * W) * col.g
+            + (.114f + .886f * U - .203f * W) * col.b;
+        return ret;
     }
+}
+
+//NOT WORKING
+public class FilterExposure : PointFilter {
+
+    public FilterExposure(float value) {
+        this.filterName = "Exposure";
+        this.properties.Add("Exposure", new floatInf(value));
+        this.BuildUI();
+    }
+
+    protected override Color Operation(Color col) {
+        col *= ((floatInf)this.properties["Exposure"]).val;
+        return col;
+    }
+}
 

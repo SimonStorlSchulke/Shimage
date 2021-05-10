@@ -13,10 +13,9 @@ public class FilterStack : VBoxContainer {
     }
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
-        filterList.Add(new FilterHSL(0.5f, 0.5f, 0.5f));
+        filterList.Add(new FilterShiftHue(0.9f));
         filterList.Add(new FilterOverlayColor(new Color(1, 1, 0)));
         filterList.Add(new FilterExposure(1.7f));
-
         BuildStack();
     }
 
