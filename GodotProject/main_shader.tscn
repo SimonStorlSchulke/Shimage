@@ -1,10 +1,30 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
 [ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
 [ext_resource path="res://code/ui/FilterStack.cs" type="Script" id=3]
 [ext_resource path="res://TestImages/lola.jpg" type="Texture" id=4]
 [ext_resource path="res://code/imaging/Shaderer.cs" type="Script" id=5]
+
+[sub_resource type="Shader" id=3]
+code = " shader_type canvas_item;uniform float vignettePower = 2;
+ uniform float exposure = 1;
+ uniform vec3 multiplycolor vec3(1, 1, 1);
+ 
+             void fragment(){
+                 COLOR = texture(TEXTURE, UV);
+         //ShaderVignette
+         float d = distance(UV, vec2(0.5, 0.5));
+         d = 1.0 - pow(d, vignettePower);
+         COLOR *= vec4(d,d,d,1);
+     
+         COLOR *= vec4(exposure,exposure,exposure,1);
+     
+         COLOR *= vec4(multiplycolor.rgb, 1);
+     }"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
@@ -111,6 +131,7 @@ rect_clip_content = true
 size_flags_vertical = 3
 
 [node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer"]
+material = SubResource( 4 )
 position = Vector2( 364.954, 327.926 )
 scale = Vector2( 0.619397, 0.572205 )
 z_index = -1
