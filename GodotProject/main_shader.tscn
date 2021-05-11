@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
 [ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
@@ -6,53 +6,45 @@
 [ext_resource path="res://TestImages/lola.jpg" type="Texture" id=4]
 [ext_resource path="res://code/imaging/Shaderer.cs" type="Script" id=5]
 
-[sub_resource type="Shader" id=3]
-code = " shader_type canvas_item;uniform float vignettePower = 2;
- uniform float exposure = 1;
- uniform vec3 multiplycolor vec3(1, 1, 1);
- 
-             void fragment(){
-                 COLOR = texture(TEXTURE, UV);
-         //ShaderVignette
-         float d = distance(UV, vec2(0.5, 0.5));
-         d = 1.0 - pow(d, vignettePower);
-         COLOR *= vec4(d,d,d,1);
-     
-         COLOR *= vec4(exposure,exposure,exposure,1);
-     
-         COLOR *= vec4(multiplycolor.rgb, 1);
-     }"
+[sub_resource type="Shader" id=1]
+code = "
+shader_type canvas_item;uniform float exposure = 1;
+uniform vec4 mcolor : hint_color = vec4(1, 1, 1, 1);
+uniform float mcolorVal = 1;
+uniform float vignettePower = 2;
+uniform float vignettePower_ = 2;
+uniform vec4 mcolor_ : hint_color = vec4(1, 1, 1, 1);
+uniform float mcolorVal_ = 1;
 
-[sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+    void fragment(){
+        float f_1 = .0;
+        float f_2 = .0;
+        float f_3 = .0;
+        float f_4 = .0;
+        float f_5 = .0;
+        COLOR = texture(TEXTURE, UV);
+        COLOR *= vec4(exposure,exposure,exposure,1);
+    
+        COLOR *= mcolor * mcolorVal;
+    
+        f_1 = distance(UV, vec2(0.5, 0.5));
+        f_1 = 1.0 - pow(f_1, vignettePower);
+        COLOR *= vec4(f_1,f_1,f_1,1);
+    
+        f_1 = distance(UV, vec2(0.5, 0.5));
+        f_1 = 1.0 - pow(f_1, vignettePower_);
+        COLOR *= vec4(f_1,f_1,f_1,1);
+    
+        COLOR *= mcolor_ * mcolor_Val;
+    }
+"
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
 expand_margin_left = 13.0
-
-[sub_resource type="CSharpScript" id=2]
-script/source = "using Godot;
-using System;
-
-public class BtnApplyFillters : Node
-{
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = \"text\";
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        
-    }
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
-}
-"
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -131,7 +123,7 @@ rect_clip_content = true
 size_flags_vertical = 3
 
 [node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer"]
-material = SubResource( 4 )
+material = SubResource( 2 )
 position = Vector2( 364.954, 327.926 )
 scale = Vector2( 0.619397, 0.572205 )
 z_index = -1
@@ -144,7 +136,7 @@ margin_left = 665.0
 margin_right = 875.0
 margin_bottom = 676.0
 rect_min_size = Vector2( 210, 0 )
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar"]
 margin_right = 40.0
@@ -153,19 +145,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
-margin_right = 92.0
-margin_bottom = 22.0
-text = "Apply Filters"
-script = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="FilterStackContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
-margin_top = 26.0
 margin_right = 92.0
-margin_bottom = 26.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -173,4 +154,3 @@ __meta__ = {
 
 [connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialog" to="VBoxContainer/Topbar/Menus/File" method="OnFileSelected"]
 [connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialogSave" to="VBoxContainer/Topbar/Menus/File" method="OnSaveSelected"]
-[connection signal="pressed" from="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer/Button" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Viewer" method="OnApplyFilters"]

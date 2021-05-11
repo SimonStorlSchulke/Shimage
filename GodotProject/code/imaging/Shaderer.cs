@@ -28,6 +28,7 @@ public class Shaderer : Sprite {
     }
 
     public void SetProp(string _name, object _value) {
+        GD.Print(_name + "Color: " + _value);
         ((ShaderMaterial)Material).SetShaderParam(_name, _value);
     }
 
@@ -42,8 +43,13 @@ public class Shaderer : Sprite {
         //TODO shader code nicer maybe
         string Code = "shader_type canvas_item;" +
             uniformsToAdd + @"
-            void fragment(){
-                COLOR = texture(TEXTURE, UV);" +
+    void fragment(){
+        float f_1 = .0;
+        float f_2 = .0;
+        float f_3 = .0;
+        float f_4 = .0;
+        float f_5 = .0;
+        COLOR = texture(TEXTURE, UV);" +
                 codeToAdd +
                 "}";
 

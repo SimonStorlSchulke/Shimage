@@ -1,7 +1,6 @@
 using Godot;
 using System;
 
-
 public class Filter {
     public string Name;
     public string Code;
@@ -38,7 +37,7 @@ public class Filter {
         foreach (var cProp in this.Props) {
             HBoxContainer HBox = new HBoxContainer();
             Label propLabel = new Label();
-            propLabel.Text = cProp.Name;
+            propLabel.Text = cProp.NameUI;
 
             HBox.AddChild(propLabel);
             HBox.AddChild(cProp.GetUI());
@@ -56,50 +55,56 @@ public class Filter {
             Control valueUI = ((Control)propsUi[i]).GetChild<Control>(1);
             
             if (cProp.GetType() == typeof(PropFloatInf)) {
-               Shaderer.instance.SetProp(cProp.Name, ((SpinBox)valueUI).Value);
+               Shaderer.instance.SetProp(cProp.NameCode, ((SpinBox)valueUI).Value);
             }
             
             if (cProp.GetType() == typeof(PropFloat)) {
-               Shaderer.instance.SetProp(cProp.Name, ((HSlider)valueUI).Value);
+               Shaderer.instance.SetProp(cProp.NameCode, ((HSlider)valueUI).Value);
             }
             
             if (cProp.GetType() == typeof(PropRGBA)) {
                 GD.Print(((ColorPickerButton)valueUI).Color);
-               Shaderer.instance.SetProp(cProp.Name, ((ColorPickerButton)valueUI).Color);
+               Shaderer.instance.SetProp(cProp.NameCode, ((ColorPickerButton)valueUI).Color);
             }
         }
+    }
 
-
-        foreach (HBoxContainer cPropUi in propsUi) {
-            string key = cPropUi.GetChild<Label>(0).Text;
-            object value = null;
-
-            var valueUi = cPropUi.GetChild(1);
-            Type tProp = valueUi.GetType();
-
-            if (tProp == typeof(HSlider)) {
-                
-            }
-
+    public Filter NewInstance() {
+        string NewCode = Code;
+        Prop[] NewProps = new Prop[this.Props.Length];
+        int i = 0;
+        foreach (var prop in this.Props) {
+            GD.Print("OLD CODE: " + this.Code);
+            NewCode = NewCode.Replace(prop.NameCode, prop.NameCode+"_");
+            //GD.Print("replaced "+ prop.NameCode + " with " + prop.NameCode+"_");
+            NewProps[i] = this.Props[i];
+            NewProps[i].NameCode += "_";
+            i++;
         }
+        GD.Print("NEW CODE:\n" + NewCode);
+        return new Filter(this.Name, NewProps, NewCode);
     }
 }
 
-public class Filters : Node {
+/* Filters may not define new Variables (as this would result of them not being reusable in the same shader)
+use the pre-defined variables instead (f_1 - f_5, v3_1-v3_5...)
+Prop NameCodes CANNOT have similar lettercombinations in them (TODO: fix - Regex?)
+*/
+public class Filters {
     public static Filter Vignette = new Filter(
            "Vignette", new Prop[] {
-            new PropFloatInf("vignettePower", 2.0f)
+            new PropFloatInf("vignettePower", "Power", 2.0f)
            },
            @"
-        float d = distance(UV, vec2(0.5, 0.5));
-        d = 1.0 - pow(d, vignettePower);
-        COLOR *= vec4(d,d,d,1);
+        f_1 = distance(UV, vec2(0.5, 0.5));
+        f_1 = 1.0 - pow(f_1, vignettePower);
+        COLOR *= vec4(f_1,f_1,f_1,1);
     ");
 
     public static Filter Exposure = new Filter(
         "Exposure",
          new Prop[] {
-            new PropFloatInf("exposure", 1.0f)
+            new PropFloatInf("exposure", "Val", 1.0f),
         },
         @"
         COLOR *= vec4(exposure,exposure,exposure,1);
@@ -108,9 +113,10 @@ public class Filters : Node {
     public static Filter MultiplyColor = new Filter(
         "Overlay Color",
         new Prop[] {
-            new PropRGBA("multiplycolor", new Color(1,1,1))
+            new PropRGBA("mcolor", "Color", new Color(1,1,1)),
+            new PropFloatInf("mVal", "Val", 1.0f),
         },
         @"
-        COLOR *= vec4(multiplycolor.rgb, 1);
+        COLOR *= mcolor * mVal;
     ");
 }

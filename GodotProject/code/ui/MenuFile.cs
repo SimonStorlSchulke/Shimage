@@ -9,7 +9,6 @@ public class MenuFile : MenuButton
     [Export]
     NodePath PathViewer = new NodePath();
 
-    Viewer viewer = new Viewer();
     Image img = new Image();
     ImageTexture tex = new ImageTexture();
 

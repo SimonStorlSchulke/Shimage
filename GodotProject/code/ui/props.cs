@@ -2,7 +2,8 @@ using Godot;
 using System;
 
 public abstract class Prop {
-    public string Name;
+    public string NameCode;
+    public string NameUI;
     public object Value;
     public abstract Control GetUI();
     public abstract string GetUniformCode();
@@ -10,8 +11,9 @@ public abstract class Prop {
 
 public class PropInt : Prop {
 
-    public PropInt(string _name, int _value) {
-        this.Name = _name;
+    public PropInt(string _nameCode, string _nameUI, int _value) {
+        this.NameCode = _nameCode;
+        this.NameUI = _nameUI;
         this.Value = _value;
     }
 
@@ -27,14 +29,15 @@ public class PropInt : Prop {
     }
 
     public override string GetUniformCode() {
-        return "uniform int " + this.Name + " = " + Value + ";";
+        return "uniform int " + this.NameCode + " = " + Value + ";";
     }
 }
 
 public class PropFloat : Prop {
 
-    public PropFloat(string _name, float _value) {
-        this.Name = _name;
+    public PropFloat(string _nameCode, string _nameUI, float _value)  {
+        this.NameCode = _nameCode;
+        this.NameUI = _nameUI;
         this.Value = _value;
     }
 
@@ -49,14 +52,15 @@ public class PropFloat : Prop {
     }
 
     public override string GetUniformCode() {
-        return "uniform float " + this.Name + " = " + Value + ";";
+        return "uniform float " + this.NameCode + " = " + Value + ";";
     }
 }
 
 public class PropFloatInf : Prop {
 
-    public PropFloatInf(string _name, float _value) {
-        this.Name = _name;
+    public PropFloatInf(string _nameCode, string _nameUI, float _value) {
+        this.NameCode = _nameCode;
+        this.NameUI = _nameUI;
         this.Value = _value;
     }
 
@@ -69,19 +73,20 @@ public class PropFloatInf : Prop {
             "value_changed", 
             Shaderer.instance, 
             nameof(Shaderer.instance.OnApplyParam),
-            new Godot.Collections.Array {this.Name});
+            new Godot.Collections.Array {this.NameCode});
         return spinbox;
     }
 
     public override string GetUniformCode() {
-        return "uniform float " + this.Name + " = " + Value + ";";
+        return "uniform float " + this.NameCode + " = " + Value + ";";
     }
 }
 
 public class PropRGBA : Prop {
 
-    public PropRGBA(string _name, Color _value) {
-        this.Name = _name;
+    public PropRGBA(string _nameCode, string _nameUI, Color _value) {
+        this.NameCode = _nameCode;
+        this.NameUI = _nameUI;
         this.Value = _value;
     }
 
@@ -93,12 +98,12 @@ public class PropRGBA : Prop {
             "color_changed",
             Shaderer.instance, 
             nameof(Shaderer.instance.OnApplyParam),
-            new Godot.Collections.Array {this.Name});
+            new Godot.Collections.Array {this.NameCode});
         return picker;
     }
 
     public override string GetUniformCode() {
-        return $"uniform vec4 {this.Name} : hint_color = vec4({((Color)Value).r}, {((Color)Value).g}, {((Color)Value).b}, {((Color)Value).a});";
+        return $"uniform vec4 {this.NameCode} : hint_color = vec4({((Color)Value).r}, {((Color)Value).g}, {((Color)Value).b}, {((Color)Value).a});";
     }
 }
 
