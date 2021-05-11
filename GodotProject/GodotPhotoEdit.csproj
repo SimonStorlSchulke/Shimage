@@ -16,6 +16,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="code\imaging\Shaders.cs" />
     <Compile Include="code\ShaderToImage.cs" />
     <Compile Include="code\ui\props.cs" />
     <Compile Include="code\ui\FilterNode.cs" />
