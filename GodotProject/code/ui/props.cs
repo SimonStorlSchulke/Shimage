@@ -22,6 +22,7 @@ public class PropInt : Prop {
         slider.MaxValue = 1;
         slider.Step = 0.01;
         slider.Value = (float)this.Value;
+        slider.Connect("value_changed", Shaderer.instance, nameof(Shaderer.instance.OnApplyParam));
         return slider;
     }
 
@@ -64,6 +65,11 @@ public class PropFloatInf : Prop {
         spinbox.MaxValue = 10000;
         spinbox.Step = 0.01;
         spinbox.Value = (float)this.Value;
+        spinbox.Connect(
+            "value_changed", 
+            Shaderer.instance, 
+            nameof(Shaderer.instance.OnApplyParam),
+            new Godot.Collections.Array {this.Name});
         return spinbox;
     }
 
@@ -72,9 +78,9 @@ public class PropFloatInf : Prop {
     }
 }
 
-public class PropRGB : Prop {
+public class PropRGBA : Prop {
 
-    public PropRGB(string _name, Color _value) {
+    public PropRGBA(string _name, Color _value) {
         this.Name = _name;
         this.Value = _value;
     }
@@ -83,11 +89,16 @@ public class PropRGB : Prop {
         ColorPickerButton picker = new ColorPickerButton();
         picker.RectMinSize = new Vector2(32, 0);
         picker.Color = (Color)this.Value;
+        picker.Connect(
+            "color_changed",
+            Shaderer.instance, 
+            nameof(Shaderer.instance.OnApplyParam),
+            new Godot.Collections.Array {this.Name});
         return picker;
     }
 
     public override string GetUniformCode() {
-        return $"uniform vec3 {this.Name} = vec3({((Color)Value).r}, {((Color)Value).g}, {((Color)Value).b});";
+        return $"uniform vec4 {this.Name} : hint_color = vec4({((Color)Value).r}, {((Color)Value).g}, {((Color)Value).b}, {((Color)Value).a});";
     }
 }
 

@@ -137,6 +137,7 @@ scale = Vector2( 0.619397, 0.572205 )
 z_index = -1
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
+ZoomSpeed = 0.1
 
 [node name="Sidebar" type="Panel" parent="VBoxContainer/HSplitContainer"]
 margin_left = 665.0

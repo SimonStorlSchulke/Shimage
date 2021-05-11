@@ -1,9 +1,37 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+
 public class Shaderer : Sprite {
 
+    public static Shaderer instance = null;
 
-    public string GenerateShader(Filter[] shaders) {
+    [Export]
+    float ZoomSpeed = .4f;
+
+    public override void _Ready() {
+        if (instance == null) {
+            instance = this;
+        } else {
+            GD.PushError("Only one Viewer instance is supported currently");
+        }
+    }
+
+    public void OnApplyFilters() {
+        foreach (Filter filter in FilterStack.filterList) {
+            filter.PropsFromUI();
+        }
+    }
+
+    public void OnApplyParam(object value, string name) {
+        Shaderer.instance.SetProp(name, value);
+    }
+
+    public void SetProp(string _name, object _value) {
+        ((ShaderMaterial)Material).SetShaderParam(_name, _value);
+    }
+
+    public string GenerateShader(List<Filter> shaders) {
 
         string uniformsToAdd = "";
         string codeToAdd = "";
@@ -23,19 +51,23 @@ public class Shaderer : Sprite {
         return Code;
     }
 
-    public override void _Ready() {
-        ShaderMaterial m = new ShaderMaterial();
-        Shader shader = new Shader();
-        shader.Code = GenerateShader(new Filter[] { 
-            Filters.Vignette, 
-            Filters.Exposure,
-            Filters.MultiplyColor,
-            });
-        m.Shader = shader;
-        Material = m;
-        m.SetShaderParam("vignettePower", 0.4f);
-        m.SetShaderParam("exposure", 2f);
-        m.SetShaderParam("multiplycolor", new Vector3(1,0.6f,0.7f));
-        GD.Print(Material);
+    bool mouseHover = true;
+    public void OnMouseEntered() {
+        mouseHover = true;
+    }
+
+    public void OnMouseExited() {
+        mouseHover = false;
+    }
+
+    public override void _Input(InputEvent e) {
+
+        if (e.IsAction("zoom_in") && this.mouseHover) {
+            Scale *= (1 + ZoomSpeed);
+        }
+
+        if (e.IsAction("zoom_out") && this.mouseHover) {
+            Scale *= (1 - ZoomSpeed);
+        }
     }
 }

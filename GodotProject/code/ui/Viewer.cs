@@ -59,11 +59,11 @@ public class Viewer : Sprite {
 
     public void OnApplyFilters() {
         img.Load(imgPath); //TODO - remove redundant loading
-        /*foreach (PointFilter filter in FilterStack.filterList)
+        foreach (Filter filter in FilterStack.filterList)
         {
-            GD.Print("Apply " + filter.filterName + " to " + img);
-            filter.Apply(img);
-        }*/
+            GD.Print("Apply " + filter.Name + " to " + img);
+            filter.PropsFromUI();
+        }
 
         tex.CreateFromImage(img);
         Texture = tex;
