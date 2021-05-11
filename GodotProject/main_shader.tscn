@@ -1,0 +1,154 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://maintheme.tres" type="Theme" id=1]
+[ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
+[ext_resource path="res://code/ui/FilterStack.cs" type="Script" id=3]
+[ext_resource path="res://TestImages/lola.jpg" type="Texture" id=4]
+[ext_resource path="res://code/imaging/Shaderer.cs" type="Script" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
+expand_margin_left = 13.0
+
+[sub_resource type="CSharpScript" id=2]
+script/source = "using Godot;
+using System;
+
+public class BtnApplyFillters : Node
+{
+    // Declare member variables here. Examples:
+    // private int a = 2;
+    // private string b = \"text\";
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        
+    }
+
+//  // Called every frame. 'delta' is the elapsed time since the previous frame.
+//  public override void _Process(float delta)
+//  {
+//      
+//  }
+}
+"
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Topbar" type="Panel" parent="VBoxContainer"]
+margin_right = 875.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+
+[node name="Menus" type="HBoxContainer" parent="VBoxContainer/Topbar"]
+margin_right = 191.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File" type="MenuButton" parent="VBoxContainer/Topbar/Menus"]
+margin_right = 35.0
+margin_bottom = 24.0
+text = "File"
+switch_on_hover = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+PathViewer = NodePath("../../../HSplitContainer/VSplitContainer/ViewerContainer/Viewer")
+
+[node name="FileDialog" type="FileDialog" parent="VBoxContainer/Topbar/Menus/File"]
+margin_right = 452.0
+margin_bottom = 379.0
+window_title = "Open a File"
+mode = 0
+access = 2
+current_dir = "/"
+current_path = "/"
+
+[node name="FileDialogSave" type="FileDialog" parent="VBoxContainer/Topbar/Menus/File"]
+margin_right = 451.0
+margin_bottom = 378.0
+access = 2
+filters = PoolStringArray( "*.png" )
+current_dir = "/"
+current_path = "/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 875.0
+margin_bottom = 700.0
+size_flags_vertical = 3
+
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HSplitContainer"]
+margin_right = 657.0
+margin_bottom = 676.0
+size_flags_horizontal = 3
+
+[node name="ViewerContainer" type="CenterContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
+margin_right = 657.0
+margin_bottom = 676.0
+rect_clip_content = true
+size_flags_vertical = 3
+
+[node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer"]
+position = Vector2( 364.954, 327.926 )
+scale = Vector2( 0.619397, 0.572205 )
+z_index = -1
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="Sidebar" type="Panel" parent="VBoxContainer/HSplitContainer"]
+margin_left = 665.0
+margin_right = 875.0
+margin_bottom = 676.0
+rect_min_size = Vector2( 210, 0 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
+margin_right = 92.0
+margin_bottom = 22.0
+text = "Apply Filters"
+script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FilterStackContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
+margin_top = 26.0
+margin_right = 92.0
+margin_bottom = 26.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialog" to="VBoxContainer/Topbar/Menus/File" method="OnFileSelected"]
+[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialogSave" to="VBoxContainer/Topbar/Menus/File" method="OnSaveSelected"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer/Button" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Viewer" method="OnApplyFilters"]

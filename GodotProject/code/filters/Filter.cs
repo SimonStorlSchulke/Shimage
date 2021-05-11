@@ -22,16 +22,19 @@ public abstract class PointFilter {
     //Runs on every Pixel;
     protected abstract Color Operation(Color col);
 
+
     public void Apply(Image img, Image mask = null) {
         this.PropsFromUI();
         Color colA = new Color();
         img.Lock();
 
+        int height = img.GetHeight();
+        int width = img.GetWidth();
+
         if (mask != null) {
             mask.Lock();
-
-            for (int y = 0; y < img.GetHeight(); y++) {
-                for (int x = 0; x < img.GetWidth(); x++) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
                     colA = img.GetPixel(x, y);
                     colA = Blend.NORMAL(colA, Operation(colA), mask.GetPixel(x, y).r);
                     img.SetPixel(x, y, colA);
@@ -39,8 +42,8 @@ public abstract class PointFilter {
             }
             mask.Unlock();
         } else {
-            for (int y = 0; y < img.GetHeight(); y++) {
-                for (int x = 0; x < img.GetWidth(); x++) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
                     img.SetPixel(x, y, Operation(img.GetPixel(x, y)));
                 }
             }

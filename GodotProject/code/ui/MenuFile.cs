@@ -24,7 +24,7 @@ public class MenuFile : MenuButton
     {
         fileDialog = GetNode<FileDialog>("FileDialog");
         fileDialogSave = GetNode<FileDialog>("FileDialogSave");
-        viewer = GetNode<Viewer>(PathViewer);
+        //viewer = GetNode<Viewer>(PathViewer);
 
         // TODO -only jpg allowed for now until transparency is supported
         fileDialog.Filters = new string[]{
@@ -41,8 +41,8 @@ public class MenuFile : MenuButton
         this.GetPopup().AddItem("Save Image");
         this.GetPopup().Connect("id_pressed", this, nameof(OnItemPressed));
 
-        this.Connect(nameof(SLoadImage), viewer, nameof(viewer.OnLoadImage));
-        this.Connect(nameof(SSaveImage), viewer, nameof(viewer.OnSaveImage));
+        //this.Connect(nameof(SLoadImage), viewer, nameof(viewer.OnLoadImage));
+        //this.Connect(nameof(SSaveImage), viewer, nameof(viewer.OnSaveImage));
     }
 
     public void OnItemPressed(int id) {
