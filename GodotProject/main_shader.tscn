@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
 [ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
 [ext_resource path="res://code/ui/FilterStack.cs" type="Script" id=3]
 [ext_resource path="res://TestImages/lola.jpg" type="Texture" id=4]
 [ext_resource path="res://code/imaging/Shaderer.cs" type="Script" id=5]
+[ext_resource path="res://code/ui/AddFilterMenu.cs" type="Script" id=6]
 
 [sub_resource type="Shader" id=1]
 code = "
@@ -145,8 +146,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="MenuButton" type="MenuButton" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
+margin_right = 74.0
+margin_bottom = 22.0
+text = "Add Filter"
+script = ExtResource( 6 )
+
 [node name="FilterStackContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
-margin_right = 92.0
+margin_top = 26.0
+margin_right = 74.0
+margin_bottom = 26.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false

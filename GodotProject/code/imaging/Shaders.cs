@@ -69,19 +69,18 @@ public class Filter {
         }
     }
 
+    //Make GLSL Variable Names Unique. Kinda dirty.
     public Filter NewInstance() {
         string NewCode = Code;
         Prop[] NewProps = new Prop[this.Props.Length];
         int i = 0;
         foreach (var prop in this.Props) {
-            GD.Print("OLD CODE: " + this.Code);
             NewCode = NewCode.Replace(prop.NameCode, prop.NameCode+"_");
-            //GD.Print("replaced "+ prop.NameCode + " with " + prop.NameCode+"_");
             NewProps[i] = this.Props[i];
             NewProps[i].NameCode += "_";
             i++;
         }
-        GD.Print("NEW CODE:\n" + NewCode);
+        Code = NewCode;
         return new Filter(this.Name, NewProps, NewCode);
     }
 }

@@ -28,11 +28,10 @@ public class Shaderer : Sprite {
     }
 
     public void SetProp(string _name, object _value) {
-        GD.Print(_name + "Color: " + _value);
         ((ShaderMaterial)Material).SetShaderParam(_name, _value);
     }
 
-    public string GenerateShader(List<Filter> shaders) {
+    public void GenerateShader(List<Filter> shaders) {
 
         string uniformsToAdd = "";
         string codeToAdd = "";
@@ -54,7 +53,7 @@ public class Shaderer : Sprite {
                 "}";
 
         GD.Print(Code);
-        return Code;
+        ((ShaderMaterial)this.Material).Shader.Code = Code;
     }
 
     bool mouseHover = true;
