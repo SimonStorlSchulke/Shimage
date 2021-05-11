@@ -43,11 +43,15 @@ public class Shaderer : Sprite {
         string Code = "shader_type canvas_item;" +
             uniformsToAdd + @"
     void fragment(){
-        float f_1 = .0;
-        float f_2 = .0;
-        float f_3 = .0;
-        float f_4 = .0;
-        float f_5 = .0;
+        const float PI = 3.14159265358979323846;
+        float f_1;
+        float f_2;
+        float f_3;
+        float f_4;
+        float f_5;
+        vec3 v3_1;
+        vec3 v3_2;
+        vec3 v3_3;
         COLOR = texture(TEXTURE, UV);" +
                 codeToAdd +
                 "}";

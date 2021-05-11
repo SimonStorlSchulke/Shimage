@@ -48,6 +48,11 @@ public class PropFloat : Prop {
         slider.MaxValue = 1;
         slider.Step = 0.01;
         slider.Value = (float)this.Value;
+        slider.Connect(
+            "value_changed", 
+            Shaderer.instance, 
+            nameof(Shaderer.instance.OnApplyParam),
+            new Godot.Collections.Array {this.NameCode});
         return slider;
     }
 

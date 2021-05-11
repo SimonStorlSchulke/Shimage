@@ -18,7 +18,7 @@ uniform vec4 mcolor_ : hint_color = vec4(1, 1, 1, 1);
 uniform float mcolorVal_ = 1;
 
     void fragment(){
-        float f_1 = .0;
+        float f_1;
         float f_2 = .0;
         float f_3 = .0;
         float f_4 = .0;
@@ -35,13 +35,38 @@ uniform float mcolorVal_ = 1;
         f_1 = distance(UV, vec2(0.5, 0.5));
         f_1 = 1.0 - pow(f_1, vignettePower_);
         COLOR *= vec4(f_1,f_1,f_1,1);
-    
-        COLOR *= mcolor_ * mcolor_Val;
+		
+		vec3 v3_1;
+		const float PI = 3.14159265358979323846;
+		float hueshift = 0.1;
+		f_1 = cos(hueshift * PI * 2.0);
+        f_2 = sin(hueshift * PI * 2.0);
+		
+    	v3_1.r = (.299f + .701f * f_1 + .168f * f_2) * COLOR.r
+            + (.587f - .587f * f_1 + .330f * f_2) * COLOR.g
+            + (.114f - .114f * f_1 - .497f * f_2) * COLOR.b;
+
+        v3_1.g = (.299f - .299f * f_1 - .328f * f_2) * COLOR.r
+            + (.587f + .413f * f_1 + .035f * f_2) * COLOR.g
+            + (.114f - .114f * f_1 + .292f * f_2) * COLOR.b;
+
+        v3_1.b = (.299f - .3f * f_1 + 1.25f * f_2) * COLOR.r
+            + (.587f - .588f * f_1 - 1.05f * f_2) * COLOR.g
+            + (.114f + .886f * f_1 - .203f * f_2) * COLOR.b;
+			
+        COLOR = vec4(v3_1.rgb, 1.0);
     }
 "
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
+shader_param/exposure = 1.0
+shader_param/mcolor = Color( 1, 1, 1, 1 )
+shader_param/mcolorVal = 1.0
+shader_param/vignettePower = 2.0
+shader_param/vignettePower_ = 2.0
+shader_param/mcolor_ = Color( 1, 1, 1, 1 )
+shader_param/mcolorVal_ = 1.0
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
