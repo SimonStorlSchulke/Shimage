@@ -6,12 +6,14 @@ public abstract class Prop {
     public string NameCode;
     public string NameUI;
     public object Value;
-    public abstract Control GetUI();
+    public abstract Control BuildUI();
     public abstract string GetUniformCode();
 
     public string toNotStupidString(float val) {
         return val.ToString(CultureInfo.InvariantCulture);
     }
+
+    //public abstract object ValueFromUI();
 }
 
 public class PropInt : Prop {
@@ -22,7 +24,7 @@ public class PropInt : Prop {
         this.Value = _value;
     }
 
-    public override Control GetUI() {
+    public override Control BuildUI() {
         HSlider slider = new HSlider();
         slider.RectMinSize = new Vector2(120, 0);
         slider.MinValue = 0;
@@ -46,7 +48,7 @@ public class PropFloat : Prop {
         this.Value = _value;
     }
 
-    public override Control GetUI() {
+    public override Control BuildUI() {
         HSlider slider = new HSlider();
         slider.RectMinSize = new Vector2(120, 0);
         slider.MinValue = 0;
@@ -74,7 +76,7 @@ public class PropFloatInf : Prop {
         this.Value = _value;
     }
 
-    public override Control GetUI() {
+    public override Control BuildUI() {
         SpinBox spinbox = new SpinBox();
         spinbox.MaxValue = 10000;
         spinbox.Step = 0.01;
@@ -100,7 +102,7 @@ public class PropRGBA : Prop {
         this.Value = _value;
     }
 
-    public override Control GetUI() {
+    public override Control BuildUI() {
         ColorPickerButton picker = new ColorPickerButton();
         picker.RectMinSize = new Vector2(32, 0);
         picker.Color = (Color)this.Value;
@@ -125,7 +127,7 @@ public class PropVector2 : Prop {
         this.Value = _value;
     }
 
-    public override Control GetUI() {
+    public override Control BuildUI() {
         HBoxContainer VecUI = new HBoxContainer();
         SpinBox spinboxX = new SpinBox();
         SpinBox spinboxY = new SpinBox();

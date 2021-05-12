@@ -21,6 +21,12 @@ public class FilterStack : VBoxContainer {
         Shaderer.instance.GenerateShader(filterList);
     }
 
+    public void Remove(Filter filter) {
+        filterList.Remove(filter);
+        this.RemoveChild(filter.UI);
+        Shaderer.instance.GenerateShader(filterList);
+    }
+
     public static FilterStack instance;
 
     public static void AddFilter(Filter filter) {

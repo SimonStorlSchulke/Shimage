@@ -24,7 +24,7 @@ public class Shaderer : Sprite {
         imgPath = path;
         img.Load(path);
         if (img == null)
-            GD.Print("NULL!");
+            GD.Print("Image is Null");
         tex.CreateFromImage(img);
         this.Texture = tex;
     }

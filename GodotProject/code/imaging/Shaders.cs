@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Filter {
+public class Filter : Node {
     public string Name;
     public string Code;
     public string UniformsCode;
@@ -27,6 +27,13 @@ public class Filter {
         this.UI = new Panel();
         this.UI.RectMinSize = new Vector2(200, 30 + Props.Length * 30);
 
+        Button btnClose = new Button();
+        btnClose.Text = "X";
+        btnClose.RectPosition = new Vector2(180, 0);
+        this.UI.AddChild(btnClose);
+
+        btnClose.Connect("pressed", this, nameof(OnRemove));
+
         VBoxContainer uiList = new VBoxContainer();
         uiList.Name = "UIList";
         Label labelName = new Label();
@@ -40,10 +47,15 @@ public class Filter {
             propLabel.Text = cProp.NameUI;
 
             HBox.AddChild(propLabel);
-            HBox.AddChild(cProp.GetUI());
+            HBox.AddChild(cProp.BuildUI());
             uiList.AddChild(HBox);
         }
         this.UI.AddChild(uiList);
+
+    }
+
+    public void OnRemove() {
+        FilterStack.instance.Remove(this);
     }
 
 

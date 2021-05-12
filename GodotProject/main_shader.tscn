@@ -114,14 +114,15 @@ margin_top = 24.0
 margin_right = 875.0
 margin_bottom = 700.0
 size_flags_vertical = 3
+dragger_visibility = 2
 
 [node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HSplitContainer"]
-margin_right = 657.0
+margin_right = 665.0
 margin_bottom = 676.0
 size_flags_horizontal = 3
 
 [node name="ViewerContainer" type="CenterContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
-margin_right = 657.0
+margin_right = 665.0
 margin_bottom = 676.0
 rect_clip_content = true
 size_flags_vertical = 3
