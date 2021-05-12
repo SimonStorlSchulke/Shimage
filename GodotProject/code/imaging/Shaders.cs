@@ -35,22 +35,25 @@ public class Filter : Node {
         btnClose.Connect("pressed", this, nameof(OnRemove));
 
         VBoxContainer uiList = new VBoxContainer();
+        GridContainer UIGrid = new GridContainer();
+        UIGrid.Columns = 2;
+
         uiList.Name = "UIList";
         Label labelName = new Label();
         labelName.Name = "Labelname";
         labelName.Text = this.Name;
-        uiList.AddChild(labelName);
+        UIGrid.AddChild(labelName);
+        UIGrid.AddChild(new Label());
 
         foreach (var cProp in this.Props) {
             HBoxContainer HBox = new HBoxContainer();
             Label propLabel = new Label();
             propLabel.Text = cProp.NameUI;
 
-            HBox.AddChild(propLabel);
-            HBox.AddChild(cProp.BuildUI());
-            uiList.AddChild(HBox);
+            UIGrid.AddChild(propLabel);
+            UIGrid.AddChild(cProp.BuildUI());
         }
-        this.UI.AddChild(uiList);
+        this.UI.AddChild(UIGrid);
 
     }
 
@@ -95,7 +98,7 @@ public class Filters {
            @"
         f_1 = distance(UV, vec2(vignettePosX, 1.0 - vignettePosY));
         f_1 = 1.0 - f_1;
-		f_1 = map(f_1, 1.0 - vignetteWidth * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur, 1.0-vignettePower, 1.0 + spotlight, true);
+		f_1 = map(f_1, 1.0 - (vignetteWidth + vignetteBlur / 2.0) * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur, 1.0-vignettePower, 1.0 + spotlight, true);
         f_1 = pow(f_1, 2.0);
         COLOR *= vec4(f_1,f_1,f_1,1);
     ");
