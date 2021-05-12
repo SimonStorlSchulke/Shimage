@@ -27,17 +27,17 @@ public class MenuFile : MenuButton
 
         // TODO -only jpg allowed for now until transparency is supported
         fileDialog.Filters = new string[]{
-            //"*.bmp ; BMP",
+            "*.bmp ; BMP",
             "*.jpg ; JPG",
             "*.jpeg ; JPEG",
-            //"*.png ; PNG",
-            //"*.svg ; SVG",
-            //"*.tga ; TGA",
-            //"*.webp ; WEBP",
+            "*.png ; PNG",
+            "*.svg ; SVG",
+            "*.tga ; TGA",
+            "*.webp ; WEBP",
             };
 
         this.GetPopup().AddItem("Open Image");
-        this.GetPopup().AddItem("Save Image");
+        this.GetPopup().AddItem("Save Image (currently deactivated)");
         this.GetPopup().Connect("id_pressed", this, nameof(OnItemPressed));
 
         //this.Connect(nameof(SLoadImage), viewer, nameof(viewer.OnLoadImage));

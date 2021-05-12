@@ -46,28 +46,6 @@ public class Filter {
         this.UI.AddChild(uiList);
     }
 
-    public void PropsFromUI() {
-        Godot.Collections.Array propsUi = this.UI.GetNode("UIList").GetChildren();
-        propsUi.RemoveAt(0); //Ignore Label
-        
-        int i = 0;
-        foreach (Prop cProp in this.Props) {
-            Control valueUI = ((Control)propsUi[i]).GetChild<Control>(1);
-            
-            if (cProp.GetType() == typeof(PropFloatInf)) {
-               Shaderer.instance.SetProp(cProp.NameCode, ((SpinBox)valueUI).Value);
-            }
-            
-            if (cProp.GetType() == typeof(PropFloat)) {
-               Shaderer.instance.SetProp(cProp.NameCode, ((HSlider)valueUI).Value);
-            }
-            
-            if (cProp.GetType() == typeof(PropRGBA)) {
-                GD.Print(((ColorPickerButton)valueUI).Color);
-               Shaderer.instance.SetProp(cProp.NameCode, ((ColorPickerButton)valueUI).Color);
-            }
-        }
-    }
 
     //Make GLSL Variable Names Unique. Kinda dirty.
     public Filter NewInstance() {
@@ -75,7 +53,7 @@ public class Filter {
         Prop[] NewProps = new Prop[this.Props.Length];
         int i = 0;
         foreach (var prop in this.Props) {
-            NewCode = NewCode.Replace(prop.NameCode, prop.NameCode+"_");
+            NewCode = NewCode.Replace(prop.NameCode, prop.NameCode + "_");
             NewProps[i] = this.Props[i];
             NewProps[i].NameCode += "_";
             i++;
@@ -85,18 +63,27 @@ public class Filter {
     }
 }
 
-/* Filters may not define new Variables (as this would result of them not being reusable in the same shader)
-use the pre-defined variables instead (f_1 - f_5, v3_1-v3_5...)
-Prop NameCodes CANNOT have similar lettercombinations in them (TODO: fix - Regex?)
-*/
+/// <summary> Filters may not define new Variables (as this would result of them not being reusable in the same shader)
+/// use the pre-defined variables instead (f_1 - f_5, v3_1-v3_5...)
+/// Limitation: Prop NameCodes CANNOT contain the whole name of another Variable (TODO: fix - Regex?)
+/// </summary>
 public class Filters {
+
+
     public static Filter Vignette = new Filter(
            "Vignette", new Prop[] {
-            new PropFloatInf("vignettePower", "Power", 2.0f)
+            new PropFloat("vignettePosX", "X", 0.5f),
+            new PropFloat("vignettePosY", "Y", 0.5f),
+            new PropFloat("vignettePower", "Power", 0.5f),
+            new PropFloat("vignetteWidth", "Width", 0.4f),
+            new PropFloat("vignetteBlur", "Blur", 0.3f),
+            new PropFloat("spotlight", "Spotlight", 0.0f),
            },
            @"
-        f_1 = distance(UV, vec2(0.5, 0.5));
-        f_1 = 1.0 - pow(f_1, vignettePower);
+        f_1 = distance(UV, vec2(vignettePosX, vignettePosY));
+        f_1 = 1.0 - f_1;
+		f_1 = map(f_1, 1.0 - vignetteWidth * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur, 1.0-vignettePower, 1.0 + spotlight, true);
+        f_1 = pow(f_1, 2.0);
         COLOR *= vec4(f_1,f_1,f_1,1);
     ");
 
@@ -109,7 +96,18 @@ public class Filters {
         COLOR *= vec4(exposure,exposure,exposure,1);
     ");
 
+    public static Filter Levels = new Filter(
+        "Levels",
+         new Prop[] {
+            new PropRGBA("levels_low", "low ", new Color(0,0,0,1)),
+            new PropRGBA("levels_high", "high", new Color(1,1,1,1)),
+        },
+        @"
+        COLOR = (COLOR - vec4(levels_low.rgb, 0.0)) / (vec4(levels_high.rgb, 1.0) - vec4(levels_low.rgb, 0.0));
+    ");
+
     public static Filter MultiplyColor = new Filter(
+
         "Overlay Color",
         new Prop[] {
             new PropRGBA("mcolor", "Color", new Color(1,1,1)),

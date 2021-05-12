@@ -9,6 +9,7 @@ public class AddFilterMenu : MenuButton
         GetPopup().AddItem("Vignette");
         GetPopup().AddItem("Multiply Color");
         GetPopup().AddItem("Hue Shift");
+        GetPopup().AddItem("Levels");
 
         GetPopup().Connect("id_pressed", this, nameof(OnAddFilter));
     }
@@ -28,6 +29,9 @@ public class AddFilterMenu : MenuButton
                 break;
             case ("Hue Shift"):
                 FilterStack.AddFilter(Filters.HueShift);
+                break;
+            case ("Levels"):
+                FilterStack.AddFilter(Filters.Levels);
                 break;
         }
         FilterStack.instance.BuildStack();

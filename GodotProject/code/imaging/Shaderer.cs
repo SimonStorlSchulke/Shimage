@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class Shaderer : Sprite {
 
     public static Shaderer instance = null;
+    Image img = new Image();
+    string imgPath = "";
+    ImageTexture tex = new ImageTexture();
 
     [Export]
     float ZoomSpeed = .4f;
@@ -17,10 +20,13 @@ public class Shaderer : Sprite {
         }
     }
 
-    public void OnApplyFilters() {
-        foreach (Filter filter in FilterStack.filterList) {
-            filter.PropsFromUI();
-        }
+    public void OnLoadImage(string path) {
+        imgPath = path;
+        img.Load(path);
+        if (img == null)
+            GD.Print("NULL!");
+        tex.CreateFromImage(img);
+        this.Texture = tex;
     }
 
     public void OnApplyParam(object value, string name) {
@@ -28,6 +34,9 @@ public class Shaderer : Sprite {
     }
 
     public void SetProp(string _name, object _value) {
+        if (_value.GetType() == typeof(Vector2)) {
+            GD.Print("Vector");
+        }
         ((ShaderMaterial)Material).SetShaderParam(_name, _value);
     }
 
@@ -42,6 +51,14 @@ public class Shaderer : Sprite {
         //TODO shader code nicer maybe
         string Code = "shader_type canvas_item;" +
             uniformsToAdd + @"
+    float map(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
+        float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
+        if (clamp_result) {
+            res = clamp(res, min2, max2);
+        }
+        return res;
+    }
+
     void fragment(){
         const float PI = 3.14159265358979323846;
         float f_1;
@@ -60,7 +77,7 @@ public class Shaderer : Sprite {
         ((ShaderMaterial)this.Material).Shader.Code = Code;
     }
 
-    bool mouseHover = true;
+    bool mouseHover = false;
     public void OnMouseEntered() {
         mouseHover = true;
     }

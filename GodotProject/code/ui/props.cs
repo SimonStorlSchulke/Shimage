@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Globalization;
 
 public abstract class Prop {
     public string NameCode;
@@ -7,6 +8,10 @@ public abstract class Prop {
     public object Value;
     public abstract Control GetUI();
     public abstract string GetUniformCode();
+
+    public string toNotStupidString(float val) {
+        return val.ToString(CultureInfo.InvariantCulture);
+    }
 }
 
 public class PropInt : Prop {
@@ -57,7 +62,7 @@ public class PropFloat : Prop {
     }
 
     public override string GetUniformCode() {
-        return "uniform float " + this.NameCode + " = " + Value + ";";
+        return "uniform float " + this.NameCode + " = " + toNotStupidString((float)this.Value) + ";";
     }
 }
 
@@ -83,7 +88,7 @@ public class PropFloatInf : Prop {
     }
 
     public override string GetUniformCode() {
-        return "uniform float " + this.NameCode + " = " + Value + ";";
+        return "uniform float " + this.NameCode + " = " + toNotStupidString((float)this.Value) + ";";
     }
 }
 
@@ -109,6 +114,47 @@ public class PropRGBA : Prop {
 
     public override string GetUniformCode() {
         return $"uniform vec4 {this.NameCode} : hint_color = vec4({((Color)Value).r}, {((Color)Value).g}, {((Color)Value).b}, {((Color)Value).a});";
+    }
+}
+
+public class PropVector2 : Prop {
+
+    public PropVector2(string _nameCode, string _nameUI, Vector2 _value) {
+        this.NameCode = _nameCode;
+        this.NameUI = _nameUI;
+        this.Value = _value;
+    }
+
+    public override Control GetUI() {
+        HBoxContainer VecUI = new HBoxContainer();
+        SpinBox spinboxX = new SpinBox();
+        SpinBox spinboxY = new SpinBox();
+        spinboxX.MaxValue = 10000;
+        spinboxY.MaxValue = 10000;
+        spinboxX.Step = 0.01;
+        spinboxY.Step = 0.01;
+        spinboxX.Value = ((Vector2)this.Value).x;
+        spinboxY.Value = ((Vector2)this.Value).x;
+        VecUI.AddChild(spinboxX);
+        VecUI.AddChild(spinboxY);
+
+        /* TODO Vec2Props currently not working because here I pass the individual spin box
+        values instead of a vector2 */
+        spinboxX.Connect(
+            "value_changed", 
+            Shaderer.instance, 
+            nameof(Shaderer.instance.OnApplyParam),
+            new Godot.Collections.Array {this.NameCode});
+        spinboxY.Connect(
+            "value_changed", 
+            Shaderer.instance, 
+            nameof(Shaderer.instance.OnApplyParam),
+            new Godot.Collections.Array {this.NameCode});
+        return VecUI;
+    }
+
+    public override string GetUniformCode() {
+        return $"uniform vec2 {this.NameCode} = vec2({toNotStupidString(((Vector2)Value).x)}, {toNotStupidString(((Vector2)Value).y)});";
     }
 }
 
