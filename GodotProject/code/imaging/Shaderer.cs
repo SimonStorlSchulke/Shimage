@@ -10,6 +10,9 @@ public class Shaderer : Sprite {
     ImageTexture tex = new ImageTexture();
 
     [Export]
+    NodePath CodeViewer;
+
+    [Export]
     float ZoomSpeed = .4f;
 
     public override void _Ready() {
@@ -73,7 +76,7 @@ public class Shaderer : Sprite {
                 codeToAdd +
                 "}";
 
-        GD.Print(Code);
+        GetNode<TextEdit>(CodeViewer).Text = Code;
         ((ShaderMaterial)this.Material).Shader.Code = Code;
     }
 

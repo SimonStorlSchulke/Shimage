@@ -56,6 +56,7 @@ public class Filter : Node {
 
     public void OnRemove() {
         FilterStack.instance.Remove(this);
+        this.Free();
     }
 
 
@@ -92,7 +93,7 @@ public class Filters {
             new PropFloat("spotlight", "Spotlight", 0.0f),
            },
            @"
-        f_1 = distance(UV, vec2(vignettePosX, vignettePosY));
+        f_1 = distance(UV, vec2(vignettePosX, 1.0 - vignettePosY));
         f_1 = 1.0 - f_1;
 		f_1 = map(f_1, 1.0 - vignetteWidth * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur, 1.0-vignettePower, 1.0 + spotlight, true);
         f_1 = pow(f_1, 2.0);
