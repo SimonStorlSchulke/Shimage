@@ -13,6 +13,9 @@ public class Shaderer : Sprite {
     NodePath CodeViewer;
 
     [Export]
+    NodePath ViewportArea;
+
+    [Export]
     float ZoomSpeed = .4f;
 
     public override void _Ready() {
@@ -89,14 +92,37 @@ public class Shaderer : Sprite {
         mouseHover = false;
     }
 
+    Vector2 startPos = new Vector2();
+    Vector2 startPosMouse = new Vector2();
+    bool dragging = false;
     public override void _Input(InputEvent e) {
-
         if (e.IsAction("zoom_in") && this.mouseHover) {
             Scale *= (1 + ZoomSpeed);
         }
 
         if (e.IsAction("zoom_out") && this.mouseHover) {
             Scale *= (1 - ZoomSpeed);
+        }
+
+        if (e.IsAction("MouseLeft") && this.mouseHover) {
+            bool btnDown = ((InputEventMouseButton)e).IsPressed();
+            if (btnDown) {
+                startPos = Position;
+                startPosMouse = GetNode<CenterContainer>(ViewportArea).GetLocalMousePosition();
+                GD.Print("Startpos :" + startPos);
+            } else {
+                //startPos = Position;
+                GD.Print("Startpos :" + startPos);
+            }
+            dragging = btnDown;
+            GD.Print(dragging);
+        }
+    }
+
+    public override void _Process(float delta) {
+        if(dragging) {
+            Vector2 mPos = GetNode<CenterContainer>(ViewportArea).GetLocalMousePosition();
+            Position = startPos + mPos - startPosMouse;
         }
     }
 }
