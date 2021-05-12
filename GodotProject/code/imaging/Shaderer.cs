@@ -55,29 +55,29 @@ public class Shaderer : Sprite {
             codeToAdd += cShader.Code;
         }
         //TODO shader code nicer maybe
-        string Code = "shader_type canvas_item;" +
+        string Code = "shader_type canvas_item;\n" +
             uniformsToAdd + @"
-    float map(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
-        float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
-        if (clamp_result) {
-            res = clamp(res, min2, max2);
-        }
-        return res;
+float map(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
+    float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
+    if (clamp_result) {
+        res = clamp(res, min2, max2);
     }
+    return res;
+}
 
-    void fragment(){
-        const float PI = 3.14159265358979323846;
-        float f_1;
-        float f_2;
-        float f_3;
-        float f_4;
-        float f_5;
-        vec3 v3_1;
-        vec3 v3_2;
-        vec3 v3_3;
-        COLOR = texture(TEXTURE, UV);" +
-                codeToAdd +
-                "}";
+void fragment(){
+    const float PI = 3.14159265358979323846;
+    float f_1;
+    float f_2;
+    float f_3;
+    float f_4;
+    float f_5;
+    vec3 v3_1;
+    vec3 v3_2;
+    vec3 v3_3;
+    COLOR = texture(TEXTURE, UV);" +
+            codeToAdd +
+            "}";
 
         GetNode<TextEdit>(CodeViewer).Text = Code;
         ((ShaderMaterial)this.Material).Shader.Code = Code;
