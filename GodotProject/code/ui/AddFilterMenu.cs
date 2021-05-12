@@ -1,43 +1,18 @@
 using Godot;
 using System;
 
-public class AddFilterMenu : MenuButton
-{
-    public override void _Ready()
-    {
-        GetPopup().AddItem("Exposure");
-        GetPopup().AddItem("Vignette");
-        GetPopup().AddItem("Multiply Color");
-        GetPopup().AddItem("Hue Shift");
-        GetPopup().AddItem("Levels");
-        GetPopup().AddItem("Saturation");
-
+public class AddFilterMenu : MenuButton {
+    
+    public override void _Ready() {
         GetPopup().Connect("id_pressed", this, nameof(OnAddFilter));
+
+        foreach (Filter cFilter in Filters.List) {
+            GetPopup().AddItem(cFilter.Name);
+        }
     }
 
     public void OnAddFilter(int id) {
-        string itemName = GetPopup().GetItemText(id);
-        switch (itemName)
-        {
-            case ("Exposure"):
-                FilterStack.AddFilter(Filters.Exposure);
-                break;
-            case ("Vignette"):
-                FilterStack.AddFilter(Filters.Vignette);
-                break;
-            case ("Multiply Color"):
-                FilterStack.AddFilter(Filters.MultiplyColor);
-                break;
-            case ("Hue Shift"):
-                FilterStack.AddFilter(Filters.HueShift);
-                break;
-            case ("Levels"):
-                FilterStack.AddFilter(Filters.Levels);
-                break;
-            case ("Saturation"):
-                FilterStack.AddFilter(Filters.Saturation);
-                break;
-        }
+        FilterStack.AddFilter(Filters.List[id]);
         FilterStack.instance.BuildStack();
     }
 }

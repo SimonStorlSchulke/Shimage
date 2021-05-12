@@ -1,5 +1,5 @@
 using Godot;
-using System;
+using System.Collections.Generic;
 
 public class Filter : Node {
     public string Name;
@@ -84,8 +84,8 @@ public class Filter : Node {
 /// </summary>
 public class Filters {
 
-
-    public static Filter Vignette = new Filter(
+    public static List<Filter> List = new List<Filter>() {
+        new Filter(
            "Vignette", new Prop[] {
             new PropFloat("vignettePosX", "X", 0.5f),
             new PropFloat("vignettePosY", "Y", 0.5f),
@@ -100,18 +100,16 @@ public class Filters {
 		f_1 = map(f_1, 1.0 - (vignetteWidth + vignetteBlur / 2.0) * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur, 1.0-vignettePower, 1.0 + spotlight, true);
         f_1 = pow(f_1, 2.0);
         COLOR *= vec4(f_1,f_1,f_1,1);
-    ");
-
-    public static Filter Exposure = new Filter(
+    "),
+    new Filter(
         "Exposure",
          new Prop[] {
             new PropFloatInf("exposure", "Fac", 1.0f),
         },
         @"
         COLOR *= vec4(exposure,exposure,exposure,1);
-    ");
-
-    public static Filter Saturation = new Filter(
+    "),
+    new Filter(
         "Saturation",
          new Prop[] {
             new PropFloat("saturation", "Fac", 1.0f),
@@ -120,9 +118,9 @@ public class Filters {
         v3_1 = vec3(0.2125, 0.7154, 0.0721);
         v3_2 = vec3(dot(COLOR.rgb, v3_1));
         COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, saturation);
-    ");
+    "),
 
-    public static Filter Levels = new Filter(
+    new Filter(
         "Levels",
          new Prop[] {
             new PropRGBA("levels_low", "Black Level ", new Color(0,0,0,1)),
@@ -130,9 +128,9 @@ public class Filters {
         },
         @"
         COLOR = (COLOR - vec4(levels_low.rgb, 0.0)) / (vec4(levels_high.rgb, 1.0) - vec4(levels_low.rgb, 0.0));
-    ");
+    "),
 
-    public static Filter MultiplyColor = new Filter(
+    new Filter(
 
         "Overlay Color",
         new Prop[] {
@@ -141,9 +139,9 @@ public class Filters {
         },
         @"
         COLOR *= mcolor * mVal;
-    ");
+    "),
 
-    public static Filter HueShift = new Filter(
+    new Filter(
         "Hue Shift",
         new Prop[] {
             new PropFloat("hueshift", "Fac", 0.0f),
@@ -164,5 +162,7 @@ public class Filters {
             + (.587f - .588f * f_1 - 1.05f * f_2) * COLOR.g
             + (.114f + .886f * f_1 - .203f * f_2) * COLOR.b;
         COLOR = vec4(v3_1.rgb, 1.0);
-    ");
+    "),
+    
+    };
 }
