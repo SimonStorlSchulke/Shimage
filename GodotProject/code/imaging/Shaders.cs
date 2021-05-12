@@ -25,25 +25,23 @@ public class Filter : Node {
     public void BuildUI() {
         GD.Print(this.Name + "UI");
         this.UI = new Panel();
-        this.UI.RectMinSize = new Vector2(200, 30 + Props.Length * 30);
+        this.UI.RectMinSize = new Vector2(200, 32 + Props.Length * 25);
+        this.UI.MarginBottom = 10;
 
         Button btnClose = new Button();
         btnClose.Text = "X";
         btnClose.RectPosition = new Vector2(180, 0);
-        this.UI.AddChild(btnClose);
 
         btnClose.Connect("pressed", this, nameof(OnRemove));
 
-        VBoxContainer uiList = new VBoxContainer();
         GridContainer UIGrid = new GridContainer();
         UIGrid.Columns = 2;
 
-        uiList.Name = "UIList";
         Label labelName = new Label();
         labelName.Name = "Labelname";
         labelName.Text = this.Name;
-        UIGrid.AddChild(labelName);
-        UIGrid.AddChild(new Label());
+        this.UI.AddChild(labelName);
+        this.UI.AddChild(btnClose);
 
         foreach (var cProp in this.Props) {
             HBoxContainer HBox = new HBoxContainer();
@@ -53,6 +51,7 @@ public class Filter : Node {
             UIGrid.AddChild(propLabel);
             UIGrid.AddChild(cProp.BuildUI());
         }
+        UIGrid.RectPosition = new Vector2(0, 32);
         this.UI.AddChild(UIGrid);
 
     }
@@ -112,11 +111,22 @@ public class Filters {
         COLOR *= vec4(exposure,exposure,exposure,1);
     ");
 
+    public static Filter Saturation = new Filter(
+        "Saturation",
+         new Prop[] {
+            new PropFloat("saturation", "Fac", 1.0f),
+        },
+        @"
+        v3_1 = vec3(0.2125, 0.7154, 0.0721);
+        v3_2 = vec3(dot(COLOR.rgb, v3_1));
+        COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, saturation);
+    ");
+
     public static Filter Levels = new Filter(
         "Levels",
          new Prop[] {
-            new PropRGBA("levels_low", "low ", new Color(0,0,0,1)),
-            new PropRGBA("levels_high", "high", new Color(1,1,1,1)),
+            new PropRGBA("levels_low", "Black Level ", new Color(0,0,0,1)),
+            new PropRGBA("levels_high", "White Level", new Color(1,1,1,1)),
         },
         @"
         COLOR = (COLOR - vec4(levels_low.rgb, 0.0)) / (vec4(levels_high.rgb, 1.0) - vec4(levels_low.rgb, 0.0));

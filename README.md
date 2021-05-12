@@ -1,16 +1,10 @@
 # GodotPhotoEdit
 
-Aims to become a simple Photo Editor with a Filter Stack. Written in C# with Godot.
+A simple Photo Editor with a Filter Stack. Based on Shaders to work in Realtime. Written in C# and GLSL with Godot. See [Releases.](./releases)
 
-## Todo:
-- Add and Remove Filters UI
-- use Shaders for filters
-- Filters need access to pixel position (example: Vignette → col multiplied by inverse distance to middle) - easier in GLSL than C# so wait for that.
-- More Filters:
-  - Vignette
-  - Saturation
+![img](img.png)
 
-## Far off Ideas
+## Ideas
 - More Filters 
   - RGB Curves(UI ?))
   - Gausian Blur? Tilt Shift...
@@ -22,5 +16,3 @@ Aims to become a simple Photo Editor with a Filter Stack. Written in C# with God
 - Procedural Textures
 - Presets
 - Batch Processing
-
-![img](img.png)

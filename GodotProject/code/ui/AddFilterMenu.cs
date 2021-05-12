@@ -10,6 +10,7 @@ public class AddFilterMenu : MenuButton
         GetPopup().AddItem("Multiply Color");
         GetPopup().AddItem("Hue Shift");
         GetPopup().AddItem("Levels");
+        GetPopup().AddItem("Saturation");
 
         GetPopup().Connect("id_pressed", this, nameof(OnAddFilter));
     }
@@ -32,6 +33,9 @@ public class AddFilterMenu : MenuButton
                 break;
             case ("Levels"):
                 FilterStack.AddFilter(Filters.Levels);
+                break;
+            case ("Saturation"):
+                FilterStack.AddFilter(Filters.Saturation);
                 break;
         }
         FilterStack.instance.BuildStack();
