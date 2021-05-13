@@ -15,6 +15,7 @@
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
+
 float map(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
     float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
     if (clamp_result) {
@@ -23,18 +24,16 @@ float map(float value, float min1, float max1, float min2, float max2, bool clam
     return res;
 }
 
+
 void fragment(){
     const float PI = 3.14159265358979323846;
-    float f_1;
-    float f_2;
-    float f_3;
-    float f_4;
-    float f_5;
-    vec3 v3_1;
-    vec3 v3_2;
-    vec3 v3_3;
-    COLOR = texture(TEXTURE, UV);
-    }"
+    
+    //variables to use
+    float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
+    vec2 uv = UV;
+
+    
+COLOR *= texture(TEXTURE, uv);}"
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )

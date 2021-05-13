@@ -25,14 +25,17 @@ public class PropInt : Prop {
     }
 
     public override Control BuildUI() {
-        HSlider slider = new HSlider();
-        slider.RectMinSize = new Vector2(120, 0);
-        slider.MinValue = 0;
-        slider.MaxValue = 1;
-        slider.Step = 0.01;
-        slider.Value = (float)this.Value;
-        slider.Connect("value_changed", Shaderer.instance, nameof(Shaderer.instance.OnApplyParam));
-        return slider;
+        SpinBox spinBox = new SpinBox();
+        //spinBox.RectMinSize = new Vector2(120, 0);
+        spinBox.MinValue = 0;
+        spinBox.Value = (int)this.Value;
+        GD.Print(this.Value);
+            spinBox.Connect(
+            "value_changed", 
+            Shaderer.instance, 
+            nameof(Shaderer.instance.OnApplyParam),
+            new Godot.Collections.Array {this.NameCode});
+        return spinBox;
     }
 
     public override string GetUniformCode() {

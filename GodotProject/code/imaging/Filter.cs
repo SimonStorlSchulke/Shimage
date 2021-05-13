@@ -1,19 +1,24 @@
 using Godot;
-using System.Collections.Generic;
+
+public enum FilterType {
+    COLOR,
+    DISTORT
+}
+
 
 public class Filter : Node {
-    public string Name;
     public string Code;
     public string UniformsCode;
     public Prop[] Props;
     public Panel UI;
+    public FilterType filterType;
 
     //TODO save uniforms as individual variables and generate code from them.
-    public Filter(string _name, Prop[] _props, string _code) {
+    public Filter(string _name, Prop[] _props, string _code, FilterType _filterType) {
         this.Name = _name;
         this.Code = _code;
         this.Props = _props;
-
+        this.filterType = _filterType;
         this.UniformsCode = "";
         foreach (var cProp in Props) {
             this.UniformsCode += cProp.GetUniformCode() + "\n";
@@ -73,6 +78,6 @@ public class Filter : Node {
             i++;
         }
         Code = NewCode;
-        return new Filter(this.Name, NewProps, NewCode);
+        return new Filter(this.Name, NewProps, NewCode, this.filterType);
     }
 }

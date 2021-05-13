@@ -23,7 +23,7 @@ public class Filters {
 		f_2 = map(f_1, 1.0 - (vignetteWidth + (vignetteBlur + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur + 0.001, 0.0, 1.0, true);
         f_2 = f_2 * f_2;
         COLOR = mix(vignetteColor, COLOR, 1.0-(1.0-f_2)*vignettePower) * vec4(1.0 + f_2 * spotlight);
-    "),
+    ", FilterType.COLOR),
     new Filter(
         "Exposure",
          new Prop[] {
@@ -31,7 +31,7 @@ public class Filters {
         },
         @"
         COLOR *= vec4(exposure,exposure,exposure,1);
-    "),
+    ", FilterType.COLOR),
     new Filter(
         "Saturation",
          new Prop[] {
@@ -41,7 +41,7 @@ public class Filters {
         v3_1 = vec3(0.2125, 0.7154, 0.0721);
         v3_2 = vec3(dot(COLOR.rgb, v3_1));
         COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, sat * 2.0);
-    "),
+    ", FilterType.COLOR),
 
     new Filter(
         "Levels",
@@ -51,7 +51,7 @@ public class Filters {
         },
         @"
         COLOR = (COLOR - vec4(levels_low.rgb, 0.0)) / (vec4(levels_high.rgb, 1.0) - vec4(levels_low.rgb, 0.0));
-    "),
+    ", FilterType.COLOR),
 
     new Filter(
 
@@ -62,7 +62,7 @@ public class Filters {
         },
         @"
         COLOR *= mcolor * mVal;
-    "),
+    ", FilterType.COLOR),
 
     new Filter(
         "Hue Shift",
@@ -85,7 +85,27 @@ public class Filters {
             + (.587f - .588f * f_1 - 1.05f * f_2) * COLOR.g
             + (.114f + .886f * f_1 - .203f * f_2) * COLOR.b;
         COLOR = vec4(v3_1.rgb, 1.0);
-    "),
+    ", FilterType.COLOR),
+
+    new Filter(
+        "Tile",
+        new Prop[] {
+            new PropFloatInf("tiles", "Tiles", 2.0f),
+        },
+        @"
+        uv = fract(uv * tiles);
+    ", FilterType.DISTORT),
+
+    new Filter(
+        "Noise Distort",
+        new Prop[] {
+            new PropFloatInf("noiseDistortAmmount", "Distort", 2),
+            new PropFloatInf("noiseDistortScale", "Scale", 2),
+            new PropInt("noiseDistortOctaves", "Octaves", 2),
+        },
+        @"
+        uv = mix(uv, vec2(fbm(uv * noiseDistortScale, noiseDistortOctaves)), noiseDistortAmmount);
+    ", FilterType.DISTORT),
     
     };
 }

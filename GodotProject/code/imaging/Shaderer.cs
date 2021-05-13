@@ -54,12 +54,20 @@ public class Shaderer : Sprite {
     public void GenerateShader(List<Filter> shaders) {
 
         string uniformsToAdd = "";
-        string codeToAdd = "";
+        string codeToAddDistortFilters = "";
+        string codeToAddColorFilters = "";
+
         foreach (Filter cShader in shaders) {
             uniformsToAdd += cShader.UniformsCode;
-            codeToAdd += cShader.Code;
+
+            //Add switch statement here in case more filtertypes are added
+            if (cShader.filterType == FilterType.DISTORT) {
+                codeToAddDistortFilters += cShader.Code;
+            } else {
+                codeToAddColorFilters += cShader.Code;
+            }
         }
-        //TODO shader code nicer maybe
+
         string Code = "shader_type canvas_item;\n" +
             uniformsToAdd + @"
 float map(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
@@ -70,18 +78,45 @@ float map(float value, float min1, float max1, float min2, float max2, bool clam
     return res;
 }
 
+// Precision-adjusted variations of https://www.shadertoy.com/view/4djSRW
+float hash(float p) { p = fract(p * 0.011); p *= p + 7.5; p *= p + p; return fract(p); }
+float hashV2(vec2 p) {vec3 p3 = fract(vec3(p.xyx) * 0.13); p3 += dot(p3, p3.yzx + 3.333); return fract((p3.x + p3.y) * p3.z); }
+
+float noise(vec2 x) {
+    vec2 i = floor(x);
+    vec2 f = fract(x);
+
+	// Four corners in 2D of a tile
+	float a = hashV2(i);
+    float b = hashV2(i + vec2(1.0, 0.0));
+    float c = hashV2(i + vec2(0.0, 1.0));
+    float d = hashV2(i + vec2(1.0, 1.0));
+    vec2 u = f * f * (3.0 - 2.0 * f);
+	return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+
+float fbm(vec2 x, int noiseOctaves) {
+	float v = 0.0;
+	float a = 0.5;
+	vec2 shift = vec2(100);
+	// Rotate to reduce axial bias
+    mat2 rot = mat2(vec2(cos(0.5), sin(0.5)), vec2(-sin(0.5), cos(0.50)));
+	for (int i = 0; i < noiseOctaves; ++i) {
+		v += a * noise(x);
+		x = rot * x * 2.0 + shift;
+		a *= 0.5;
+	}
+	return v;
+}
+
 void fragment(){
     const float PI = 3.14159265358979323846;
-    float f_1;
-    float f_2;
-    float f_3;
-    float f_4;
-    float f_5;
-    vec3 v3_1;
-    vec3 v3_2;
-    vec3 v3_3;
-    COLOR = texture(TEXTURE, UV);" +
-            codeToAdd +
+    
+    //variables to use
+    float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
+    vec2 uv = UV;" + codeToAddDistortFilters +
+    "\nCOLOR *= texture(TEXTURE, uv);" +
+            codeToAddColorFilters +
             "}";
 
         GetNode<TextEdit>(CodeViewer).Text = Code;
@@ -136,7 +171,7 @@ void fragment(){
     }
 
     public override void _Process(float delta) {
-        if(dragging) {
+        if (dragging) {
             Vector2 mPos = GetNode<CenterContainer>(ViewportArea).GetLocalMousePosition();
             Position = startPos + mPos - startPosMouse;
         }
