@@ -21,7 +21,7 @@ public class Filters {
            },
            @"
         if (vignetteUseDistortion) {
-            f_1 = 1.0 - distance(uv, vec2(vignettePosX, 1.0 - vignettePosY));
+            f_1 = 1.0 - distance(fract(uv), vec2(vignettePosX, 1.0 - vignettePosY));
         } 
         else {
             f_1 = 1.0 - distance(UV, vec2(vignettePosX, 1.0 - vignettePosY));

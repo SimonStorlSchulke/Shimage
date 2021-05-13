@@ -29,7 +29,7 @@ public class Filter : Node {
 
     public void BuildUI() {
         this.UI = new Panel();
-        this.UI.RectMinSize = new Vector2(235, 32 + Props.Length * 27);
+        this.UI.RectMinSize = new Vector2(240, 32 + Props.Length * 27);
         this.UI.MarginBottom = 10;
 
         Button btnClose = new Button();

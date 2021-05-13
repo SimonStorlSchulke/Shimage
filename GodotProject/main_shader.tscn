@@ -106,27 +106,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 875.0
 margin_bottom = 700.0
 size_flags_vertical = 3
-dragger_visibility = 2
 
 [node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HSplitContainer"]
-margin_right = 625.0
+margin_right = 621.0
 margin_bottom = 676.0
+grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
-margin_right = 625.0
+margin_right = 621.0
 margin_bottom = 676.0
 size_flags_horizontal = 11
 size_flags_vertical = 11
 
 [node name="ViewerContainer" type="CenterContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer"]
-margin_right = 625.0
+margin_right = 621.0
 margin_bottom = 676.0
 rect_clip_content = true
 size_flags_horizontal = 11
@@ -149,19 +149,27 @@ ZoomSpeed = 0.1
 
 [node name="CodeView" type="TextEdit" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
 visible = false
-margin_top = 434.0
-margin_right = 665.0
+margin_top = 504.0
+margin_right = 12.0
 margin_bottom = 676.0
-rect_min_size = Vector2( 0, 150 )
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.35
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_readonly = Color( 0.772549, 0.772549, 0.772549, 1 )
 text = "No Code generated yet"
 readonly = true
 smooth_scrolling = true
+hiding_enabled = true
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/HSplitContainer/VSplitContainer/CodeView"]
+margin_right = 621.0
+margin_bottom = 8.0
 
 [node name="Sidebar" type="Panel" parent="VBoxContainer/HSplitContainer"]
 margin_left = 625.0
