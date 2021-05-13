@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
 [ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://code/imaging/Shaderer.cs" type="Script" id=5]
 [ext_resource path="res://code/ui/AddFilterMenu.cs" type="Script" id=6]
 [ext_resource path="res://code/ui/CodeView.cs" type="Script" id=7]
+[ext_resource path="res://btnSave.gd" type="Script" id=8]
+[ext_resource path="res://ShaderToImage/ShaderToImage.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;uniform float saturation_ = 1;
@@ -39,9 +41,6 @@ code = "shader_type canvas_item;uniform float saturation_ = 1;
 shader = SubResource( 1 )
 shader_param/saturation_ = 1.0
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 366.974, 232.365 )
-
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
 expand_margin_left = 13.0
@@ -53,6 +52,8 @@ theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ShaderToImage" parent="." instance=ExtResource( 9 )]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -83,7 +84,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-PathViewer = NodePath("../../../HSplitContainer/VSplitContainer/ViewerContainer/Area2D/Viewer")
+PathViewer = NodePath("../../../HSplitContainer/VSplitContainer/ViewerContainer/Viewer")
 
 [node name="FileDialog" type="FileDialog" parent="VBoxContainer/Topbar/Menus/File"]
 margin_right = 452.0
@@ -105,6 +106,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button" type="Button" parent="VBoxContainer/Topbar/Menus"]
+margin_left = 39.0
+margin_right = 112.0
+margin_bottom = 24.0
+text = "Save PNG"
+script = ExtResource( 8 )
+shader_to_image = NodePath("../../../../ShaderToImage")
+viewer = NodePath("../../../HSplitContainer/VSplitContainer/ViewerContainer/Viewer")
+
 [node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 875.0
@@ -123,23 +133,16 @@ margin_bottom = 676.0
 rect_clip_content = true
 size_flags_vertical = 3
 
-[node name="Area2D" type="Area2D" parent="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer"]
-position = Vector2( 0, -2.1189 )
-
-[node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Area2D"]
+[node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer"]
 material = SubResource( 2 )
-position = Vector2( 348.297, 288.706 )
+position = Vector2( 348.297, 286.587 )
 scale = Vector2( 1.28535, 1.18742 )
 z_index = -1
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
-CodeViewer = NodePath("../../../CodeView")
-ViewportArea = NodePath("../..")
+CodeViewer = NodePath("../../CodeView")
+ViewportArea = NodePath("..")
 ZoomSpeed = 0.1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Area2D"]
-position = Vector2( 305.805, 286.699 )
-shape = SubResource( 4 )
 
 [node name="CodeView" type="TextEdit" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
 visible = false
@@ -218,8 +221,9 @@ margin_right = 177.0
 margin_bottom = 28.0
 text = "Show Shadercode"
 
-[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialog" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Area2D/Viewer" method="OnLoadImage"]
-[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialogSave" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Area2D/Viewer" method="OnSaveSelected"]
-[connection signal="mouse_entered" from="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Area2D/Viewer" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Area2D/Viewer" method="OnMouseExited"]
+[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialog" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Viewer" method="OnLoadImage"]
+[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/File/FileDialogSave" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Viewer" method="OnSaveSelected"]
+[connection signal="pressed" from="VBoxContainer/Topbar/Menus/Button" to="VBoxContainer/Topbar/Menus/Button" method="_on_Button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Viewer" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer" to="VBoxContainer/HSplitContainer/VSplitContainer/ViewerContainer/Viewer" method="OnMouseExited"]
 [connection signal="toggled" from="VBoxContainer/HSplitContainer/Sidebar/Panel/HBoxContainer/btnCodeView" to="VBoxContainer/HSplitContainer/VSplitContainer/CodeView" method="OnToggleCodeView"]

@@ -35,12 +35,12 @@ public class Filters {
     new Filter(
         "Saturation",
          new Prop[] {
-            new PropFloat("saturation", "Fac", 1.0f),
+            new PropFloat("sat", "Fac", 0.5f),
         },
         @"
         v3_1 = vec3(0.2125, 0.7154, 0.0721);
         v3_2 = vec3(dot(COLOR.rgb, v3_1));
-        COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, saturation);
+        COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, sat * 2.0);
     "),
 
     new Filter(
