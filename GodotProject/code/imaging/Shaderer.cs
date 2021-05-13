@@ -37,6 +37,7 @@ public class Shaderer : Sprite {
         tex.CreateFromImage(img);
         this.Texture = tex;
         GetNode(ShaderToImage).Call("_on_load_image");
+        OnReCenter();
     }
 
     public void OnApplyParam(object value, string name) {
@@ -94,6 +95,14 @@ void fragment(){
 
     public void OnMouseExited() {
         mouseHover = false;
+    }
+
+    public void OnReCenter() {
+        Vector2 viewportSize = this.GetParent<CenterContainer>().RectSize;
+        Position = viewportSize / 2;
+        Vector2 facVec = viewportSize / this.Texture.GetSize();
+        float fac = Mathf.Min(facVec.x, facVec.y);
+        this.Scale = new Vector2(fac, fac);
     }
 
     Vector2 startPos;

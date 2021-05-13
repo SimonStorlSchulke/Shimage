@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
 [ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://code/ui/CodeView.cs" type="Script" id=7]
 [ext_resource path="res://btnSave.gd" type="Script" id=8]
 [ext_resource path="res://ShaderToImage/ShaderToImage.tscn" type="PackedScene" id=9]
+[ext_resource path="res://style/stylebox_transparent.tres" type="StyleBox" id=10]
+[ext_resource path="res://style/icons/refit.png" type="Texture" id=11]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -39,7 +41,7 @@ shader = SubResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
-expand_margin_left = 13.0
+expand_margin_left = 10.0
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -125,17 +127,23 @@ dragger_visibility = 2
 margin_right = 665.0
 margin_bottom = 676.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
 margin_right = 665.0
 margin_bottom = 676.0
+size_flags_horizontal = 11
+size_flags_vertical = 11
 
 [node name="ViewerContainer" type="CenterContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer"]
 margin_right = 665.0
-margin_bottom = 650.0
-rect_min_size = Vector2( 0, 250 )
+margin_bottom = 676.0
 rect_clip_content = true
-size_flags_vertical = 3
+size_flags_horizontal = 11
+size_flags_vertical = 11
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer"]
 material = SubResource( 2 )
@@ -149,17 +157,6 @@ ShaderToImage = NodePath("../../../../../../ShaderToImage")
 ViewportArea = NodePath("..")
 ZoomSpeed = 0.1
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer"]
-margin_top = 654.0
-margin_right = 665.0
-margin_bottom = 676.0
-
-[node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/CenterContainer"]
-margin_left = 298.0
-margin_right = 367.0
-margin_bottom = 22.0
-text = "Recenter"
-
 [node name="CodeView" type="TextEdit" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
 visible = false
 margin_top = 434.0
@@ -172,6 +169,9 @@ text = "No Code generated yet"
 readonly = true
 smooth_scrolling = true
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Sidebar" type="Panel" parent="VBoxContainer/HSplitContainer"]
 margin_left = 665.0
@@ -179,6 +179,9 @@ margin_right = 875.0
 margin_bottom = 676.0
 rect_min_size = Vector2( 210, 0 )
 custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar"]
 anchor_right = 1.0
@@ -212,8 +215,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -222.0
+margin_left = -220.0
 margin_top = -33.0
+margin_right = 2.0
 rect_min_size = Vector2( 0, 33 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -242,6 +246,32 @@ margin_right = 177.0
 margin_bottom = 28.0
 text = "Show Shadercode"
 
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -25.0
+margin_right = -220.0
+margin_bottom = -1.0
+rect_min_size = Vector2( 0, 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnRecenter" type="Button" parent="CenterContainer"]
+margin_left = 319.0
+margin_top = 3.0
+margin_right = 336.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 17, 17 )
+custom_styles/hover = ExtResource( 10 )
+custom_styles/pressed = ExtResource( 10 )
+custom_styles/focus = ExtResource( 10 )
+custom_styles/disabled = ExtResource( 10 )
+custom_styles/normal = ExtResource( 10 )
+icon = ExtResource( 11 )
+expand_icon = true
+
 [connection signal="pressed" from="VBoxContainer/Topbar/Menus/BtnOpen" to="VBoxContainer/Topbar/Menus/BtnOpen" method="OnOpenFile"]
 [connection signal="file_selected" from="VBoxContainer/Topbar/Menus/BtnOpen/FileDialog" to="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer" method="OnLoadImage"]
 [connection signal="pressed" from="VBoxContainer/Topbar/Menus/BtnSave" to="VBoxContainer/Topbar/Menus/BtnSave" method="_on_Button_pressed"]
@@ -249,3 +279,4 @@ text = "Show Shadercode"
 [connection signal="mouse_entered" from="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer" to="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer" to="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer" method="OnMouseExited"]
 [connection signal="toggled" from="VBoxContainer/HSplitContainer/Sidebar/Panel/HBoxContainer/btnCodeView" to="VBoxContainer/HSplitContainer/VSplitContainer/CodeView" method="OnToggleCodeView"]
+[connection signal="pressed" from="CenterContainer/BtnRecenter" to="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer" method="OnReCenter"]

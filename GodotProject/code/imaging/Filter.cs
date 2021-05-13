@@ -23,7 +23,6 @@ public class Filter : Node {
     }
 
     public void BuildUI() {
-        GD.Print(this.Name + "UI");
         this.UI = new Panel();
         this.UI.RectMinSize = new Vector2(200, 32 + Props.Length * 25);
         this.UI.MarginBottom = 10;
@@ -58,7 +57,7 @@ public class Filter : Node {
 
     public void OnRemove() {
         FilterStack.instance.Remove(this);
-        this.Free();
+        this.QueueFree();
     }
 
 

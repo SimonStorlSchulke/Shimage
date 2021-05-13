@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class FilterStack : VBoxContainer {
 
-    [Export]
     public static List<Filter> filterList = new List<Filter>();
 
     public void BuildStack() {
@@ -17,7 +16,11 @@ public class FilterStack : VBoxContainer {
 
         foreach (Filter filter in filterList) {
             AddChild(filter.UI);
+            /*TODO - this throws an error when multiple instances of the same filter are added: 
+            / Can't add child to FilterStackContainer, already has parent FilterStackContainer
+            It doesn't seem like an issue though... possible memory leak?*/
         }
+
         Shaderer.instance.GenerateShader(filterList);
     }
 
