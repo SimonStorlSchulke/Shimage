@@ -18,20 +18,15 @@ func _ready():
 	pass
 
 func _on_Button_pressed():
+	$FileDialogSave.popup_centered()
 	generator.generate_image(view.material)
 	yield(generator, "generated")
 	getted_image = generator.get_image()
 
 	var text = ImageTexture.new()
 	text.create_from_image(getted_image)
-	getted_image.save_png("test.png")
+	#getted_image.save_png("test.png")
 
-func _on_EnableTime_pressed():
-	enable_time=!enable_time
-
-func _on_Save_as_pressed():
-	$Panel/FileDialog.popup()
-
-func _on_FileDialog_file_selected(path):
+func _on_FileDialog_file_selected(path: String):
 	if getted_image:
 		getted_image.save_png(path)

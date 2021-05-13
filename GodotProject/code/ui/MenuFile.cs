@@ -37,7 +37,6 @@ public class MenuFile : MenuButton
             };
 
         this.GetPopup().AddItem("Open Image");
-        this.GetPopup().AddItem("Save Image (currently deactivated)");
         this.GetPopup().Connect("id_pressed", this, nameof(OnItemPressed));
 
         //this.Connect(nameof(SLoadImage), viewer, nameof(viewer.OnLoadImage));

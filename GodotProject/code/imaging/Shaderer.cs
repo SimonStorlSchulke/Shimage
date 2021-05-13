@@ -13,6 +13,9 @@ public class Shaderer : Sprite {
     NodePath CodeViewer;
 
     [Export]
+    NodePath ShaderToImage;
+
+    [Export]
     NodePath ViewportArea;
 
     [Export]
@@ -33,6 +36,7 @@ public class Shaderer : Sprite {
             GD.Print("Image is Null");
         tex.CreateFromImage(img);
         this.Texture = tex;
+        GetNode(ShaderToImage).Call("_on_load_image");
     }
 
     public void OnApplyParam(object value, string name) {
