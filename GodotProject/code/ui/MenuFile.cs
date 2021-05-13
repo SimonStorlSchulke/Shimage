@@ -1,13 +1,9 @@
 using Godot;
 
-public class MenuFile : MenuButton
+public class MenuFile : Button
 {
 
     FileDialog fileDialog;
-    FileDialog fileDialogSave;
-
-    [Export]
-    NodePath PathViewer = new NodePath();
 
     Image img = new Image();
     ImageTexture tex = new ImageTexture();
@@ -22,10 +18,7 @@ public class MenuFile : MenuButton
     public override void _Ready()
     {
         fileDialog = GetNode<FileDialog>("FileDialog");
-        fileDialogSave = GetNode<FileDialog>("FileDialogSave");
-        //viewer = GetNode<Viewer>(PathViewer);
-
-        // TODO -only jpg allowed for now until transparency is supported
+        
         fileDialog.Filters = new string[]{
             "*.bmp ; BMP",
             "*.jpg ; JPG",
@@ -35,29 +28,9 @@ public class MenuFile : MenuButton
             "*.tga ; TGA",
             "*.webp ; WEBP",
             };
-
-        this.GetPopup().AddItem("Open Image");
-        this.GetPopup().Connect("id_pressed", this, nameof(OnItemPressed));
-
-        //this.Connect(nameof(SLoadImage), viewer, nameof(viewer.OnLoadImage));
-        //this.Connect(nameof(SSaveImage), viewer, nameof(viewer.OnSaveImage));
     }
 
-    public void OnItemPressed(int id) {
-        if (GetPopup().GetItemText(id) == "Open Image") {
-            fileDialog.PopupCentered();
-        }
-        if (GetPopup().GetItemText(id) == "Save Image") {
-            fileDialogSave.PopupCentered();
-        }
+    public void OnOpenFile() {
+        fileDialog.PopupCentered();
     }
-
-    public void OnFileSelected(string path) {
-        this.EmitSignal(nameof(SLoadImage), path);
-    }
-
-    public void OnSaveSelected(string path) {
-        this.EmitSignal(nameof(SSaveImage), path);
-    }
-
 }

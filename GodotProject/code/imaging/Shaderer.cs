@@ -96,15 +96,22 @@ void fragment(){
         mouseHover = false;
     }
 
-    Vector2 startPos = new Vector2();
-    Vector2 startPosMouse = new Vector2();
+    Vector2 startPos;
+    Vector2 startPosMouse;
+    Vector2 mousePos;
     bool dragging = false;
     public override void _Input(InputEvent e) {
         if (e.IsAction("zoom_in") && this.mouseHover) {
+            mousePos = GetNode<CenterContainer>(ViewportArea).GetGlobalMousePosition();
+            Vector2 d = mousePos - GlobalPosition;
+            Position -= d * ZoomSpeed;
             Scale *= (1 + ZoomSpeed);
         }
 
         if (e.IsAction("zoom_out") && this.mouseHover) {
+            mousePos = GetNode<CenterContainer>(ViewportArea).GetGlobalMousePosition();
+            Vector2 d = mousePos - GlobalPosition;
+            Position += d * ZoomSpeed;
             Scale *= (1 - ZoomSpeed);
         }
 
@@ -113,13 +120,9 @@ void fragment(){
             if (btnDown) {
                 startPos = Position;
                 startPosMouse = GetNode<CenterContainer>(ViewportArea).GetLocalMousePosition();
-                GD.Print("Startpos :" + startPos);
             } else {
-                //startPos = Position;
-                GD.Print("Startpos :" + startPos);
             }
             dragging = btnDown;
-            GD.Print(dragging);
         }
     }
 

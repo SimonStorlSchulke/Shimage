@@ -16,13 +16,13 @@ public class Filters {
             new PropFloat("vignetteWidth", "Width", 0.4f),
             new PropFloat("vignetteBlur", "Blur", 0.3f),
             new PropFloat("spotlight", "Spotlight", 0.0f),
+            new PropRGBA("vignetteColor", "Color", new Color(0,0,0,1)),
            },
            @"
-        f_1 = distance(UV, vec2(vignettePosX, 1.0 - vignettePosY));
-        f_1 = 1.0 - f_1;
-		f_1 = map(f_1, 1.0 - (vignetteWidth + vignetteBlur / 2.0) * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur, 1.0-vignettePower, 1.0 + spotlight, true);
-        f_1 = pow(f_1, 2.0);
-        COLOR *= vec4(f_1,f_1,f_1,1);
+        f_1 = 1.0 - distance(UV, vec2(vignettePosX, 1.0 - vignettePosY));
+		f_2 = map(f_1, 1.0 - (vignetteWidth + (vignetteBlur + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur + 0.001, 0.0, 1.0, true);
+        f_2 = f_2 * f_2;
+        COLOR = mix(vignetteColor, COLOR, 1.0-(1.0-f_2)*vignettePower) * vec4(1.0 + f_2 * spotlight);
     "),
     new Filter(
         "Exposure",
