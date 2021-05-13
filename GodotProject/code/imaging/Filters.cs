@@ -17,9 +17,15 @@ public class Filters {
             new PropFloat("vignetteBlur", "Blur", 0.3f),
             new PropFloat("spotlight", "Spotlight", 0.0f),
             new PropRGBA("vignetteColor", "Color", new Color(0,0,0,1)),
+            new PropBool("vignetteUseDistortion", "Use Distortion", false)
            },
            @"
-        f_1 = 1.0 - distance(UV, vec2(vignettePosX, 1.0 - vignettePosY));
+        if (vignetteUseDistortion) {
+            f_1 = 1.0 - distance(uv, vec2(vignettePosX, 1.0 - vignettePosY));
+        } 
+        else {
+            f_1 = 1.0 - distance(UV, vec2(vignettePosX, 1.0 - vignettePosY));
+        }
 		f_2 = map(f_1, 1.0 - (vignetteWidth + (vignetteBlur + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur + 0.001, 0.0, 1.0, true);
         f_2 = f_2 * f_2;
         COLOR = mix(vignetteColor, COLOR, 1.0-(1.0-f_2)*vignettePower) * vec4(1.0 + f_2 * spotlight);
@@ -99,12 +105,13 @@ public class Filters {
     new Filter(
         "Noise Distort",
         new Prop[] {
-            new PropFloatInf("noiseDistortAmmount", "Distort", 2),
+            new PropFloatInf("noiseDistortAmmount", "Distort", 0.15f),
+            new PropFloatInf("noiseDistortOffset", "Offset", 0.15f),
             new PropFloatInf("noiseDistortScale", "Scale", 2),
-            new PropInt("noiseDistortOctaves", "Octaves", 2),
+            new PropInt("noiseDistortOctaves", "Octaves", 2, 12),
         },
         @"
-        uv = mix(uv, vec2(fbm(uv * noiseDistortScale, noiseDistortOctaves)), noiseDistortAmmount);
+        uv = mix(uv, vec2(fbm(uv * noiseDistortScale + noiseDistortOffset, noiseDistortOctaves)), noiseDistortAmmount);
     ", FilterType.DISTORT),
     
     };

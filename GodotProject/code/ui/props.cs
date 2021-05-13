@@ -18,18 +18,21 @@ public abstract class Prop {
 
 public class PropInt : Prop {
 
-    public PropInt(string _nameCode, string _nameUI, int _value) {
+    public int max;
+
+    public PropInt(string _nameCode, string _nameUI, int _value, int _max) {
         this.NameCode = _nameCode;
         this.NameUI = _nameUI;
         this.Value = _value;
+        this.max = _max;
     }
 
     public override Control BuildUI() {
         SpinBox spinBox = new SpinBox();
         //spinBox.RectMinSize = new Vector2(120, 0);
         spinBox.MinValue = 0;
+        spinBox.MaxValue = this.max;
         spinBox.Value = (int)this.Value;
-        GD.Print(this.Value);
             spinBox.Connect(
             "value_changed", 
             Shaderer.instance, 
@@ -40,6 +43,32 @@ public class PropInt : Prop {
 
     public override string GetUniformCode() {
         return "uniform int " + this.NameCode + " = " + Value + ";";
+    }
+}
+
+public class PropBool : Prop {
+
+    public PropBool(string _nameCode, string _nameUI, bool _value) {
+        this.NameCode = _nameCode;
+        this.NameUI = _nameUI;
+        this.Value = _value;
+    }
+
+    public override Control BuildUI() {
+        CheckBox checkBox = new CheckBox();
+        //spinBox.RectMinSize = new Vector2(120, 0);
+        checkBox.Pressed = (bool)this.Value;
+            checkBox.Connect(
+            "toggled", 
+            Shaderer.instance, 
+            nameof(Shaderer.instance.OnApplyParam),
+            new Godot.Collections.Array {this.NameCode});
+        return checkBox;
+    }
+
+    public override string GetUniformCode() {
+        string v = (bool)Value ? "false" : "true";
+        return "uniform bool " + this.NameCode + " = " + v + ";";
     }
 }
 

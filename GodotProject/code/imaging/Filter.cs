@@ -29,12 +29,12 @@ public class Filter : Node {
 
     public void BuildUI() {
         this.UI = new Panel();
-        this.UI.RectMinSize = new Vector2(200, 32 + Props.Length * 25);
+        this.UI.RectMinSize = new Vector2(235, 32 + Props.Length * 27);
         this.UI.MarginBottom = 10;
 
         Button btnClose = new Button();
         btnClose.Text = "X";
-        btnClose.RectPosition = new Vector2(180, 0);
+        btnClose.RectPosition = new Vector2(215, 0);
 
         btnClose.Connect("pressed", this, nameof(OnRemove));
 

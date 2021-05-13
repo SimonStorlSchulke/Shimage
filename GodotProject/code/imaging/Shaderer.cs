@@ -45,9 +45,6 @@ public class Shaderer : Sprite {
     }
 
     public void SetProp(string _name, object _value) {
-        if (_value.GetType() == typeof(Vector2)) {
-            GD.Print("Vector");
-        }
         ((ShaderMaterial)Material).SetShaderParam(_name, _value);
     }
 
