@@ -1,6 +1,6 @@
 # GodotPhotoEdit
 
-A simple Photo Editor with a Filter Stack. Based on Shaders to work in Realtime. Written in C# and GLSL with Godot. See [Releases.](./releases)
+A simple Photo Editor with a Filter Stack. Based on Shaders to work in Realtime. Written in C# and GLSL with Godot. See [Releases.](https://github.com/SimonStorlSchulke/GodotPhotoEdit/releases/latest)
 
 ![img](img.png)
 
