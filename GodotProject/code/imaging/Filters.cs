@@ -99,7 +99,7 @@ public class Filters {
             new PropFloatInf("tiles", "Tiles", 2.0f),
         },
         @"
-        uv = uv * tiles;
+        uv *= tiles;
     ", FilterType.DISTORT),
 
     new Filter(
