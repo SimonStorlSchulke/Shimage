@@ -105,7 +105,7 @@ public class Filters {
     new Filter(
         "Flip",
         new Prop[] {
-            new PropBool("flipHorizontal", "Horizontal", false),
+            new PropBool("flipHorizontal", "Horizontal", true),
             new PropBool("flipVertical", "Vertical", false),
         },
         @"

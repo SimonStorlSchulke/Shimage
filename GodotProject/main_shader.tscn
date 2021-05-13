@@ -26,7 +26,7 @@ void fragment(){
 COLOR *= texture(TEXTURE, uv);
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=4]
 shader = SubResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
@@ -42,7 +42,7 @@ __meta__ = {
 }
 
 [node name="ShaderToImage" parent="." instance=ExtResource( 9 )]
-_viewer = NodePath("../VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer")
+_viewer = NodePath("../VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -91,7 +91,7 @@ margin_bottom = 24.0
 text = "Save"
 script = ExtResource( 8 )
 shader_to_image = NodePath("../../../../ShaderToImage")
-viewer = NodePath("../../../HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer")
+viewer = NodePath("../../../HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer")
 
 [node name="FileDialogSave" type="FileDialog" parent="VBoxContainer/Topbar/Menus/BtnSave"]
 margin_left = -39.0
@@ -106,37 +106,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 875.0
 margin_bottom = 700.0
 size_flags_vertical = 3
 
-[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HSplitContainer"]
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HBoxContainer"]
 margin_right = 621.0
 margin_bottom = 676.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
-margin_right = 621.0
-margin_bottom = 676.0
-size_flags_horizontal = 11
-size_flags_vertical = 11
-
-[node name="ViewerContainer" type="CenterContainer" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer"]
+[node name="ViewerContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer"]
 margin_right = 621.0
 margin_bottom = 676.0
 rect_clip_content = true
 size_flags_horizontal = 11
 size_flags_vertical = 11
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Viewer" type="Sprite" parent="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer"]
-material = SubResource( 2 )
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
+margin_right = 621.0
+margin_bottom = 648.0
+size_flags_vertical = 3
+
+[node name="Viewer" type="Sprite" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer"]
+material = SubResource( 4 )
 position = Vector2( 348.297, 286.587 )
 scale = Vector2( 1.28535, 1.18742 )
 z_index = -1
@@ -147,7 +143,30 @@ ShaderToImage = NodePath("../../../../../../ShaderToImage")
 ViewportArea = NodePath("..")
 ZoomSpeed = 0.1
 
-[node name="CodeView" type="TextEdit" parent="VBoxContainer/HSplitContainer/VSplitContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
+margin_top = 652.0
+margin_right = 621.0
+margin_bottom = 676.0
+rect_min_size = Vector2( 0, 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnRecenter" type="Button" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer2"]
+margin_left = 302.0
+margin_top = 3.0
+margin_right = 319.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 17, 17 )
+custom_styles/hover = ExtResource( 10 )
+custom_styles/pressed = ExtResource( 10 )
+custom_styles/focus = ExtResource( 10 )
+custom_styles/disabled = ExtResource( 10 )
+custom_styles/normal = ExtResource( 10 )
+icon = ExtResource( 11 )
+expand_icon = true
+
+[node name="CodeView" type="TextEdit" parent="VBoxContainer/HBoxContainer/VSplitContainer"]
 visible = false
 margin_top = 504.0
 margin_right = 12.0
@@ -167,11 +186,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/HSplitContainer/VSplitContainer/CodeView"]
-margin_right = 621.0
-margin_bottom = 8.0
-
-[node name="Sidebar" type="Panel" parent="VBoxContainer/HSplitContainer"]
+[node name="Sidebar" type="Panel" parent="VBoxContainer/HBoxContainer"]
 margin_left = 625.0
 margin_right = 875.0
 margin_bottom = 676.0
@@ -181,26 +196,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MenuButton" type="MenuButton" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
+[node name="btnAddFilter" type="MenuButton" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer"]
 margin_right = 250.0
 margin_bottom = 22.0
 text = "Add Filter"
+flat = false
 script = ExtResource( 6 )
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer"]
 margin_top = 26.0
 margin_right = 250.0
 margin_bottom = 676.0
 size_flags_vertical = 3
 
-[node name="FilterStackContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar/VBoxContainer/ScrollContainer"]
+[node name="FilterStackContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer/ScrollContainer"]
 margin_right = 200.0
 rect_min_size = Vector2( 200, 0 )
 script = ExtResource( 3 )
@@ -208,7 +224,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/Sidebar"]
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/Sidebar"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -220,7 +236,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/Sidebar/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar/Panel"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -33.0
@@ -230,51 +246,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnCodeView" type="CheckButton" parent="VBoxContainer/HSplitContainer/Sidebar/Panel/HBoxContainer"]
+[node name="btnCodeView" type="CheckButton" parent="VBoxContainer/HBoxContainer/Sidebar/Panel/HBoxContainer"]
 margin_right = 54.0
 margin_bottom = 34.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="lblCodeView" type="Label" parent="VBoxContainer/HSplitContainer/Sidebar/Panel/HBoxContainer"]
+[node name="lblCodeView" type="Label" parent="VBoxContainer/HBoxContainer/Sidebar/Panel/HBoxContainer"]
 margin_left = 58.0
 margin_top = 6.0
 margin_right = 177.0
 margin_bottom = 28.0
 text = "Show Shadercode"
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -25.5613
-margin_right = -260.0
-margin_bottom = -1.56128
-rect_min_size = Vector2( 0, 24 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BtnRecenter" type="Button" parent="CenterContainer"]
-margin_left = 299.0
-margin_top = 3.0
-margin_right = 316.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 17, 17 )
-custom_styles/hover = ExtResource( 10 )
-custom_styles/pressed = ExtResource( 10 )
-custom_styles/focus = ExtResource( 10 )
-custom_styles/disabled = ExtResource( 10 )
-custom_styles/normal = ExtResource( 10 )
-icon = ExtResource( 11 )
-expand_icon = true
-
 [connection signal="pressed" from="VBoxContainer/Topbar/Menus/BtnOpen" to="VBoxContainer/Topbar/Menus/BtnOpen" method="OnOpenFile"]
-[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/BtnOpen/FileDialog" to="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer" method="OnLoadImage"]
+[connection signal="file_selected" from="VBoxContainer/Topbar/Menus/BtnOpen/FileDialog" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnLoadImage"]
 [connection signal="pressed" from="VBoxContainer/Topbar/Menus/BtnSave" to="VBoxContainer/Topbar/Menus/BtnSave" method="_on_Button_pressed"]
 [connection signal="file_selected" from="VBoxContainer/Topbar/Menus/BtnSave/FileDialogSave" to="VBoxContainer/Topbar/Menus/BtnSave" method="_on_FileDialog_file_selected"]
-[connection signal="mouse_entered" from="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer" to="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer" to="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer" method="OnMouseExited"]
-[connection signal="toggled" from="VBoxContainer/HSplitContainer/Sidebar/Panel/HBoxContainer/btnCodeView" to="VBoxContainer/HSplitContainer/VSplitContainer/CodeView" method="OnToggleCodeView"]
-[connection signal="pressed" from="CenterContainer/BtnRecenter" to="VBoxContainer/HSplitContainer/VSplitContainer/VBoxContainer/ViewerContainer/Viewer" method="OnReCenter"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnMouseExited"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer2/BtnRecenter" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnReCenter"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/Sidebar/Panel/HBoxContainer/btnCodeView" to="VBoxContainer/HBoxContainer/VSplitContainer/CodeView" method="OnToggleCodeView"]

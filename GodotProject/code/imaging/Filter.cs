@@ -32,9 +32,21 @@ public class Filter : Node {
         this.UI.RectMinSize = new Vector2(240, 32 + Props.Length * 27);
         this.UI.MarginBottom = 10;
 
+        HBoxContainer btnRow = new HBoxContainer();
+        btnRow.RectPosition = new Vector2(150, 0);
+
         Button btnClose = new Button();
-        btnClose.Text = "X";
-        btnClose.RectPosition = new Vector2(215, 0);
+        btnClose.Text = " X ";
+        
+        Button btnUp = new Button();
+        btnUp.Text = " ^ ";
+
+        Button btnDown = new Button();
+        btnDown.Text = " v ";
+
+        btnRow.AddChild(btnUp);
+        btnRow.AddChild(btnDown);
+        btnRow.AddChild(btnClose);
 
         btnClose.Connect("pressed", this, nameof(OnRemove));
 
@@ -45,7 +57,7 @@ public class Filter : Node {
         labelName.Name = "Labelname";
         labelName.Text = this.Name;
         this.UI.AddChild(labelName);
-        this.UI.AddChild(btnClose);
+        this.UI.AddChild(btnRow);
 
         foreach (var cProp in this.Props) {
             HBoxContainer HBox = new HBoxContainer();
