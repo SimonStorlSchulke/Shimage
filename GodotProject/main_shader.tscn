@@ -15,15 +15,16 @@
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
-
 void fragment(){
     const float PI = 3.14159265358979323846;
     
     //variables to use
     float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
     vec2 uv = UV;
-	COLOR *= texture(TEXTURE, uv);
-    }"
+
+	
+COLOR *= texture(TEXTURE, uv);
+}"
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
@@ -239,18 +240,18 @@ text = "Show Shadercode"
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -25.0
-margin_right = -220.0
-margin_bottom = -1.0
+margin_top = -25.5613
+margin_right = -260.0
+margin_bottom = -1.56128
 rect_min_size = Vector2( 0, 24 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BtnRecenter" type="Button" parent="CenterContainer"]
-margin_left = 319.0
+margin_left = 299.0
 margin_top = 3.0
-margin_right = 336.0
+margin_right = 316.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 17, 17 )
 custom_styles/hover = ExtResource( 10 )

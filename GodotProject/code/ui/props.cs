@@ -67,7 +67,7 @@ public class PropBool : Prop {
     }
 
     public override string GetUniformCode() {
-        string v = (bool)Value ? "false" : "true";
+        string v = (bool)Value ? "true" : "false";
         return "uniform bool " + this.NameCode + " = " + v + ";";
     }
 }

@@ -99,7 +99,17 @@ public class Filters {
             new PropFloatInf("tiles", "Tiles", 2.0f),
         },
         @"
-        uv = fract(uv * tiles);
+        uv = uv * tiles;
+    ", FilterType.DISTORT),
+
+    new Filter(
+        "Flip",
+        new Prop[] {
+            new PropBool("flipHorizontal", "Horizontal", false),
+            new PropBool("flipVertical", "Vertical", false),
+        },
+        @"
+        uv = fract(uv * vec2(float(flipHorizontal) * -2.0 + 1.0, float(flipVertical) * -2.0 + 1.0));
     ", FilterType.DISTORT),
 
     new Filter(
