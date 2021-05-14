@@ -30,8 +30,8 @@ COLOR *= texture(TEXTURE, uv);
 shader = SubResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
-expand_margin_left = 10.0
+bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
+expand_margin_left = 5.0
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -197,8 +197,11 @@ __meta__ = {
 }
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/HBoxContainer/Sidebar"]
-margin_right = 241.0
-margin_bottom = 636.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -5.0
+size_flags_horizontal = 11
+size_flags_vertical = 11
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -215,7 +218,7 @@ __meta__ = {
 }
 
 [node name="btnAddFilter" type="MenuButton" parent="VBoxContainer/HBoxContainer/Sidebar/TabContainer/Filters"]
-margin_right = 231.0
+margin_right = 235.0
 margin_bottom = 22.0
 text = "Add Filter"
 flat = false
@@ -223,8 +226,8 @@ script = ExtResource( 6 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/Sidebar/TabContainer/Filters"]
 margin_top = 26.0
-margin_right = 231.0
-margin_bottom = 602.0
+margin_right = 235.0
+margin_bottom = 642.0
 size_flags_vertical = 3
 
 [node name="FilterStackContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar/TabContainer/Filters/ScrollContainer"]

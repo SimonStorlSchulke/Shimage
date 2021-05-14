@@ -20,15 +20,16 @@ public class Filters {
             new PropBool("vignetteUseDistortion", "Use Distortion", false)
            },
            @"
-        if (vignetteUseDistortion) {
-            f_1 = 1.0 - distance(fract(uv), vec2(vignettePosX, 1.0 - vignettePosY));
-        } 
-        else {
-            f_1 = 1.0 - distance(UV, vec2(vignettePosX, 1.0 - vignettePosY));
-        }
-		f_2 = map(f_1, 1.0 - (vignetteWidth + (vignetteBlur + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur + 0.001, 0.0, 1.0, true);
-        f_2 = f_2 * f_2;
-        COLOR = mix(vignetteColor, COLOR, 1.0-(1.0-f_2)*vignettePower) * vec4(1.0 + f_2 * spotlight);
+    //Vignette
+    if (vignetteUseDistortion) {
+        f_1 = 1.0 - distance(fract(uv), vec2(vignettePosX, 1.0 - vignettePosY));
+    } 
+    else {
+        f_1 = 1.0 - distance(UV, vec2(vignettePosX, 1.0 - vignettePosY));
+    }
+    f_2 = map(f_1, 1.0 - (vignetteWidth + (vignetteBlur + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth * 1.5 + vignetteBlur + 0.001, 0.0, 1.0, true);
+    f_2 = f_2 * f_2;
+    COLOR = mix(vignetteColor, COLOR, 1.0-(1.0-f_2)*vignettePower) * vec4(1.0 + f_2 * spotlight);
     ", FilterType.COLOR),
     new Filter(
         "Exposure",
@@ -36,6 +37,7 @@ public class Filters {
             new PropFloatInf("exposure", "Fac", 1.0f),
         },
         @"
+        // Exposure
         COLOR *= vec4(exposure,exposure,exposure,1);
     ", FilterType.COLOR),
     new Filter(
@@ -44,9 +46,10 @@ public class Filters {
             new PropFloat("sat", "Fac", 0.5f),
         },
         @"
-        v3_1 = vec3(0.2125, 0.7154, 0.0721);
-        v3_2 = vec3(dot(COLOR.rgb, v3_1));
-        COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, sat * 2.0);
+    // Saturation
+    v3_1 = vec3(0.2125, 0.7154, 0.0721);
+    v3_2 = vec3(dot(COLOR.rgb, v3_1));
+    COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, sat * 2.0);
     ", FilterType.COLOR),
 
     new Filter(
@@ -56,7 +59,8 @@ public class Filters {
             new PropRGBA("levels_high", "White Level", new Color(1,1,1,1)),
         },
         @"
-        COLOR = (COLOR - vec4(levels_low.rgb, 0.0)) / (vec4(levels_high.rgb, 1.0) - vec4(levels_low.rgb, 0.0));
+    // Levels
+    COLOR = (COLOR - vec4(levels_low.rgb, 0.0)) / (vec4(levels_high.rgb, 1.0) - vec4(levels_low.rgb, 0.0));
     ", FilterType.COLOR),
 
     new Filter(
@@ -75,22 +79,23 @@ public class Filters {
         new Prop[] {
             new PropFloat("hueshift", "Fac", 0.0f),
         },
-        @"
-        f_1 = cos(hueshift * PI * 2.0);
-        f_2 = sin(hueshift * PI * 2.0);
-		
-    	v3_1.r = (.299f + .701f * f_1 + .168f * f_2) * COLOR.r
-            + (.587f - .587f * f_1 + .330f * f_2) * COLOR.g
-            + (.114f - .114f * f_1 - .497f * f_2) * COLOR.b;
+    @"
+    // Hue Shift
+    f_1 = cos(hueshift * PI * 2.0);
+    f_2 = sin(hueshift * PI * 2.0);
+    
+    v3_1.r = (.299f + .701f * f_1 + .168f * f_2) * COLOR.r
+        + (.587f - .587f * f_1 + .330f * f_2) * COLOR.g
+        + (.114f - .114f * f_1 - .497f * f_2) * COLOR.b;
 
-        v3_1.g = (.299f - .299f * f_1 - .328f * f_2) * COLOR.r
-            + (.587f + .413f * f_1 + .035f * f_2) * COLOR.g
-            + (.114f - .114f * f_1 + .292f * f_2) * COLOR.b;
+    v3_1.g = (.299f - .299f * f_1 - .328f * f_2) * COLOR.r
+        + (.587f + .413f * f_1 + .035f * f_2) * COLOR.g
+        + (.114f - .114f * f_1 + .292f * f_2) * COLOR.b;
 
-        v3_1.b = (.299f - .3f * f_1 + 1.25f * f_2) * COLOR.r
-            + (.587f - .588f * f_1 - 1.05f * f_2) * COLOR.g
-            + (.114f + .886f * f_1 - .203f * f_2) * COLOR.b;
-        COLOR = vec4(v3_1.rgb, 1.0);
+    v3_1.b = (.299f - .3f * f_1 + 1.25f * f_2) * COLOR.r
+        + (.587f - .588f * f_1 - 1.05f * f_2) * COLOR.g
+        + (.114f + .886f * f_1 - .203f * f_2) * COLOR.b;
+    COLOR = vec4(v3_1.rgb, 1.0);
     ", FilterType.COLOR),
 
     new Filter(
@@ -99,7 +104,8 @@ public class Filters {
             new PropFloatInf("tiles", "Tiles", 2.0f),
         },
         @"
-        uv *= tiles;
+    // Tile
+    uv *= tiles;
     ", FilterType.DISTORT),
 
     new Filter(
@@ -108,8 +114,9 @@ public class Filters {
             new PropBool("flipHorizontal", "Horizontal", true),
             new PropBool("flipVertical", "Vertical", false),
         },
-        @"
-        uv = fract(uv * vec2(float(flipHorizontal) * -2.0 + 1.0, float(flipVertical) * -2.0 + 1.0));
+    @"
+    // Noise Distort
+    uv = fract(uv * vec2(float(flipHorizontal) * -2.0 + 1.0, float(flipVertical) * -2.0 + 1.0));
     ", FilterType.DISTORT),
 
     new Filter(
@@ -120,8 +127,8 @@ public class Filters {
             new PropFloatInf("noiseDistortScale", "Scale", 2),
             new PropInt("noiseDistortOctaves", "Octaves", 2, 12),
         },
-        @"
-        uv = mix(uv, vec2(fbm(uv * noiseDistortScale + noiseDistortOffset, noiseDistortOctaves)), noiseDistortAmmount);
+    @"
+    uv = mix(uv, vec2(fbm(uv * noiseDistortScale + noiseDistortOffset, noiseDistortOctaves)), noiseDistortAmmount);
     ", FilterType.DISTORT),
     
     };

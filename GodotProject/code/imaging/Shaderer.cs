@@ -111,8 +111,11 @@ void fragment(){
     
     //variables to use
     float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
-    vec2 uv = UV;" + codeToAddDistortFilters +
-    "\nCOLOR *= texture(TEXTURE, uv);" +
+    vec2 uv = UV;
+
+    // Distortion Filters------------------------
+    " + codeToAddDistortFilters +
+    "\n    COLOR *= texture(TEXTURE, uv);\n\n    // Color Filters-----------------------------\n" +
             codeToAddColorFilters +
             "}";
 
