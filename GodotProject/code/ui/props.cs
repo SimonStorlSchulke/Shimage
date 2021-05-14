@@ -74,51 +74,46 @@ public class PropBool : Prop {
 
 public class PropFloat : Prop {
 
-    public PropFloat(string _nameCode, string _nameUI, float _value)  {
+    bool slider;
+    float Min;
+    float Max;
+
+    public PropFloat(string _nameCode, string _nameUI, float _value, bool _slider = true, float _min = 0, float _max = 1)  {
         this.NameCode = _nameCode;
         this.NameUI = _nameUI;
         this.Value = _value;
+        this.slider = _slider;
+        this.Min = _min;
+        this.Max = _max;
     }
 
     public override Control BuildUI() {
-        HSlider slider = new HSlider();
-        slider.RectMinSize = new Vector2(120, 0);
-        slider.MinValue = 0;
-        slider.MaxValue = 1;
-        slider.Step = 0.01;
-        slider.Value = (float)this.Value;
-        slider.Connect(
-            "value_changed", 
-            Shaderer.instance, 
-            nameof(Shaderer.instance.OnApplyParam),
-            new Godot.Collections.Array {this.NameCode});
-        return slider;
-    }
-
-    public override string GetUniformCode() {
-        return "uniform float " + this.NameCode + " = " + toNotStupidString((float)this.Value) + ";";
-    }
-}
-
-public class PropFloatInf : Prop {
-
-    public PropFloatInf(string _nameCode, string _nameUI, float _value) {
-        this.NameCode = _nameCode;
-        this.NameUI = _nameUI;
-        this.Value = _value;
-    }
-
-    public override Control BuildUI() {
-        SpinBox spinbox = new SpinBox();
-        spinbox.MaxValue = 10000;
-        spinbox.Step = 0.01;
-        spinbox.Value = (float)this.Value;
-        spinbox.Connect(
-            "value_changed", 
-            Shaderer.instance, 
-            nameof(Shaderer.instance.OnApplyParam),
-            new Godot.Collections.Array {this.NameCode});
-        return spinbox;
+        if (slider) {
+            HSlider slider = new HSlider();
+            slider.RectMinSize = new Vector2(120, 0);
+            slider.MinValue = this.Min;
+            slider.MaxValue = this.Max;
+            slider.Step = 0.01;
+            slider.Value = (float)this.Value;
+            slider.Connect(
+                "value_changed", 
+                Shaderer.instance, 
+                nameof(Shaderer.instance.OnApplyParam),
+                new Godot.Collections.Array {this.NameCode});
+            return slider;
+        } else {
+            SpinBox spinbox = new SpinBox();
+            spinbox.MinValue = this.Min;
+            spinbox.MaxValue = this.Max;
+            spinbox.Step = 0.01;
+            spinbox.Value = (float)this.Value;
+            spinbox.Connect(
+                "value_changed",
+                Shaderer.instance, 
+                nameof(Shaderer.instance.OnApplyParam),
+                new Godot.Collections.Array {this.NameCode});
+            return spinbox;
+        }
     }
 
     public override string GetUniformCode() {

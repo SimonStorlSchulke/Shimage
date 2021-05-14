@@ -34,7 +34,7 @@ public class Filters {
     new Filter(
         "Exposure",
          new Prop[] {
-            new PropFloatInf("exposure", "Fac", 1.0f),
+            new PropFloat("exposure", "Fac", 1.0f, _slider: false, _max: 1000),
         },
         @"
         // Exposure
@@ -68,7 +68,7 @@ public class Filters {
         "Overlay Color",
         new Prop[] {
             new PropRGBA("mcolor", "Color", new Color(1,1,1)),
-            new PropFloatInf("mVal", "Fac", 1.0f),
+            new PropFloat("mVal", "Fac", 1.0f),
         },
         @"
         COLOR *= mcolor * mVal;
@@ -101,11 +101,16 @@ public class Filters {
     new Filter(
         "Tile",
         new Prop[] {
-            new PropFloatInf("tiles", "Tiles", 2.0f),
+            new PropFloat("tilesX", "Tiles X", 2, _slider: false, _min: 0, _max: 10000),
+            new PropFloat("tilesY", "Tiles Y", 2, _slider: false, _min: 0, _max: 10000),
+            new PropFloat("offsetX", "Offset X", 0, _slider: true, _min: -1, _max: 1),
+            new PropFloat("offsetY", "Offset Y", 0, _slider: true, _min: -1, _max: 1),
         },
         @"
     // Tile
-    uv *= tiles;
+    uv *= vec2(tilesX, tilesY);
+    uv.x += floor(uv.y) * offsetX;
+	uv.y += floor(uv.x) * offsetY;
     ", FilterType.DISTORT),
 
     new Filter(
@@ -115,19 +120,20 @@ public class Filters {
             new PropBool("flipVertical", "Vertical", false),
         },
     @"
-    // Noise Distort
+    // Flip
     uv = fract(uv * vec2(float(flipHorizontal) * -2.0 + 1.0, float(flipVertical) * -2.0 + 1.0));
     ", FilterType.DISTORT),
 
     new Filter(
         "Noise Distort",
         new Prop[] {
-            new PropFloatInf("noiseDistortAmmount", "Distort", 0.15f),
-            new PropFloatInf("noiseDistortOffset", "Offset", 0.15f),
-            new PropFloatInf("noiseDistortScale", "Scale", 2),
+            new PropFloat("noiseDistortAmmount", "Distort", 0.15f),
+            new PropFloat("noiseDistortOffset", "Offset", 0.15f, _slider: false, _min: -10000, _max: 10000),
+            new PropFloat("noiseDistortScale", "Scale", 2, _slider: false, _max: 10000),
             new PropInt("noiseDistortOctaves", "Octaves", 2, 12),
         },
     @"
+    // Noise Distort
     uv = mix(uv, vec2(fbm(uv * noiseDistortScale + noiseDistortOffset, noiseDistortOctaves)), noiseDistortAmmount);
     ", FilterType.DISTORT),
     

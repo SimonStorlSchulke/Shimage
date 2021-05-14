@@ -26,8 +26,8 @@ config/icon="res://icon.png"
 
 [display]
 
-window/size/width=875
-window/size/height=700
+window/size/width=1600
+window/size/height=900
 window/energy_saving/keep_screen_on=false
 
 [gdnative]
