@@ -114,6 +114,18 @@ public class Filters {
     ", FilterType.DISTORT),
 
     new Filter(
+        "Lens Distort",
+        new Prop[] {
+            new PropFloat("lensDistort", "Factor", 0, _slider: true, _min: -1, _max: 1),
+            new PropFloat("lensZoom", "Zoom", 1, _slider: true, _min: 0.5f, _max: 1.5f),
+        },
+        @"
+    // Lens Distortion
+    f_1 = map(lensZoom, 0.5, 1.5, 1.5, 0.5, false);
+    uv = (uv - vec2(0.5)) * ( pow(length(uv - vec2(0.5)), lensDistort) * f_1 )  + vec2(0.5);
+    ", FilterType.DISTORT),
+
+    new Filter(
         "Flip",
         new Prop[] {
             new PropBool("flipHorizontal", "Horizontal", true),
@@ -134,7 +146,7 @@ public class Filters {
         },
     @"
     // Noise Distort
-    uv = mix(uv, vec2(fbm(uv * noiseDistortScale + noiseDistortOffset, noiseDistortOctaves)), noiseDistortAmmount);
+    uv = mix(uv, vec2(fbm(uv * noiseDistortScale + noiseDistortOffset, noiseDistortOctaves)), noiseDistortAmmount*noiseDistortAmmount);
     ", FilterType.DISTORT),
     
     };

@@ -88,32 +88,24 @@ public class PropFloat : Prop {
     }
 
     public override Control BuildUI() {
+        Range inputField;
+        
         if (slider) {
-            HSlider slider = new HSlider();
-            slider.RectMinSize = new Vector2(120, 0);
-            slider.MinValue = this.Min;
-            slider.MaxValue = this.Max;
-            slider.Step = 0.01;
-            slider.Value = (float)this.Value;
-            slider.Connect(
-                "value_changed", 
-                Shaderer.instance, 
-                nameof(Shaderer.instance.OnApplyParam),
-                new Godot.Collections.Array {this.NameCode});
-            return slider;
+            inputField = new HSlider();
+            inputField.RectMinSize = new Vector2(120, 0);
         } else {
-            SpinBox spinbox = new SpinBox();
-            spinbox.MinValue = this.Min;
-            spinbox.MaxValue = this.Max;
-            spinbox.Step = 0.01;
-            spinbox.Value = (float)this.Value;
-            spinbox.Connect(
+            inputField = new SpinBox();
+        }
+            inputField.MinValue = this.Min;
+            inputField.MaxValue = this.Max;
+            inputField.Step = 0.01;
+            inputField.Value = (float)this.Value;
+            inputField.Connect(
                 "value_changed",
                 Shaderer.instance, 
                 nameof(Shaderer.instance.OnApplyParam),
                 new Godot.Collections.Array {this.NameCode});
-            return spinbox;
-        }
+        return inputField;
     }
 
     public override string GetUniformCode() {

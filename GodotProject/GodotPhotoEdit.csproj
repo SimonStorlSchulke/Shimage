@@ -21,7 +21,7 @@
     <Compile Include="code\ShaderToImage.cs" />
     <Compile Include="code\ui\AddFilterMenu.cs" />
     <Compile Include="code\ui\CodeView.cs" />
-    <Compile Include="code\ui\props.cs" />
+    <Compile Include="code\ui\Props.cs" />
     <Compile Include="code\ui\FilterStack.cs" />
     <Compile Include="code\imaging\imaging.cs" />
     <Compile Include="code\ui\MenuFile.cs" />
