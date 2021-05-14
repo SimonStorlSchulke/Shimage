@@ -33,7 +33,7 @@ public class Filter : Node {
         this.UI.MarginBottom = 10;
 
         HBoxContainer btnRow = new HBoxContainer();
-        btnRow.RectPosition = new Vector2(150, 0);
+        btnRow.RectPosition = new Vector2(141, 0);
 
         Button btnClose = new Button();
         btnClose.Text = " X ";
