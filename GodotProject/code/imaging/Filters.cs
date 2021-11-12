@@ -94,15 +94,15 @@ public class Filters {
     ", FilterType.COLOR),
 
     new Filter(
-        "Levels",
+        "Levels Offset",
          new Prop[] {
-            new PropRGBA("levels_low", "Black Level ", new Color(0,0,0,1)),
             new PropRGBA("levels_high", "White Level", new Color(0.5f, 0.5f, 0.5f ,1)),
-            new PropFloat("high_multiplier", "White Lv. Multiply", 2, false, 0, 1000),
+            new PropRGBA("levels_low", "Black Level ", new Color(0.5f,0.5f,0.5f,1)),
         },
         @"
     // Levels
-    COLOR = (COLOR - vec4(levels_low.rgb, 0.0)) / (vec4(levels_high.rgb * high_multiplier, 1.0) - vec4(levels_low.rgb, 0.0));
+    v3_1 = (levels_low.rgb - vec3(0.5)) * 2.0;
+    COLOR = (COLOR - vec4(v3_1, 0.0)) / (vec4(levels_high.rgb * 2.0, 1.0) - vec4(v3_1, 0.0));
     ", FilterType.COLOR),
 
     new Filter(

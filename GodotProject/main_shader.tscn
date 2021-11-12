@@ -140,7 +140,7 @@ script = ExtResource( 12 )
 
 [node name="Viewer" type="Sprite" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer"]
 material = SubResource( 2 )
-position = Vector2( 650.297, 392.587 )
+position = Vector2( 650.297, 391.327 )
 scale = Vector2( 1.28535, 1.18742 )
 z_index = -1
 texture = ExtResource( 4 )
