@@ -31,6 +31,7 @@ public class Filters {
     f_2 = f_2 * f_2;
     COLOR = mix(vignetteColor, COLOR, 1.0-(1.0-f_2)*vignettePower) * vec4(1.0 + f_2 * spotlight);
     ", FilterType.COLOR),
+    
     new Filter(
         "Exposure",
          new Prop[] {
@@ -40,10 +41,30 @@ public class Filters {
         // Exposure
         COLOR *= vec4(exposure,exposure,exposure,1);
     ", FilterType.COLOR),
+
+    new Filter(
+        "Filmic Tonemap",
+         new Prop[] {
+            new PropFloat("fm_brighthess", "Brightness", 0.8f, _slider: false, _max: 1000),
+            new PropFloat("fm_toe", "Toe", 5.5f, _slider: false, _max: 1000),
+            new PropFloat("fm_shoulder", "Shoulder", 1.8f, _slider: false, _max: 1000),
+            new PropFloat("fm_add", "Add", 0.15f, _slider: false, _max: 1000),
+        },
+        @"
+        // Filmic Tonemap
+        COLOR *= vec4(fm_brighthess,fm_brighthess,fm_brighthess,1);
+
+        v3_1 = max(vec3(0.0), COLOR.rgb - 0.004);
+        v3_2 = (v3_1 * (6.2 * v3_1 + fm_brighthess)) / (v3_1 * (fm_toe * v3_1 + fm_shoulder) + fm_add);
+        v3_2 = pow(v3_2, vec3(2.2));
+        COLOR = vec4(v3_2.rgb, 1.0);
+
+    ", FilterType.COLOR),
+
     new Filter(
         "Saturation",
          new Prop[] {
-            new PropFloat("sat", "Fac", 0.5f),
+            new PropFloat("sat", "Fac", 0.5f, _max: 2.0f),
         },
         @"
     // Saturation
@@ -53,14 +74,35 @@ public class Filters {
     ", FilterType.COLOR),
 
     new Filter(
+        "Vibrancy",
+         new Prop[] {
+            new PropFloat("vib_fac", "Fac", 0.5f, _max: 2.0f),
+            new PropFloat("vib_pow", "Raise Low Sat", 2.0f, _slider: false, _max: 10),
+        },
+        @"
+    // Vibrancy
+
+    f_1 = COLOR.r*0.299 + COLOR.g*0.587 + COLOR.b*0.114;
+    f_2 = min(min(COLOR.r, COLOR.g), COLOR.b); //mn
+    f_3 = max(max(COLOR.r, COLOR.g), COLOR.b); //mx
+    f_4 = (1.0-(f_3 - f_2)) * (1.0-f_3) * f_1 * 5.0; //sat
+
+    v3_1 = vec3(0.2125, 0.7154, 0.0721);
+    v3_2 = vec3(dot(COLOR.rgb, v3_1));
+    COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, 1.0 + pow(f_4, vib_pow) * vib_fac);
+
+    ", FilterType.COLOR),
+
+    new Filter(
         "Levels",
          new Prop[] {
             new PropRGBA("levels_low", "Black Level ", new Color(0,0,0,1)),
-            new PropRGBA("levels_high", "White Level", new Color(1,1,1,1)),
+            new PropRGBA("levels_high", "White Level", new Color(0.5f, 0.5f, 0.5f ,1)),
+            new PropFloat("high_multiplier", "White Lv. Multiply", 2, false, 0, 1000),
         },
         @"
     // Levels
-    COLOR = (COLOR - vec4(levels_low.rgb, 0.0)) / (vec4(levels_high.rgb, 1.0) - vec4(levels_low.rgb, 0.0));
+    COLOR = (COLOR - vec4(levels_low.rgb, 0.0)) / (vec4(levels_high.rgb * high_multiplier, 1.0) - vec4(levels_low.rgb, 0.0));
     ", FilterType.COLOR),
 
     new Filter(

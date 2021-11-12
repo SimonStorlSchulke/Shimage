@@ -12,7 +12,11 @@
 [ext_resource path="res://style/stylebox_transparent.tres" type="StyleBox" id=10]
 [ext_resource path="res://style/icons/refit.png" type="Texture" id=11]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
+expand_margin_left = 5.0
+
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
 
 
@@ -72,12 +76,8 @@ void fragment(){
     // Color Filters-----------------------------
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
-expand_margin_left = 5.0
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -158,7 +158,74 @@ margin_right = 1600.0
 margin_bottom = 900.0
 size_flags_vertical = 3
 
+[node name="Sidebar2" type="Panel" parent="VBoxContainer/HBoxContainer"]
+margin_right = 250.0
+margin_bottom = 876.0
+rect_min_size = Vector2( 250, 0 )
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Filters" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 3.0
+margin_bottom = -30.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnAddFilter" type="MenuButton" parent="VBoxContainer/HBoxContainer/Sidebar2/Filters"]
+margin_right = 250.0
+margin_bottom = 22.0
+text = "Add Layer"
+flat = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/Sidebar2/Filters"]
+margin_top = 26.0
+margin_right = 250.0
+margin_bottom = 843.0
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/Sidebar2"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -260.0
+margin_top = -33.0
+rect_min_size = Vector2( 260, 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar2/Panel"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -33.0
+margin_right = 250.0
+margin_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnCodeView" type="CheckButton" parent="VBoxContainer/HBoxContainer/Sidebar2/Panel/HBoxContainer"]
+margin_right = 54.0
+margin_bottom = 34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lblCodeView" type="Label" parent="VBoxContainer/HBoxContainer/Sidebar2/Panel/HBoxContainer"]
+margin_left = 58.0
+margin_top = 6.0
+margin_right = 177.0
+margin_bottom = 28.0
+text = "Show Shadercode"
+
 [node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 254.0
 margin_right = 1346.0
 margin_bottom = 876.0
 grow_horizontal = 0
@@ -166,19 +233,19 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ViewerContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer"]
-margin_right = 1346.0
+margin_right = 1092.0
 margin_bottom = 876.0
 rect_clip_content = true
 size_flags_horizontal = 11
 size_flags_vertical = 11
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
-margin_right = 1346.0
+margin_right = 1092.0
 margin_bottom = 848.0
 size_flags_vertical = 3
 
 [node name="Viewer" type="Sprite" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer"]
-material = SubResource( 2 )
+material = SubResource( 3 )
 position = Vector2( 608.297, 404.587 )
 scale = Vector2( 1.6, 1.6 )
 z_index = -1
@@ -189,9 +256,21 @@ ShaderToImage = NodePath("../../../../../../ShaderToImage")
 ViewportArea = NodePath("..")
 ZoomSpeed = 0.1
 
+[node name="Viewer2" type="Sprite" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer"]
+material = SubResource( 3 )
+position = Vector2( 776.307, 330.965 )
+scale = Vector2( 0.85272, 0.85272 )
+z_index = -1
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+CodeViewer = NodePath("../../../CodeView")
+ShaderToImage = NodePath("../../../../../../ShaderToImage")
+ViewportArea = NodePath("..")
+ZoomSpeed = 0.1
+
 [node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
 margin_top = 852.0
-margin_right = 1346.0
+margin_right = 1092.0
 margin_bottom = 876.0
 rect_min_size = Vector2( 0, 24 )
 __meta__ = {
@@ -199,9 +278,9 @@ __meta__ = {
 }
 
 [node name="BtnRecenter" type="Button" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer2"]
-margin_left = 664.0
+margin_left = 537.0
 margin_top = 3.0
-margin_right = 681.0
+margin_right = 554.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 17, 17 )
 custom_styles/hover = ExtResource( 10 )
@@ -237,7 +316,7 @@ margin_left = 1350.0
 margin_right = 1600.0
 margin_bottom = 876.0
 rect_min_size = Vector2( 250, 0 )
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -351,11 +430,11 @@ margin_top = 6.0
 margin_right = 177.0
 margin_bottom = 28.0
 text = "Show Shadercode"
-
 [connection signal="pressed" from="VBoxContainer/Topbar/Menus/BtnOpen" to="VBoxContainer/Topbar/Menus/BtnOpen" method="OnOpenFile"]
 [connection signal="file_selected" from="VBoxContainer/Topbar/Menus/BtnOpen/FileDialog" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnLoadImage"]
 [connection signal="pressed" from="VBoxContainer/Topbar/Menus/BtnSave" to="VBoxContainer/Topbar/Menus/BtnSave" method="_on_Button_pressed"]
 [connection signal="file_selected" from="VBoxContainer/Topbar/Menus/BtnSave/FileDialogSave" to="VBoxContainer/Topbar/Menus/BtnSave" method="_on_FileDialog_file_selected"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/Sidebar2/Panel/HBoxContainer/btnCodeView" to="VBoxContainer/HBoxContainer/VSplitContainer/CodeView" method="OnToggleCodeView"]
 [connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnMouseExited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer2/BtnRecenter" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnReCenter"]

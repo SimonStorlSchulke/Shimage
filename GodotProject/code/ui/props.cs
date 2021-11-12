@@ -9,11 +9,10 @@ public abstract class Prop {
     public abstract Control BuildUI();
     public abstract string GetUniformCode();
 
+    /// <summary> The fact that this is necessary is stupid.</summary>
     public string toNotStupidString(float val) {
         return val.ToString(CultureInfo.InvariantCulture);
     }
-
-    //public abstract object ValueFromUI();
 }
 
 public class PropInt : Prop {
@@ -125,6 +124,7 @@ public class PropRGBA : Prop {
         ColorPickerButton picker = new ColorPickerButton();
         picker.RectMinSize = new Vector2(32, 0);
         picker.Color = (Color)this.Value;
+        
         picker.Connect(
             "color_changed",
             Shaderer.instance, 
@@ -134,7 +134,13 @@ public class PropRGBA : Prop {
     }
 
     public override string GetUniformCode() {
-        return $"uniform vec4 {this.NameCode} : hint_color = vec4({((Color)Value).r}, {((Color)Value).g}, {((Color)Value).b}, {((Color)Value).a});";
+
+        string r = toNotStupidString(((Color)Value).r);
+        string g = toNotStupidString(((Color)Value).g);
+        string b = toNotStupidString(((Color)Value).b);
+        string a = toNotStupidString(((Color)Value).a);
+
+        return $"uniform vec4 {this.NameCode} : hint_color = vec4({r}, {g}, {b}, {a});";
     }
 }
 

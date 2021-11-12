@@ -6,6 +6,9 @@ public class FilterStack : VBoxContainer {
 
     public static List<Filter> filterList = new List<Filter>();
 
+    //Maybe move to apphandler or something
+    public Layer selectedLayer;
+
     public void BuildStack() {
         if (Shaderer.instance.Material == null) {
             ShaderMaterial m = new ShaderMaterial();
