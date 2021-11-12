@@ -43,6 +43,10 @@ public class Shaderer : Sprite {
         Shaderer.instance.SetProp(name, value);
     }
 
+    public void OnEffectSliderChanged(float value) {
+        Shaderer.instance.SetProp("effect_slider_val", value);
+    }
+
     public void SetProp(string _name, object _value) {
         ((ShaderMaterial)Material).SetShaderParam(_name, _value);
     }
@@ -66,6 +70,9 @@ public class Shaderer : Sprite {
 
         string Code = "shader_type canvas_item;\n" +
             uniformsToAdd + @"
+
+uniform float effect_slider_val = 1.0;
+
 float map(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
     float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
     if (clamp_result) {
@@ -112,11 +119,23 @@ void fragment(){
     float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
     vec2 uv = UV;
 
+
     // Distortion Filters------------------------
     " + codeToAddDistortFilters +
-    "\n    COLOR *= texture(TEXTURE, uv);\n\n    // Color Filters-----------------------------\n" +
-            codeToAddColorFilters +
-            "}";
+    @"
+    if (UV.x > effect_slider_val) {
+        uv = UV;
+    }
+    COLOR *= texture(TEXTURE, uv);
+    vec4 previous = COLOR;
+    
+    // Color Filters-----------------------------
+    " + codeToAddColorFilters +
+    @"
+    if (UV.x > effect_slider_val) {
+        COLOR = previous;
+    }
+}";
 
         GetNode<TextEdit>(CodeViewer).Text = Code;
         ((ShaderMaterial)this.Material).Shader.Code = Code;

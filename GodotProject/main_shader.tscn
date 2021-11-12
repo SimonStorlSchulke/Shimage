@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
 [ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
@@ -29,6 +29,11 @@ COLOR *= texture(TEXTURE, uv);
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.305882, 0.305882, 0.305882, 1 )
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
@@ -129,13 +134,13 @@ size_flags_vertical = 11
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
 margin_right = 1346.0
-margin_bottom = 848.0
+margin_bottom = 822.0
 size_flags_vertical = 3
 script = ExtResource( 12 )
 
 [node name="Viewer" type="Sprite" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer"]
 material = SubResource( 2 )
-position = Vector2( 648.297, 392.587 )
+position = Vector2( 650.297, 392.587 )
 scale = Vector2( 1.28535, 1.18742 )
 z_index = -1
 texture = ExtResource( 4 )
@@ -146,9 +151,9 @@ ViewportArea = NodePath("..")
 ZoomSpeed = 0.1
 
 [node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
-margin_top = 852.0
+margin_top = 826.0
 margin_right = 1346.0
-margin_bottom = 876.0
+margin_bottom = 850.0
 rect_min_size = Vector2( 0, 24 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -167,6 +172,16 @@ custom_styles/disabled = ExtResource( 10 )
 custom_styles/normal = ExtResource( 10 )
 icon = ExtResource( 11 )
 expand_icon = true
+
+[node name="EffectSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
+margin_top = 854.0
+margin_right = 1346.0
+margin_bottom = 876.0
+rect_min_size = Vector2( 100, 22 )
+custom_styles/slider = SubResource( 4 )
+max_value = 1.0
+step = 0.001
+value = 1.0
 
 [node name="CodeView" type="TextEdit" parent="VBoxContainer/HBoxContainer/VSplitContainer"]
 visible = false
@@ -269,4 +284,5 @@ text = "Show Shadercode"
 [connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnMouseExited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer2/BtnRecenter" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnReCenter"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/EffectSlider" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnEffectSliderChanged"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer/Sidebar/Panel/HBoxContainer/btnCodeView" to="VBoxContainer/HBoxContainer/VSplitContainer/CodeView" method="OnToggleCodeView"]
