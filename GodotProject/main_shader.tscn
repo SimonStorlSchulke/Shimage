@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://maintheme.tres" type="Theme" id=1]
 [ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://ShaderToImage/ShaderToImage.tscn" type="PackedScene" id=9]
 [ext_resource path="res://style/stylebox_transparent.tres" type="StyleBox" id=10]
 [ext_resource path="res://style/icons/refit.png" type="Texture" id=11]
+[ext_resource path="res://code/ui/ViewArea.cs" type="Script" id=12]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -130,10 +131,11 @@ size_flags_vertical = 11
 margin_right = 1346.0
 margin_bottom = 848.0
 size_flags_vertical = 3
+script = ExtResource( 12 )
 
 [node name="Viewer" type="Sprite" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer"]
 material = SubResource( 2 )
-position = Vector2( 348.297, 286.587 )
+position = Vector2( 648.297, 392.587 )
 scale = Vector2( 1.28535, 1.18742 )
 z_index = -1
 texture = ExtResource( 4 )

@@ -26,6 +26,7 @@
     <Compile Include="code\ui\FilterStack.cs" />
     <Compile Include="code\imaging\imaging.cs" />
     <Compile Include="code\ui\MenuFile.cs" />
+    <Compile Include="code\ui\ViewArea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="code\imaging\Shaderer.cs" />
   </ItemGroup>
