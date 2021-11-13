@@ -49,6 +49,10 @@ public class Filter : Node {
         btnRow.AddChild(btnClose);
 
         btnClose.Connect("pressed", this, nameof(OnRemove));
+        //btnUp.Connect("pressed", this, nameof(OnMoveUp));
+        //btnDown.Connect("pressed", this, nameof(OnMoveDown));
+        btnUp.Connect("pressed", FilterStack.instance, nameof(FilterStack.instance.MoveFilter), new Godot.Collections.Array{this, true});
+        btnDown.Connect("pressed", FilterStack.instance, nameof(FilterStack.instance.MoveFilter), new Godot.Collections.Array{this, false});
 
         GridContainer UIGrid = new GridContainer();
         UIGrid.Columns = 2;
@@ -77,8 +81,16 @@ public class Filter : Node {
         this.QueueFree();
     }
 
+    public void OnMoveUp() {
+        FilterStack.instance.MoveFilter(this, true);
+    }
 
-    //Make GLSL Variable Names Unique. Kinda dirty.
+    public void OnMoveDown() {
+        FilterStack.instance.MoveFilter(this, false);
+    }
+
+
+    //Make GLSL Variable Names Unique
     public Filter NewInstance() {
         string NewCode = Code;
         Prop[] NewProps = new Prop[this.Props.Length];

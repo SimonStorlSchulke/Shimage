@@ -10,6 +10,7 @@ public class FilterStack : VBoxContainer {
     public Layer selectedLayer;
 
     public void BuildStack() {
+
         if (Shaderer.instance.Material == null) {
             ShaderMaterial m = new ShaderMaterial();
             Shader shader = new Shader();
@@ -30,6 +31,7 @@ public class FilterStack : VBoxContainer {
     public void Remove(Filter filter) {
         filterList.Remove(filter);
         this.RemoveChild(filter.UI);
+        filter.UI.QueueFree();
         Shaderer.instance.GenerateShader(filterList);
     }
 
@@ -37,6 +39,29 @@ public class FilterStack : VBoxContainer {
 
     public static void AddFilter(Filter filter) {
         filterList.Add(filter.NewInstance());
+    }
+
+    public static void Swap<T>(IList<T> list, int indexA, int indexB)
+    {
+        T tmp = list[indexA];
+        list[indexA] = list[indexB];
+        list[indexB] = tmp;
+    }
+
+    public void MoveFilter(Filter filter, bool updown) 
+    {
+        int val = updown? -1 : 1;
+        int i = filterList.IndexOf(filter);
+        GD.Print(i);
+        if (val == 1 && i == filterList.Count-1 || val == -1 && i == 0 ) {return;}
+
+        MoveChild(GetChild(i), i+val);
+        
+        Filter tmp = filterList[i];
+        filterList[i] = filterList[i+val];
+        filterList[i+val] = tmp;
+        
+        Shaderer.instance.GenerateShader(filterList);
     }
     
     public override void _Ready() {

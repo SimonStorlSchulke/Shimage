@@ -82,14 +82,15 @@ public class Filters {
         @"
     // Vibrancy
 
-    f_1 = COLOR.r*0.299 + COLOR.g*0.587 + COLOR.b*0.114;
+    f_1 = COLOR.r*0.299 + COLOR.g*0.587 + COLOR.b*0.114; //lum
     f_2 = min(min(COLOR.r, COLOR.g), COLOR.b); //mn
     f_3 = max(max(COLOR.r, COLOR.g), COLOR.b); //mx
     f_4 = (1.0-(f_3 - f_2)) * (1.0-f_3) * f_1 * 5.0; //sat
 
     v3_1 = vec3(0.2125, 0.7154, 0.0721);
     v3_2 = vec3(dot(COLOR.rgb, v3_1));
-    COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, 1.0 + pow(f_4, vib_pow) * vib_fac);
+    f_5 = pow(f_4, vib_pow) * vib_fac;
+    COLOR = mix(vec4(v3_2.rgb, 1.0), COLOR, 1.0 + clamp(f_5, 0.0, 1.0));
 
     ", FilterType.COLOR),
 
@@ -181,10 +182,10 @@ public class Filters {
     new Filter(
         "Noise Distort",
         new Prop[] {
-            new PropFloat("noiseDistortAmmount", "Distort", 0.15f),
+            new PropFloat("noiseDistortAmmount", "Distort", 0.2f),
             new PropFloat("noiseDistortOffset", "Offset", 0.15f, _slider: false, _min: -10000, _max: 10000),
-            new PropFloat("noiseDistortScale", "Scale", 2, _slider: false, _max: 10000),
-            new PropInt("noiseDistortOctaves", "Octaves", 2, 12),
+            new PropFloat("noiseDistortScale", "Scale", 10, _slider: false, _max: 10000),
+            new PropInt("noiseDistortOctaves", "Octaves", 3, 12),
         },
     @"
     // Noise Distort

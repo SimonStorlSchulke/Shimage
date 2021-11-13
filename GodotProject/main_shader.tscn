@@ -277,6 +277,7 @@ margin_top = 6.0
 margin_right = 177.0
 margin_bottom = 28.0
 text = "Show Shadercode"
+
 [connection signal="pressed" from="VBoxContainer/Topbar/Menus/BtnOpen" to="VBoxContainer/Topbar/Menus/BtnOpen" method="OnOpenFile"]
 [connection signal="file_selected" from="VBoxContainer/Topbar/Menus/BtnOpen/FileDialog" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnLoadImage"]
 [connection signal="pressed" from="VBoxContainer/Topbar/Menus/BtnSave" to="VBoxContainer/Topbar/Menus/BtnSave" method="_on_Button_pressed"]
