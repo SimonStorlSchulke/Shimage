@@ -16,6 +16,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="code\AppHandler.cs" />
     <Compile Include="code\imaging\Filter.cs" />
     <Compile Include="code\imaging\Filters.cs" />
     <Compile Include="code\imaging\Layer.cs" />

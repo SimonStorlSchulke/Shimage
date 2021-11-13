@@ -5,7 +5,6 @@ public class Shaderer : Sprite {
 
     public static Shaderer instance = null;
     Image img = new Image();
-    string imgPath = "";
     ImageTexture tex = new ImageTexture();
 
     [Export]
@@ -29,7 +28,7 @@ public class Shaderer : Sprite {
     }
 
     public void OnLoadImage(string path) {
-        imgPath = path;
+        AppHandler.imagePath = path;
         OS.SetWindowTitle("GDPhotoEdit - " + path);
         img.Load(path);
         if (img == null)
@@ -63,7 +62,7 @@ public class Shaderer : Sprite {
 
             //Add switch statement here in case more filtertypes are added
             if (cShader.filterType == FilterType.DISTORT) {
-                codeToAddDistortFilters += cShader.Code;
+                codeToAddDistortFilters += cShader.Code; //must be inverted for some reason..
             } else {
                 codeToAddColorFilters += cShader.Code;
             }

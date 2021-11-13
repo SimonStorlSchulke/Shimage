@@ -31,6 +31,7 @@ public class MenuFile : Button
     }
 
     public void OnOpenFile() {
+        fileDialog.CurrentDir = AppHandler.imagePath.GetBaseDir();
         fileDialog.PopupCentered();
     }
 }

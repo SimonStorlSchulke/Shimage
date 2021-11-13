@@ -1,5 +1,5 @@
 extends Control
-
+# TODO rewrite in C#
 var generator
 
 export var shader_to_image: NodePath
@@ -18,6 +18,7 @@ func _ready():
 	pass
 
 func _on_Button_pressed():
+	# TODO set to current dir
 	$FileDialogSave.popup_centered()
 	generator.generate_image(view.material)
 	yield(generator, "generated")

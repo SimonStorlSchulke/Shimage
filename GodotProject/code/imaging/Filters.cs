@@ -46,7 +46,7 @@ public class Filters {
         "Filmic Tonemap",
          new Prop[] {
             new PropFloat("fm_brighthess", "Brightness", 0.8f, _slider: false, _max: 1000),
-            new PropFloat("fm_toe", "Toe", 5.5f, _slider: false, _max: 1000),
+            new PropFloat("fm_toe", "Toe", 5f, _slider: false, _max: 1000),
             new PropFloat("fm_shoulder", "Shoulder", 1.8f, _slider: false, _max: 1000),
             new PropFloat("fm_add", "Add", 0.15f, _slider: false, _max: 1000),
         },

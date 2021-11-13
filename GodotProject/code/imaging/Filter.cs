@@ -71,7 +71,6 @@ public class Filter : Node {
         }
         UIGrid.RectPosition = new Vector2(0, 32);
         this.UI.AddChild(UIGrid);
-
     }
 
     public void OnRemove() {
