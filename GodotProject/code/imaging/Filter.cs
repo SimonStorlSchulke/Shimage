@@ -49,8 +49,6 @@ public class Filter : Node {
         btnRow.AddChild(btnClose);
 
         btnClose.Connect("pressed", this, nameof(OnRemove));
-        //btnUp.Connect("pressed", this, nameof(OnMoveUp));
-        //btnDown.Connect("pressed", this, nameof(OnMoveDown));
         btnUp.Connect("pressed", FilterStack.instance, nameof(FilterStack.instance.MoveFilter), new Godot.Collections.Array{this, true});
         btnDown.Connect("pressed", FilterStack.instance, nameof(FilterStack.instance.MoveFilter), new Godot.Collections.Array{this, false});
 

@@ -30,6 +30,7 @@ public class Shaderer : Sprite {
 
     public void OnLoadImage(string path) {
         imgPath = path;
+        OS.SetWindowTitle("GDPhotoEdit - " + path);
         img.Load(path);
         if (img == null)
             GD.Print("Image is Null");
