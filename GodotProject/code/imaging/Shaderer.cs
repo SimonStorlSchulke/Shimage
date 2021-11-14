@@ -130,7 +130,7 @@ void fragment(){
     vec4 previous = COLOR;
     
     // Color Filters-----------------------------
-    " + codeToAddColorFilters +
+    " + codeToAddColorFilters + GetNode<TextEdit>("/root/Main/VBoxContainer/HBoxContainer/Sidebar/VBoxContainer/CustomCodeEdit").Text + //HORRIBLE absolute Nodepath - Fix!
     @"
     if (UV.x > effect_slider_val) {
         COLOR = previous;
@@ -139,6 +139,10 @@ void fragment(){
 
         GetNode<TextEdit>(CodeViewer).Text = Code;
         ((ShaderMaterial)this.Material).Shader.Code = Code;
+    }
+
+    void OnRecompile() {
+        GenerateShader(FilterStack.filterList);
     }
 
     bool mouseHover = false;
@@ -195,3 +199,4 @@ void fragment(){
         }
     }
 }
+

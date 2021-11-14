@@ -15,11 +15,15 @@
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
-uniform float tilesX_ = 2;
-uniform float tilesY_ = 2;
-uniform float offsetX_ = 0;
-uniform float offsetY_ = 0;
-uniform float hueshift_ = 0;
+uniform float vignettePosX_ = 0.5;
+uniform float vignettePosY_ = 0.5;
+uniform float vignettePower_ = 0.5;
+uniform float vignetteWidth_ = 0.4;
+uniform float vignetteBlur_ = 0.3;
+uniform float spotlight_ = 0;
+uniform vec4 vignetteColor_ : hint_color = vec4(0, 0, 0, 1);
+uniform bool vignetteUseDistortion_ = false;
+
 
 
 uniform float effect_slider_val = 1.0;
@@ -81,6 +85,17 @@ void fragment(){
     
     // Color Filters-----------------------------
     
+    //Vignette
+    if (vignetteUseDistortion_) {
+        f_1 = 1.0 - distance(fract(uv), vec2(vignettePosX_, 1.0 - vignettePosY_));
+    } 
+    else {
+        f_1 = 1.0 - distance(UV, vec2(vignettePosX_, 1.0 - vignettePosY_));
+    }
+    f_2 = map(f_1, 1.0 - (vignetteWidth_ + (vignetteBlur_ + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth_ * 1.5 + vignetteBlur_ + 0.001, 0.0, 1.0, true);
+    f_2 = f_2 * f_2;
+    COLOR = mix(vignetteColor_, COLOR, 1.0-(1.0-f_2)*vignettePower_) * vec4(1.0 + f_2 * spotlight_);
+    
     if (UV.x > effect_slider_val) {
         COLOR = previous;
     }
@@ -88,11 +103,14 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/tilesX_ = 2.0
-shader_param/tilesY_ = 2.0
-shader_param/offsetX_ = 0.0
-shader_param/offsetY_ = 0.0
-shader_param/hueshift_ = 0.0
+shader_param/vignettePosX_ = 0.5
+shader_param/vignettePosY_ = 0.5
+shader_param/vignettePower_ = 0.5
+shader_param/vignetteWidth_ = 0.4
+shader_param/vignetteBlur_ = 0.3
+shader_param/spotlight_ = 0.0
+shader_param/vignetteColor_ = Color( 0, 0, 0, 1 )
+shader_param/vignetteUseDistortion_ = false
 shader_param/effect_slider_val = 1.0
 
 [sub_resource type="StyleBoxFlat" id=3]
@@ -296,7 +314,7 @@ script = ExtResource( 6 )
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer"]
 margin_top = 26.0
 margin_right = 250.0
-margin_bottom = 843.0
+margin_bottom = 713.0
 size_flags_vertical = 3
 
 [node name="FilterStackContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer/ScrollContainer"]
@@ -306,6 +324,19 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CustomCodeEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer"]
+margin_top = 717.0
+margin_right = 250.0
+margin_bottom = 817.0
+rect_min_size = Vector2( 0, 100 )
+text = "COLOR = COLOR * 2.0;"
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer"]
+margin_top = 821.0
+margin_right = 250.0
+margin_bottom = 843.0
+text = "Compile"
 
 [node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/Sidebar"]
 anchor_left = 1.0
@@ -351,4 +382,5 @@ text = "Show Shadercode"
 [connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnMouseExited"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer2/BtnRecenter" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnReCenter"]
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/EffectSlider" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnEffectSliderChanged"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer/Button" to="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer" method="OnRecompile"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer/Sidebar/Panel/HBoxContainer/btnCodeView" to="VBoxContainer/HBoxContainer/VSplitContainer/CodeView" method="OnToggleCodeView"]
