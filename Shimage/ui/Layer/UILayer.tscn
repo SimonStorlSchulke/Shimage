@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://code/ui/layer/UILayer.cs" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.223529, 0.223529, 0.223529, 1 )
+
+[node name="PnlLayer" type="Panel"]
+margin_right = 285.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 100 )
+custom_styles/panel = SubResource( 7 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorFrame" type="ColorRect" parent="."]
+anchor_right = 1.0
+rect_min_size = Vector2( 0, 6 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VbLayer" type="VBoxContainer" parent="."]
+margin_right = 285.0
+margin_bottom = 71.0
+mouse_filter = 2
+custom_constants/separation = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HbLayerInfo" type="HBoxContainer" parent="VbLayer"]
+margin_right = 285.0
+margin_bottom = 44.0
+mouse_filter = 2
+
+[node name="LblLayerName" type="Label" parent="VbLayer/HbLayerInfo"]
+margin_right = 85.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 44 )
+text = "layername"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Control" parent="VbLayer/HbLayerInfo"]
+margin_left = 85.0
+margin_right = 209.0
+margin_bottom = 44.0
+mouse_filter = 1
+size_flags_horizontal = 3
+
+[node name="LblLayerType" type="Label" parent="VbLayer/HbLayerInfo"]
+margin_left = 209.0
+margin_right = 285.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 44 )
+text = "layertype"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HbBlend" type="HBoxContainer" parent="VbLayer"]
+margin_top = 56.0
+margin_right = 285.0
+margin_bottom = 92.0
+mouse_filter = 2
+custom_constants/separation = 5
+
+[node name="ObBlendMode" type="OptionButton" parent="VbLayer/HbBlend"]
+margin_right = 150.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 150, 0 )
+text = "Normal"
+
+[node name="HsBlendFactor" type="HSlider" parent="VbLayer/HbBlend"]
+margin_left = 155.0
+margin_right = 285.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[connection signal="gui_input" from="." to="." method="OnInput"]

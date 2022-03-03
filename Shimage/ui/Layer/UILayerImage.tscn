@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/Layer/UILayer.tscn" type="PackedScene" id=1]
+
+[node name="PnlLayer" instance=ExtResource( 1 )]
+rect_min_size = Vector2( 0, 148 )
+
+[node name="Spacer" parent="VbLayer/HbLayerInfo" index="1"]
+margin_right = 206.0
+
+[node name="LblLayerType" parent="VbLayer/HbLayerInfo" index="2"]
+margin_left = 206.0
+text = "ImageFile"
+
+[node name="HbPath" type="HBoxContainer" parent="VbLayer" index="1"]
+margin_top = 56.0
+margin_right = 285.0
+margin_bottom = 91.0
+
+[node name="Label" type="Label" parent="VbLayer/HbPath" index="0"]
+margin_right = 45.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 45, 0 )
+text = "Path"
+
+[node name="LineEdit" type="LineEdit" parent="VbLayer/HbPath" index="1"]
+margin_left = 45.0
+margin_right = 247.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="VbLayer/HbPath" index="2"]
+margin_left = 247.0
+margin_right = 285.0
+margin_bottom = 35.0
+text = " O "
+
+[node name="HbBlend" parent="VbLayer" index="2"]
+margin_top = 103.0
+margin_bottom = 139.0
