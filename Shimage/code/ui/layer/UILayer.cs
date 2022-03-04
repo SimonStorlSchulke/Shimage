@@ -51,7 +51,7 @@ public class UILayer : Node {
     }
 
 
-    protected void SetColor() {
+    public void SetColor() {
         Color c;
         if (active)
             c = statusColors[2];

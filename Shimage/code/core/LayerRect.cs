@@ -97,8 +97,6 @@ public class LayerRect : Node2D, ILayer {
         Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
         Vector2 coord = coordVp - GlobalPosition - rect.RectSize;
         coord /= rect.RectScale;
-        GD.Print(coordVp);
-        GD.Print(coord);
         return coord;
     }
 }

@@ -22,4 +22,13 @@ public class ToolsLayer : Control {
             activeTool.GetChild<Control>(0).RectScale = Vector2.One / Apphandler.currentViewer.RectScale;
     }
 
+    public static void DeactivateTool() {
+        GD.Print("Deactivate Tool");
+        foreach (Tool tool in instance.GetChildren()) {
+            tool.Visible = false;
+            tool.connectedTo = null;
+            tool.SetProcess(false);
+        }
+    }
+
 }

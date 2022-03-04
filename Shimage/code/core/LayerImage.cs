@@ -33,10 +33,7 @@ public class LayerImage : Sprite, ILayer {
 
 
     public override void _Ready() {
-        FilterExposure exp = new FilterExposure();
-        FilterExposure exp2 = new FilterExposure();
-        this.AddFilter(exp);
-        this.AddFilter(exp2);
+
     }
 
 

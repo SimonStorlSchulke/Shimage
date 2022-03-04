@@ -12,6 +12,8 @@ public class FilterManager : Node {
         foreach (Node filterUI in GetChildren()) {
             filterUI.Free();
         }
+        if (Apphandler.currentViewer.activeLayer == null)
+            return;
         if (Apphandler.currentViewer.activeLayer.Filters == null)
             return;
         foreach (Filter cFilter in Apphandler.currentViewer.activeLayer.Filters) {
