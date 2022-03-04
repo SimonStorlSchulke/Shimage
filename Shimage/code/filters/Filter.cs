@@ -48,13 +48,18 @@ public abstract class Filter : Node
         //TODO
     }
 
+    static StyleBoxFlat sb = new StyleBoxFlat();
     public Panel UI;
     public Panel BuildUI() {
         UI = new Panel();
+        sb.CornerRadiusBottomLeft = sb.CornerRadiusBottomRight = sb.CornerRadiusTopLeft = sb.CornerRadiusTopRight = 10;  // TODO style only once
+        sb.BgColor = new Color(0.13f, 0.13f, 0.13f, 0.65f);
+        UI.AddStyleboxOverride("panel", sb);
+
         UI.MarginBottom = 10;
 
         HBoxContainer TopRow = new HBoxContainer();
-        TopRow.RectMinSize = new Vector2(285, 24);
+        TopRow.RectMinSize = new Vector2(265, 24);
         TopRow.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
 
         Label labelName = new Label();
