@@ -7,6 +7,8 @@ public static class ShaderUtil {
 @"uniform float blendFactor = 1.0;
 const float PI = 3.14159265359;
 
+//variables to use
+
 float map_range(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
     float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
     if (clamp_result) {
@@ -68,6 +70,8 @@ float luminance(vec3 col) {
 }
 
 void fragment(){
+    float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
+    vec2 uv = UV;
     vec3 bg = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
     float layerAlpha = 1.0;
     ";

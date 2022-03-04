@@ -17,7 +17,7 @@ public class Viewer : ViewportContainer {
         Apphandler.instance.RegisterViewer(this);
         ViewSpacer = GetNode<Control>(NPViewSpace);
         Apphandler.currentViewer = this;
-        Recenter();
+        //Recenter();
     }
 
     public void CollectLayers() {
@@ -55,6 +55,7 @@ public class Viewer : ViewportContainer {
             float f = ViewSpacer.RectSize.y / 2 - ((Resolution.y * RectScale.y) / 2);
             RectPosition += new Vector2(0, f);
         }
+        ToolsLayer.UpdateTransform();
     }
 
 
@@ -62,6 +63,7 @@ public class Viewer : ViewportContainer {
     public Vector2 ViewerStartPos;
     void DragView() {
         RectPosition = ViewerStartPos + GetGlobalMousePosition() - mouseStartPos;
+        ToolsLayer.UpdateTransform();
     }
 
 
@@ -76,5 +78,14 @@ public class Viewer : ViewportContainer {
         Vector2 mousePosGloabal = ViewSpacer.GetGlobalMousePosition();
         RectScale *= factor;
         RectPosition = mousePosGloabal - (Resolution * RectScale) / 2 + (mousePosGloabal - RectPosition) * factor;
+        ToolsLayer.UpdateTransform();
+    }
+
+    public Vector2 GlobalCoordsToPixelPosition(Vector2 globalCords) {
+        return (globalCords - RectGlobalPosition) / RectScale;
+    }
+
+    public Vector2 GlobalCoordsToUVCoord(Vector2 globalCords) {
+        return GlobalCoordsToPixelPosition(globalCords) / Resolution;
     }
 }

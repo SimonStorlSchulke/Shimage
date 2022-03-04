@@ -44,28 +44,39 @@ public abstract class Filter : Node
             cProp.UpdateUIProp();
     }
 
+    public virtual void AddCustomPropUI(Control customUI, Prop forProp) {
+        //TODO
+    }
 
     public Panel UI;
     public Panel BuildUI() {
         UI = new Panel();
-        UI.RectMinSize = new Vector2(300, 48 + Props.Length * 35);
         UI.MarginBottom = 10;
 
-        HBoxContainer btnRow = new HBoxContainer();
-        btnRow.RectPosition = new Vector2(160, 0);
+        HBoxContainer TopRow = new HBoxContainer();
+        TopRow.RectMinSize = new Vector2(285, 24);
+        TopRow.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
 
-        Button btnClose = new Button();
-        btnClose.Text = " X ";
-        
+        Label labelName = new Label();
+        labelName.Name = "Labelname";
+        labelName.Text = Name;
+        TopRow.AddChild(labelName);
+
+        Control spacer = new Control();
+        spacer.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
+        TopRow.AddChild(spacer);
+
         Button btnUp = new Button();
         btnUp.Text = " ^ ";
+        TopRow.AddChild(btnUp);
 
         Button btnDown = new Button();
         btnDown.Text = " v ";
+        TopRow.AddChild(btnDown);
 
-        btnRow.AddChild(btnUp);
-        btnRow.AddChild(btnDown);
-        btnRow.AddChild(btnClose);
+        Button btnClose = new Button();
+        btnClose.Text = " X ";
+        TopRow.AddChild(btnClose);
 
         btnClose.Connect("pressed", this, nameof(OnRemove));
         //btnUp.Connect("pressed", FilterStack.instance, nameof(FilterStack.instance.MoveFilter), new Godot.Collections.Array{this, true});
@@ -74,22 +85,20 @@ public abstract class Filter : Node
         GridContainer UIGrid = new GridContainer();
         UIGrid.Columns = 2;
 
-        Label labelName = new Label();
-        labelName.Name = "Labelname";
-        labelName.Text = Name;
-        UI.AddChild(labelName);
-        UI.AddChild(btnRow);
+        
+        UI.AddChild(TopRow);
 
         foreach (var cProp in this.Props) {
-            HBoxContainer HBox = new HBoxContainer();
             Label propLabel = new Label();
             propLabel.Text = cProp.NameUI;
 
             UIGrid.AddChild(propLabel);
+            // TODO add custom PropUI here
             UIGrid.AddChild(cProp.BuildUI());
         }
         UIGrid.RectPosition = new Vector2(0, 48);
         UI.AddChild(UIGrid);
+        UI.RectMinSize = UIGrid.RectSize + new Vector2(0, UIGrid.RectPosition.y + 5);
         return UI;
     }
 }

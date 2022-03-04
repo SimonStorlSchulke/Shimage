@@ -16,3 +16,12 @@ A:\dev\Shimage\.mono\temp\obj\Debug\Shimage.AssemblyInfo.cs
 A:\dev\Shimage\.mono\temp\obj\Debug\Shimage.csproj.CoreCompileInputs.cache
 A:\dev\Shimage\.mono\temp\obj\Debug\Shimage.dll
 A:\dev\Shimage\.mono\temp\obj\Debug\Shimage.pdb
+C:\Users\simon\Dev\GodotPhotoEdit\Shimage\.mono\temp\bin\Debug\Shimage.dll
+C:\Users\simon\Dev\GodotPhotoEdit\Shimage\.mono\temp\bin\Debug\Shimage.pdb
+C:\Users\simon\Dev\GodotPhotoEdit\Shimage\.mono\temp\obj\Debug\Shimage.csproj.AssemblyReference.cache
+C:\Users\simon\Dev\GodotPhotoEdit\Shimage\.mono\temp\obj\Debug\Shimage.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\simon\Dev\GodotPhotoEdit\Shimage\.mono\temp\obj\Debug\Shimage.AssemblyInfoInputs.cache
+C:\Users\simon\Dev\GodotPhotoEdit\Shimage\.mono\temp\obj\Debug\Shimage.AssemblyInfo.cs
+C:\Users\simon\Dev\GodotPhotoEdit\Shimage\.mono\temp\obj\Debug\Shimage.csproj.CoreCompileInputs.cache
+C:\Users\simon\Dev\GodotPhotoEdit\Shimage\.mono\temp\obj\Debug\Shimage.dll
+C:\Users\simon\Dev\GodotPhotoEdit\Shimage\.mono\temp\obj\Debug\Shimage.pdb

@@ -82,4 +82,23 @@ public class LayerRect : Node2D, ILayer {
         l.UpdateLayer();
         return l;
     }
+
+
+    public Vector2 GlobalCoordsToPixelCoord(Vector2 globalCoords) {
+        //TODO not working
+        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
+        Vector2 coord = coordVp - GlobalPosition - rect.RectSize;
+        return coord;
+    }
+
+
+    public Vector2 GlobalCoordsToUVCoord(Vector2 globalCoords) {
+        //TODO not working
+        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
+        Vector2 coord = coordVp - GlobalPosition - rect.RectSize;
+        coord /= rect.RectScale;
+        GD.Print(coordVp);
+        GD.Print(coord);
+        return coord;
+    }
 }

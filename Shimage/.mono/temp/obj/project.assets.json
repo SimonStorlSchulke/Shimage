@@ -420,11 +420,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\simon\\dev\\Shimage\\Shimage.csproj",
+      "projectUniqueName": "C:\\Users\\simon\\Dev\\GodotPhotoEdit\\Shimage\\Shimage.csproj",
       "projectName": "Shimage",
-      "projectPath": "C:\\Users\\simon\\dev\\Shimage\\Shimage.csproj",
+      "projectPath": "C:\\Users\\simon\\Dev\\GodotPhotoEdit\\Shimage\\Shimage.csproj",
       "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\simon\\dev\\Shimage\\.mono\\temp\\obj\\",
+      "outputPath": "C:\\Users\\simon\\Dev\\GodotPhotoEdit\\Shimage\\.mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\simon\\AppData\\Roaming\\NuGet\\NuGet.Config"

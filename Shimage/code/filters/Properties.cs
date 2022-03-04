@@ -123,7 +123,7 @@ public class PropBool : Prop {
         CheckBox checkBox = new CheckBox();
         checkBox.Pressed = (bool)this.Value;
         checkBox.Connect(
-            "value_changed",
+            "toggled",
             this,
             nameof(Apply));
         UI = checkBox;
@@ -156,7 +156,7 @@ public class PropRGBA : Prop {
         picker.Color = (Color)this.Value;
 
         picker.Connect(
-            "value_changed",
+            "color_changed",
             this,
             nameof(Apply));
         UI = picker;
@@ -210,6 +210,48 @@ public class PropVector2 : Prop {
             "value_changed",
             this,
             nameof(Apply));
+        UI = VecUI;
+        return VecUI;
+    }
+
+    public override string GetUniformCode() {
+        return $"uniform vec2 {this.NameCode} = vec2({toNotStupidString(((Vector2)Value).x)}, {toNotStupidString(((Vector2)Value).y)});";
+    }
+}
+
+
+public class PropPosition : Prop {
+
+    public PropPosition(string _nameCode, string _nameUI, Vector2 _value) {
+        this.NameCode = _nameCode;
+        this.NameUI = _nameUI;
+        this.Value = _value;
+    }
+
+    public override void UpdateUIProp() {
+        //(UI as HBoxContainer).GetNode<SpinBox>("spX").Value = ((Vector2)Value).x;
+        //(UI as HBoxContainer).GetNode<SpinBox>("spY").Value = ((Vector2)Value).y;
+    }
+
+    void ShowMover() {
+        ToolsLayer.instance.GetNode<Mover>("Mover").ActivateTool(this);
+    }
+
+    public void OnMoverMoved(Vector2 to) {
+        Vector2 pos = Apphandler.currentViewer.activeLayer.GlobalCoordsToUVCoord(to);
+        StatusBarInfo.Display($"Position: x={pos.x} y={pos.y}");
+        Apply(pos);
+    }
+
+    public override Control BuildUI() {
+        HBoxContainer VecUI = new HBoxContainer();
+        Button btnSetPosition = new Button();
+        btnSetPosition.Text = "Set Position";
+        VecUI.AddChild(btnSetPosition);
+        btnSetPosition.Connect(
+            "pressed",
+            this,
+            nameof(ShowMover));
         UI = VecUI;
         return VecUI;
     }

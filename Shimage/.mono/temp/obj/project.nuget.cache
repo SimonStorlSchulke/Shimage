@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ccg9e1Ywl3pURvM45A8X1sz2mNQlmF+hNpe4+iBOg0LKxg/WL6bgO1cYQgv+b7b91mf3Gambhft4G4ybqjDHaw==",
+  "dgSpecHash": "xYA0RNk7q+MxUFBDr9+m80W05wVNrYsvf6ESOMOE0yYRhfa38qO7PLnVjEq5h2dtj3bJHrnIJ2WBtG25SMsWsQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\simon\\dev\\Shimage\\Shimage.csproj",
+  "projectFilePath": "C:\\Users\\simon\\Dev\\GodotPhotoEdit\\Shimage\\Shimage.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
     "C:\\Users\\simon\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"

@@ -44,5 +44,6 @@ public class Apphandler : Node {
         GetNode(NpViewport).GetChild<Viewer>(idx).Visible = true;
         GetNode<ViewTabs>(NPViewTabs).CurrentTab = idx;
         LayerManager.instance.BuildLayerStackUI();
+        ToolsLayer.UpdateTransform();
     }
 }
