@@ -6,10 +6,20 @@ public abstract class Tool : Control
     public Node connectedTo;
     public virtual void ActivateTool(Node connectedTo, Godot.Collections.Array args = null) {
         GD.Print("Activate Move Tool");
-        foreach (Control tool in GetParent().GetChildren()) {
-            tool.Visible = false;
+        foreach (Tool tool in ToolsLayer.instance.GetChildren()) {
+            tool.DeactivateTool();
         }
         this.connectedTo = connectedTo;
         this.Visible = true;
+        ToolsLayer.activeTool = this;
+    }
+
+    /// <summary> Don't forget to first disconnect existing Signals in child overrides of this method </summary>
+    public virtual void DeactivateTool() {
+        foreach (Tool tool in ToolsLayer.instance.GetChildren()) {
+            tool.Visible = false;
+            tool.connectedTo = null;
+            tool.SetProcess(false);
+        }
     }
 }

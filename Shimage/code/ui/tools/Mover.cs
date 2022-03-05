@@ -21,6 +21,12 @@ public class Mover : Tool {
         SetProcess(true);
     }
 
+    public override void DeactivateTool() {
+        if (connectedTo != null)
+            Disconnect(nameof(Moved), connectedTo, "OnMoverMoved");
+        base.DeactivateTool();
+    }
+
 
     public override void _Ready() {
         handle = GetNode<TextureRect>("ColorRect");

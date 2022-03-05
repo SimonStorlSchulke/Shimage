@@ -26,18 +26,8 @@ public class ToolsLayer : Control {
     public override void _Input(InputEvent e) {
         if (e is InputEventMouseButton me) {
             if (me.ButtonIndex == (int)ButtonList.Right && me.Pressed) {
-                DeactivateTool();
+                activeTool.DeactivateTool();
             }
         }
     }
-
-    public static void DeactivateTool() {
-        GD.Print("Deactivate Tool");
-        foreach (Tool tool in instance.GetChildren()) {
-            tool.Visible = false;
-            tool.connectedTo = null;
-            tool.SetProcess(false);
-        }
-    }
-
 }

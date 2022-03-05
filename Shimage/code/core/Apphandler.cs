@@ -30,7 +30,7 @@ public class Apphandler : Node {
 
     public override void _Input(InputEvent e) {
         if (e.IsAction("ui_cancel")) {
-            ToolsLayer.DeactivateTool();
+            ToolsLayer.activeTool.DeactivateTool();
             currentViewer.selectedLayers = new List<ILayer>();
             currentViewer.activeLayer = null;
             FilterManager.BuildFiltersUI();
@@ -62,6 +62,6 @@ public class Apphandler : Node {
         LayerManager.instance.BuildLayerStackUI();
         FilterManager.BuildFiltersUI();
         ToolsLayer.UpdateTransform();
-        ToolsLayer.DeactivateTool();
+        ToolsLayer.activeTool.DeactivateTool();
     }
 }

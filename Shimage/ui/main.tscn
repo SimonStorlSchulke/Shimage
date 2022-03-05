@@ -431,7 +431,7 @@ shader_param/blendFactor = 1.0
 
 [sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
-uniform float exposure1673 = 1.04;uniform float exposure1679 = 1;uniform float vignettePosX3938 = 0.5;uniform float vignettePosY3938 = 0.5;uniform float vignettePower3938 = 0.5;uniform float vignetteWidth3938 = 0.4;uniform float vignetteBlur3938 = 0.3;uniform float spotlight3938 = 0;uniform vec4 vignetteColor3938 : hint_color = vec4(0, 0, 0, 1);uniform bool vignetteUseDistortion3938 = false;uniform float blendFactor = 1.0;
+uniform vec2 vignettePos2606 = vec2(0.7275038, 0.2073412);uniform float vignettePower2606 = 0.5;uniform float vignetteWidth2606 = 0.4;uniform float vignetteBlur2606 = 0.3;uniform float spotlight2606 = 0;uniform vec4 vignetteColor2606 : hint_color = vec4(0, 0, 0, 1);uniform bool vignetteUseDistortion2606 = false;uniform vec2 vignettePos2953 = vec2(0.7275038, 0.2073412);uniform float vignettePower2953 = 0.5;uniform float vignetteWidth2953 = 0.4;uniform float vignetteBlur2953 = 0.3;uniform float spotlight2953 = 0;uniform vec4 vignetteColor2953 : hint_color = vec4(0, 0, 0, 1);uniform bool vignetteUseDistortion2953 = false;uniform float blendFactor = 1.0;
 const float PI = 3.14159265359;
 
 //variables to use
@@ -503,22 +503,27 @@ void fragment(){
     float layerAlpha = 1.0;
     vec3 fg = texture(TEXTURE, UV).rgb;
     layerAlpha = texture(TEXTURE, UV).a;
-        // Exposure
-        fg *= vec3(exposure1673, exposure1673, exposure1673);
-        
-        // Exposure
-        fg *= vec3(exposure1679, exposure1679, exposure1679);
-        
     //Vignette
-    if (vignetteUseDistortion3938) {
-        f_1 = 1.0 - distance(fract(uv), vec2(vignettePosX3938, 1.0 - vignettePosY3938));
+    if (vignetteUseDistortion2606) {
+        f_1 = 1.0 - distance(fract(uv), vec2(vignettePos2606.x, vignettePos2606.y));
     } 
     else {
-        f_1 = 1.0 - distance(UV, vec2(vignettePosX3938, 1.0 - vignettePosY3938));
+        f_1 = 1.0 - distance(UV, vec2(vignettePos2606.x, vignettePos2606.y));
     }
-    f_2 = map_range(f_1, 1.0 - (vignetteWidth3938 + (vignetteBlur3938 + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth3938 * 1.5 + vignetteBlur3938 + 0.001, 0.0, 1.0, true);
+    f_2 = map_range(f_1, 1.0 - (vignetteWidth2606 + (vignetteBlur2606 + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth2606 * 1.5 + vignetteBlur2606 + 0.001, 0.0, 1.0, true);
     f_2 = smoothstep(0.0, 1.0, f_2);
-    fg = mix(vignetteColor3938.rgb, fg, 1.0-(1.0-f_2)*vignettePower3938) * vec3(1.0 + f_2 * spotlight3938);
+    fg = mix(vignetteColor2606.rgb, fg, 1.0-(1.0-f_2)*vignettePower2606) * vec3(1.0 + f_2 * spotlight2606);
+    
+    //Vignette
+    if (vignetteUseDistortion2953) {
+        f_1 = 1.0 - distance(fract(uv), vec2(vignettePos2953.x, vignettePos2953.y));
+    } 
+    else {
+        f_1 = 1.0 - distance(UV, vec2(vignettePos2953.x, vignettePos2953.y));
+    }
+    f_2 = map_range(f_1, 1.0 - (vignetteWidth2953 + (vignetteBlur2953 + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth2953 * 1.5 + vignetteBlur2953 + 0.001, 0.0, 1.0, true);
+    f_2 = smoothstep(0.0, 1.0, f_2);
+    fg = mix(vignetteColor2953.rgb, fg, 1.0-(1.0-f_2)*vignettePower2953) * vec3(1.0 + f_2 * spotlight2953);
     
     COLOR.rgb = fg;
     COLOR.a = layerAlpha * blendFactor;
@@ -526,16 +531,20 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 2 )
-shader_param/exposure1673 = 1.04
-shader_param/exposure1679 = 1.0
-shader_param/vignettePosX3938 = 0.5
-shader_param/vignettePosY3938 = 0.5
-shader_param/vignettePower3938 = 0.5
-shader_param/vignetteWidth3938 = 0.4
-shader_param/vignetteBlur3938 = 0.3
-shader_param/spotlight3938 = 0.0
-shader_param/vignetteColor3938 = Color( 0, 0, 0, 1 )
-shader_param/vignetteUseDistortion3938 = false
+shader_param/vignettePos2606 = Vector2( 0.727504, 0.207341 )
+shader_param/vignettePower2606 = 0.5
+shader_param/vignetteWidth2606 = 0.4
+shader_param/vignetteBlur2606 = 0.3
+shader_param/spotlight2606 = 0.0
+shader_param/vignetteColor2606 = Color( 0, 0, 0, 1 )
+shader_param/vignetteUseDistortion2606 = false
+shader_param/vignettePos2953 = Vector2( 0.727504, 0.207341 )
+shader_param/vignettePower2953 = 0.5
+shader_param/vignetteWidth2953 = 0.4
+shader_param/vignetteBlur2953 = 0.3
+shader_param/spotlight2953 = 0.0
+shader_param/vignetteColor2953 = Color( 0, 0, 0, 1 )
+shader_param/vignetteUseDistortion2953 = false
 shader_param/blendFactor = 1.0
 
 [sub_resource type="StyleBoxFlat" id=6]
@@ -800,7 +809,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PnlShaderCode" type="Panel" parent="VBoxContainer/HBoxContainer"]
-visible = false
 margin_left = 300.0
 margin_right = 900.0
 margin_bottom = 1025.0
@@ -846,13 +854,13 @@ margin_bottom = 1025.0
 text = "Compile"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
-margin_left = 300.0
+margin_left = 900.0
 margin_right = 1920.0
 margin_bottom = 1025.0
 size_flags_horizontal = 3
 
 [node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_right = 1620.0
+margin_right = 1020.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 0, 38 )
 size_flags_horizontal = 3
@@ -870,7 +878,7 @@ __meta__ = {
 
 [node name="ViewSpace" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 margin_top = 38.0
-margin_right = 1620.0
+margin_right = 1020.0
 margin_bottom = 993.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -909,13 +917,13 @@ expand = true
 
 [node name="Control" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 margin_top = 993.0
-margin_right = 1620.0
+margin_right = 1020.0
 margin_bottom = 1025.0
 rect_min_size = Vector2( 0, 32 )
 
 [node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/Control"]
-margin_left = 794.0
-margin_right = 826.0
+margin_left = 494.0
+margin_right = 526.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 texture_normal = ExtResource( 3 )
