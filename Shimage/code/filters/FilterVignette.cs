@@ -5,7 +5,7 @@ public class FilterVignette : Filter
 {
     public FilterVignette() {
 
-        Name = "Exposure";
+        Name = "Vignette";
 
         type = FilterType.COLOR;
         

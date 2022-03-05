@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Globalization;
 
 public abstract class Prop : Node {
     public string NameCode;
@@ -18,9 +16,9 @@ public abstract class Prop : Node {
         Value = value;
     }
 
-    /// <summary> The fact that this is necessary is stupid.</summary>
+    /// <summary> The fact that this is necessary is stupid (Use . instead of , in float to strings).</summary>
     public static string toNotStupidString(float val) {
-        return val.ToString(CultureInfo.InvariantCulture);
+        return val.ToString(System.Globalization.CultureInfo.InvariantCulture);
     }
 }
 
@@ -234,11 +232,12 @@ public class PropPosition : Prop {
     }
 
     void ShowMover() {
-        ToolsLayer.instance.GetNode<Mover>("Mover").ActivateTool(this);
+        Vector2 moverStartPos = Apphandler.currentViewer.activeLayer.UVCoordToGlobalCoord((Vector2)Value);
+        ToolsLayer.instance.GetNode<Mover>("Mover").ActivateTool(this, new Godot.Collections.Array{moverStartPos});
     }
 
     public void OnMoverMoved(Vector2 to) {
-        Vector2 pos = Apphandler.currentViewer.activeLayer.GlobalCoordsToUVCoord(to);
+        Vector2 pos = Apphandler.currentViewer.activeLayer.GlobalCoordToUVCoord(to);
         StatusBarInfo.Display($"Position: x={pos.x} y={pos.y}");
         Apply(pos);
     }

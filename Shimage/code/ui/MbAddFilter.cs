@@ -20,7 +20,7 @@ public class MbAddFilter : MenuButton {
         if(Apphandler.currentViewer.activeLayer != null) {
             Filter filterInstance = (Filter)Activator.CreateInstance(filterMenuList[filterIdx].Item3);
             Apphandler.currentViewer.activeLayer.AddFilter(filterInstance);
-            FilterManager.instance.BuildFiltersUI();
+            FilterManager.BuildFiltersUI();
         }
     }
 

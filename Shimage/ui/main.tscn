@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://testimages/Maki.jpg" type="Texture" id=1]
 [ext_resource path="res://theme/font_statusbar.tres" type="DynamicFont" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://code/ui/tools/Mover.cs" type="Script" id=21]
 [ext_resource path="res://code/ui/tools/ToolsLayer.cs" type="Script" id=22]
 [ext_resource path="res://code/ui/StatusBarInfo.cs" type="Script" id=23]
+[ext_resource path="res://theme/icons/mover.png" type="Texture" id=24]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.13, 0.13, 0.13, 1 )
@@ -709,7 +710,7 @@ __meta__ = {
 
 [node name="WindowFrame" type="Control" parent="VBoxContainer/MenuBar/HBoxContainer"]
 margin_left = 140.0
-margin_right = 1848.0
+margin_right = 1920.0
 margin_bottom = 35.0
 size_flags_horizontal = 3
 script = ExtResource( 8 )
@@ -743,12 +744,6 @@ text = " X "
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Button" type="Button" parent="VBoxContainer/MenuBar/HBoxContainer"]
-margin_left = 1848.0
-margin_right = 1920.0
-margin_bottom = 35.0
-text = "build UI"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 31.0
@@ -898,20 +893,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace/Tools/Mover"]
+[node name="ColorRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace/Tools/Mover"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 495.0
 margin_top = 409.0
-margin_right = 518.0
-margin_bottom = 432.0
+margin_right = 543.0
+margin_bottom = 457.0
+rect_pivot_offset = Vector2( 24, 24 )
 mouse_default_cursor_shape = 3
-color = Color( 0.168627, 0.168627, 0.168627, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource( 24 )
+expand = true
 
 [node name="Control" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 margin_top = 993.0
@@ -1044,7 +1038,6 @@ script = ExtResource( 14 )
 [connection signal="gui_input" from="VBoxContainer/MenuBar/HBoxContainer/WindowFrame" to="VBoxContainer/MenuBar/HBoxContainer/WindowFrame" method="OnInput"]
 [connection signal="pressed" from="VBoxContainer/MenuBar/HBoxContainer/BtnMinimize" to="VBoxContainer/MenuBar/HBoxContainer/WindowFrame" method="Minimize"]
 [connection signal="pressed" from="VBoxContainer/MenuBar/HBoxContainer/BtnMaximize" to="VBoxContainer/MenuBar/HBoxContainer/WindowFrame" method="ToggleMaximize"]
-[connection signal="pressed" from="VBoxContainer/MenuBar/HBoxContainer/Button" to="VBoxContainer/HBoxContainer/PnlLeft/TabsLeft/Layers/VbLayers" method="BuildLayerStackUI"]
 [connection signal="tab_changed" from="VBoxContainer/HBoxContainer/VBoxContainer/Panel/ViewTabs" to="AppHandler" method="SetActiveViewer"]
 [connection signal="gui_input" from="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace" to="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace" method="OnInput"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Control/TextureButton" to="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace" method="OnRecenter"]

@@ -47,7 +47,7 @@ public class UILayer : Node {
         }
         SetColor();
         GetParent<LayerManager>().UpdateLayerSelectionStati();
-        FilterManager.instance.BuildFiltersUI();
+        FilterManager.BuildFiltersUI();
     }
 
 
@@ -61,6 +61,7 @@ public class UILayer : Node {
             c = statusColors[0];
         GetNode<ColorRect>("ColorFrame").Color = c;
     }
+
 
     public void OnInput(InputEvent e) {
         if (e is InputEventMouseButton) {

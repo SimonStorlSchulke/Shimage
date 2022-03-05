@@ -28,6 +28,22 @@ public class Apphandler : Node {
         GetNode<ViewTabs>(NPViewTabs).RedrawTabs();
     }
 
+    public override void _Input(InputEvent e) {
+        if (e.IsAction("ui_cancel")) {
+            ToolsLayer.DeactivateTool();
+            currentViewer.selectedLayers = new List<ILayer>();
+            currentViewer.activeLayer = null;
+            FilterManager.BuildFiltersUI();
+            int i = 0;
+            foreach (ILayer layer in currentViewer.Layers) {
+                LayerManager.instance.GetChild<UILayer>(i).active = false;
+                LayerManager.instance.GetChild<UILayer>(i).selected = false;
+                LayerManager.instance.GetChild<UILayer>(i).SetColor();
+                i++;
+            }
+        }
+    }
+
     public void Quit() {
         GetTree().Quit();
     }
@@ -44,7 +60,7 @@ public class Apphandler : Node {
         GetNode(NpViewport).GetChild<Viewer>(idx).Visible = true;
         GetNode<ViewTabs>(NPViewTabs).CurrentTab = idx;
         LayerManager.instance.BuildLayerStackUI();
-        FilterManager.instance.BuildFiltersUI();
+        FilterManager.BuildFiltersUI();
         ToolsLayer.UpdateTransform();
         ToolsLayer.DeactivateTool();
     }

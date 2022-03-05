@@ -19,7 +19,16 @@ public class ToolsLayer : Control {
         if (activeTool != null)
             instance.RectScale = Apphandler.currentViewer.RectScale;
             instance.RectGlobalPosition = Apphandler.currentViewer.RectGlobalPosition;
-            activeTool.GetChild<Control>(0).RectScale = Vector2.One / Apphandler.currentViewer.RectScale;
+            Control handle = activeTool.GetChild<Control>(0);
+            handle.RectScale = Vector2.One / Apphandler.currentViewer.RectScale;
+    }
+
+    public override void _Input(InputEvent e) {
+        if (e is InputEventMouseButton me) {
+            if (me.ButtonIndex == (int)ButtonList.Right && me.Pressed) {
+                DeactivateTool();
+            }
+        }
     }
 
     public static void DeactivateTool() {

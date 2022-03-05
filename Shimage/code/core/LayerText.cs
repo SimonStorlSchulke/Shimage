@@ -79,7 +79,7 @@ public class LayerText : Node2D, ILayer {
     }
 
 
-    public Vector2 GlobalCoordsToPixelCoord(Vector2 globalCoords) {
+    public Vector2 GlobalCoordToPixelCoord(Vector2 globalCoords) {
         // TODO not working
         Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
         Vector2 coord = coordVp - GlobalPosition - lbl.RectScale;
@@ -87,11 +87,16 @@ public class LayerText : Node2D, ILayer {
     }
 
 
-    public Vector2 GlobalCoordsToUVCoord(Vector2 globalCoords) {
+    public Vector2 GlobalCoordToUVCoord(Vector2 globalCoords) {
         // TODO not working
         Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
         Vector2 coord = coordVp - GlobalPosition - lbl.RectScale;
         //coord /= this.GetRect().Size;
         return coord;
+    }
+
+
+    public Vector2 UVCoordToGlobalCoord(Vector2 pixelCoords) {
+        return Vector2.Zero;
     }
 }

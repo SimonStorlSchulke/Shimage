@@ -90,18 +90,38 @@ public class LayerImage : Sprite, ILayer {
         blendmode = mode;
     }
     
-
-    public Vector2 GlobalCoordsToPixelCoord(Vector2 globalCoords) {
-        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
-        // Rotate Mouse Pos around Sprites Center by SPrites Rotation ammount. No idea why negative rotation has to be used
-        coordVp = this.GlobalPosition + (coordVp - this.GlobalPosition).Rotated(-this.Rotation);
-        Vector2 coord = coordVp - this.GlobalPosition - this.GetRect().Position;
-        // My brain hurts
-        return coord;
+    
+    public Vector2 PixelCoordToGlobalCoord(Vector2 coord) {
+        Vector2 c = coord + this.GlobalPosition + this.GetRect().Position;
+        c = this.GlobalPosition + (c - this.GlobalPosition).Rotated(this.Rotation);
+        c *= Apphandler.currentViewer.RectScale;
+        c += Apphandler.currentViewer.RectGlobalPosition;
+        return c;
     }
 
 
-    public Vector2 GlobalCoordsToUVCoord(Vector2 globalCoords) {
-        return GlobalCoordsToPixelCoord(globalCoords) / GetRect().Size;
+    public Vector2 GlobalCoordToPixelCoord(Vector2 globalCoords) {
+        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
+        // Rotate Mouse Pos around Sprites Center by SPrites Rotation ammount. No idea why negative rotation has to be used
+        coordVp = this.GlobalPosition + (coordVp - this.GlobalPosition).Rotated(-this.Rotation);
+        coordVp = coordVp - this.GlobalPosition - this.GetRect().Position;
+        
+        // My brain hurts
+        return coordVp;
+    }
+
+    public Vector2 UVCoordToGlobalCoord(Vector2 coord) {
+        Vector2 c = (coord * GetRect().Size) + this.GlobalPosition + this.GetRect().Position;
+        c = this.GlobalPosition + (c - this.GlobalPosition).Rotated(this.Rotation);
+        c *= Apphandler.currentViewer.RectScale;
+        c += Apphandler.currentViewer.RectGlobalPosition;
+
+        // My brain hurts even more now :)
+        return c;
+    }
+
+
+    public Vector2 GlobalCoordToUVCoord(Vector2 globalCoords) {
+        return GlobalCoordToPixelCoord(globalCoords) / GetRect().Size;
     }
 }

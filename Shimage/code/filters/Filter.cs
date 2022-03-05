@@ -8,7 +8,7 @@ public enum FilterType {
 
 public abstract class Filter : Node
 {
-    public static new string Name;
+    public new string Name;
     public FilterType type;
     public Prop[] Props = {};
     public string Code;

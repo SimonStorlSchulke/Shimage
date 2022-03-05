@@ -8,8 +8,8 @@ public class FilterManager : Node {
         instance = this;
     }
 
-    public void BuildFiltersUI() {
-        foreach (Node filterUI in GetChildren()) {
+    public static void BuildFiltersUI() {
+        foreach (Node filterUI in instance.GetChildren()) {
             filterUI.Free();
         }
         if (Apphandler.currentViewer.activeLayer == null)
@@ -17,7 +17,7 @@ public class FilterManager : Node {
         if (Apphandler.currentViewer.activeLayer.Filters == null)
             return;
         foreach (Filter cFilter in Apphandler.currentViewer.activeLayer.Filters) {
-            AddChild(cFilter.BuildUI());
+            instance.AddChild(cFilter.BuildUI());
             GD.Print(cFilter.Props[0].Value);
             cFilter.UpdateUI();
         }
