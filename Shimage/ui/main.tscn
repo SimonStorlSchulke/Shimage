@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://testimages/Maki.jpg" type="Texture" id=1]
 [ext_resource path="res://theme/font_statusbar.tres" type="DynamicFont" id=2]
@@ -24,6 +24,9 @@
 [ext_resource path="res://code/ui/tools/ToolsLayer.cs" type="Script" id=22]
 [ext_resource path="res://code/ui/StatusBarInfo.cs" type="Script" id=23]
 [ext_resource path="res://theme/icons/mover.png" type="Texture" id=24]
+[ext_resource path="res://code/core/ImageIO.cs" type="Script" id=25]
+[ext_resource path="res://code/core/LayerBG.cs" type="Script" id=26]
+[ext_resource path="res://ui/Layer/UILayerBG.tscn" type="PackedScene" id=27]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.13, 0.13, 0.13, 1 )
@@ -100,18 +103,15 @@ void fragment(){
     float layerAlpha = 1.0;
     vec3 fg = texture(TEXTURE, UV).rgb;
     layerAlpha = texture(TEXTURE, UV).a;
-        // Exposure
-        fg *= vec3(exposure, exposure, exposure);
-        
-        // Exposure
-        fg *= vec3(exposure, exposure, exposure);
-        
     COLOR.rgb = bg + fg;
     COLOR.a = layerAlpha * blendFactor;
 }"
 
 [sub_resource type="ShaderMaterial" id=30]
 shader = SubResource( 29 )
+shader_param/exposure15531553 = 1.0
+shader_param/exposure15561556 = 1.0
+shader_param/blendFactor = 1.0
 
 [sub_resource type="Shader" id=23]
 code = "shader_type canvas_item;
@@ -431,7 +431,7 @@ shader_param/blendFactor = 1.0
 
 [sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
-uniform vec2 vignettePos2606 = vec2(0.7275038, 0.2073412);uniform float vignettePower2606 = 0.5;uniform float vignetteWidth2606 = 0.4;uniform float vignetteBlur2606 = 0.3;uniform float spotlight2606 = 0;uniform vec4 vignetteColor2606 : hint_color = vec4(0, 0, 0, 1);uniform bool vignetteUseDistortion2606 = false;uniform vec2 vignettePos2953 = vec2(0.7275038, 0.2073412);uniform float vignettePower2953 = 0.5;uniform float vignetteWidth2953 = 0.4;uniform float vignetteBlur2953 = 0.3;uniform float spotlight2953 = 0;uniform vec4 vignetteColor2953 : hint_color = vec4(0, 0, 0, 1);uniform bool vignetteUseDistortion2953 = false;uniform float blendFactor = 1.0;
+uniform float noiseDistortAmmount3850 = 0.39;uniform float noiseDistortOffset3850 = -10000;uniform float noiseDistortScale3850 = 10;uniform int noiseDistortOctaves3850 = 3;uniform float blendFactor = 1.0;
 const float PI = 3.14159265359;
 
 //variables to use
@@ -501,50 +501,22 @@ void fragment(){
     vec2 uv = UV;
     vec3 bg = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
     float layerAlpha = 1.0;
-    vec3 fg = texture(TEXTURE, UV).rgb;
-    layerAlpha = texture(TEXTURE, UV).a;
-    //Vignette
-    if (vignetteUseDistortion2606) {
-        f_1 = 1.0 - distance(fract(uv), vec2(vignettePos2606.x, vignettePos2606.y));
-    } 
-    else {
-        f_1 = 1.0 - distance(UV, vec2(vignettePos2606.x, vignettePos2606.y));
-    }
-    f_2 = map_range(f_1, 1.0 - (vignetteWidth2606 + (vignetteBlur2606 + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth2606 * 1.5 + vignetteBlur2606 + 0.001, 0.0, 1.0, true);
-    f_2 = smoothstep(0.0, 1.0, f_2);
-    fg = mix(vignetteColor2606.rgb, fg, 1.0-(1.0-f_2)*vignettePower2606) * vec3(1.0 + f_2 * spotlight2606);
-    
-    //Vignette
-    if (vignetteUseDistortion2953) {
-        f_1 = 1.0 - distance(fract(uv), vec2(vignettePos2953.x, vignettePos2953.y));
-    } 
-    else {
-        f_1 = 1.0 - distance(UV, vec2(vignettePos2953.x, vignettePos2953.y));
-    }
-    f_2 = map_range(f_1, 1.0 - (vignetteWidth2953 + (vignetteBlur2953 + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth2953 * 1.5 + vignetteBlur2953 + 0.001, 0.0, 1.0, true);
-    f_2 = smoothstep(0.0, 1.0, f_2);
-    fg = mix(vignetteColor2953.rgb, fg, 1.0-(1.0-f_2)*vignettePower2953) * vec3(1.0 + f_2 * spotlight2953);
-    
+    //vec3 fg = texture(TEXTURE, uv).rgb;
+    layerAlpha = texture(TEXTURE, uv).a;
+        // Noise Distort
+        uv = mix(uv, vec2(fbm(uv * noiseDistortScale3850 + noiseDistortOffset3850, noiseDistortOctaves3850)), noiseDistortAmmount3850*noiseDistortAmmount3850);
+    vec3 fg = textureLod(TEXTURE, UV, 0.2).rgb;
     COLOR.rgb = fg;
     COLOR.a = layerAlpha * blendFactor;
+	COLOR = textureLod(TEXTURE, UV, 3.0);
 }"
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 2 )
-shader_param/vignettePos2606 = Vector2( 0.727504, 0.207341 )
-shader_param/vignettePower2606 = 0.5
-shader_param/vignetteWidth2606 = 0.4
-shader_param/vignetteBlur2606 = 0.3
-shader_param/spotlight2606 = 0.0
-shader_param/vignetteColor2606 = Color( 0, 0, 0, 1 )
-shader_param/vignetteUseDistortion2606 = false
-shader_param/vignettePos2953 = Vector2( 0.727504, 0.207341 )
-shader_param/vignettePower2953 = 0.5
-shader_param/vignetteWidth2953 = 0.4
-shader_param/vignetteBlur2953 = 0.3
-shader_param/spotlight2953 = 0.0
-shader_param/vignetteColor2953 = Color( 0, 0, 0, 1 )
-shader_param/vignetteUseDistortion2953 = false
+shader_param/noiseDistortAmmount3850 = 0.39
+shader_param/noiseDistortOffset3850 = -10000.0
+shader_param/noiseDistortScale3850 = 10.0
+shader_param/noiseDistortOctaves3850 = 3
 shader_param/blendFactor = 1.0
 
 [sub_resource type="StyleBoxFlat" id=6]
@@ -664,6 +636,19 @@ position = Vector2( 900, 600 )
 rotation = 1.14668
 texture = ExtResource( 11 )
 script = ExtResource( 5 )
+
+[node name="BackBufferCopy5" type="BackBufferCopy" parent="Viewport/Lola/Viewport"]
+copy_mode = 2
+
+[node name="Node2D" type="Node2D" parent="Viewport/Lola/Viewport/BackBufferCopy5"]
+script = ExtResource( 26 )
+
+[node name="ColorRect" type="ColorRect" parent="Viewport/Lola/Viewport/BackBufferCopy5/Node2D"]
+material = SubResource( 28 )
+margin_right = 2.14748e+09
+margin_bottom = 2.14748e+09
+rect_min_size = Vector2( 2.14748e+09, 2.14748e+09 )
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -792,6 +777,7 @@ script = ExtResource( 15 )
 UILayerImage = ExtResource( 18 )
 UILayerRect = ExtResource( 13 )
 UILayerText = ExtResource( 19 )
+UILayerBG = ExtResource( 27 )
 
 [node name="Masks" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/PnlLeft/TabsLeft"]
 visible = false
@@ -808,54 +794,9 @@ margin_bottom = 973.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PnlShaderCode" type="Panel" parent="VBoxContainer/HBoxContainer"]
-margin_left = 300.0
-margin_right = 900.0
-margin_bottom = 1025.0
-rect_min_size = Vector2( 600, 0 )
-custom_styles/panel = SubResource( 13 )
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PnlShaderCode"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer"]
-margin_right = 600.0
-margin_bottom = 1025.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer/VBoxContainer"]
-margin_right = 600.0
-margin_bottom = 35.0
-text = "Shadercode"
-
-[node name="TEShaderCode" type="TextEdit" parent="VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer/VBoxContainer"]
-margin_top = 35.0
-margin_right = 600.0
-margin_bottom = 990.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/read_only = SubResource( 14 )
-custom_styles/focus = SubResource( 14 )
-custom_styles/normal = SubResource( 14 )
-custom_styles/completion = SubResource( 14 )
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer/VBoxContainer"]
-margin_top = 990.0
-margin_right = 600.0
-margin_bottom = 1025.0
-text = "Compile"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
-margin_left = 900.0
-margin_right = 1920.0
+margin_left = 300.0
+margin_right = 1320.0
 margin_bottom = 1025.0
 size_flags_horizontal = 3
 
@@ -873,7 +814,7 @@ margin_bottom = -1.0
 size_flags_horizontal = 3
 script = ExtResource( 10 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="ViewSpace" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -928,6 +869,51 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 texture_normal = ExtResource( 3 )
 expand = true
+
+[node name="PnlShaderCode" type="Panel" parent="VBoxContainer/HBoxContainer"]
+margin_left = 1320.0
+margin_right = 1920.0
+margin_bottom = 1025.0
+rect_min_size = Vector2( 600, 0 )
+custom_styles/panel = SubResource( 13 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PnlShaderCode"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer"]
+margin_right = 600.0
+margin_bottom = 1025.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 35.0
+text = "Shadercode"
+
+[node name="TEShaderCode" type="TextEdit" parent="VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer/VBoxContainer"]
+margin_top = 35.0
+margin_right = 600.0
+margin_bottom = 990.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/read_only = SubResource( 14 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/normal = SubResource( 14 )
+custom_styles/completion = SubResource( 14 )
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer/VBoxContainer"]
+margin_top = 990.0
+margin_right = 600.0
+margin_bottom = 1025.0
+text = "Compile"
 
 [node name="StatusBar" type="Panel" parent="VBoxContainer"]
 margin_top = 1056.0
@@ -992,11 +978,6 @@ anchor_bottom = 1.0
 rect_min_size = Vector2( 5, 0 )
 color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
 
-[node name="AppHandler" parent="." instance=ExtResource( 6 )]
-NPViewTabs = NodePath("../VBoxContainer/HBoxContainer/VBoxContainer/Panel/ViewTabs")
-NpViewport = NodePath("../Viewport")
-shaderCodePanel = NodePath("../VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer/VBoxContainer/TEShaderCode")
-
 [node name="PnlFilter" type="Control" parent="."]
 margin_left = 300.0
 margin_top = 69.0
@@ -1042,6 +1023,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 8
 script = ExtResource( 14 )
+
+[node name="AppHandler" parent="." instance=ExtResource( 6 )]
+NPViewTabs = NodePath("../VBoxContainer/HBoxContainer/VBoxContainer/Panel/ViewTabs")
+NpViewport = NodePath("../Viewport")
+shaderCodePanel = NodePath("../VBoxContainer/HBoxContainer/PnlShaderCode/HBoxContainer/VBoxContainer/TEShaderCode")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource( 25 )
 
 [connection signal="gui_input" from="VBoxContainer/MenuBar/HBoxContainer/WindowFrame" to="VBoxContainer/MenuBar/HBoxContainer/WindowFrame" method="OnInput"]
 [connection signal="pressed" from="VBoxContainer/MenuBar/HBoxContainer/BtnMinimize" to="VBoxContainer/MenuBar/HBoxContainer/WindowFrame" method="Minimize"]

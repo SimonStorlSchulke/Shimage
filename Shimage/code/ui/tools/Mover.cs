@@ -22,6 +22,7 @@ public class Mover : Tool {
     }
 
     public override void DeactivateTool() {
+        moving = false;
         if (connectedTo != null)
             Disconnect(nameof(Moved), connectedTo, "OnMoverMoved");
         base.DeactivateTool();

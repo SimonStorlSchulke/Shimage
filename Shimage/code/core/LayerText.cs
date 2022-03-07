@@ -53,7 +53,7 @@ public class LayerText : Node2D, ILayer {
     public void UpdateLayer() {
         shaderCode = ShaderUtil.generateShaderCode(
     $@"vec3 fg = {ShaderUtil.ColorToVec4(color)}.rgb;
-    layerAlpha = texture(TEXTURE, UV).a;", blendmode, Filters);
+    layerAlpha = texture(TEXTURE, uv).a;", blendmode, Filters);
         UpdateMaterial();
         (lbl.Material as ShaderMaterial).SetShaderParam("blendFactor", blendFactor);
     }

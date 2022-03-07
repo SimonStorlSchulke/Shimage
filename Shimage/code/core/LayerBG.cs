@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 
 
-public class LayerRect : Node2D, ILayer {
+public class LayerBG : Node2D, ILayer {
 
     ColorRect rect;
 
@@ -72,8 +72,8 @@ public class LayerRect : Node2D, ILayer {
         blendmode = mode;
     }
 
-    public static LayerRect New(string name, Color color = new Color()) {
-        LayerRect l = new LayerRect();
+    public static LayerBG New(string name, Color color = new Color()) {
+        LayerBG l = new LayerBG();
         l.Name = name;
         ColorRect rect = new ColorRect();
         l.AddChild(rect);

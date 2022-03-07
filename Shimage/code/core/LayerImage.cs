@@ -21,14 +21,24 @@ public class LayerImage : Sprite, ILayer {
     Image img = new Image();
     ImageTexture tex = new ImageTexture();
 
-    public static LayerImage New(string name, string path) {
+    public static LayerImage New(string path) {
 
         LayerImage l = new LayerImage();
-        l.Name = name;
+        l.Name = path.GetFile();
         l.path = path;
         l.SetTexture(path);
         l.UpdateLayer();
         return l;
+    }
+
+    public void UpdatePath(string path) {
+        img.Load(path);
+        if (img == null) {
+            GD.Print("Image is Null");
+            return;
+        }
+        tex.CreateFromImage(img);
+        this.Texture = tex;
     }
 
 
@@ -53,8 +63,8 @@ public class LayerImage : Sprite, ILayer {
 
     public void UpdateLayer() {
         shaderCode = ShaderUtil.generateShaderCode(
-    @"vec3 fg = texture(TEXTURE, UV).rgb;
-    layerAlpha = texture(TEXTURE, UV).a;", blendmode, Filters);
+    @"vec3 fg = texture(TEXTURE, uv).rgb;
+    layerAlpha = texture(TEXTURE, uv).a;", blendmode, Filters);
         UpdateMaterial();
         (Material as ShaderMaterial).SetShaderParam("blendFactor", blendFactor);
         Apphandler.instance.ShowCode(shaderCode);

@@ -8,6 +8,8 @@ public class LayerManager : Node {
     PackedScene UILayerRect;
     [Export]
     PackedScene UILayerText;
+    [Export]
+    PackedScene UILayerBG;
     public static LayerManager instance;
 
     public override void _Ready() {
@@ -56,7 +58,8 @@ public class LayerManager : Node {
             } else if (layer.GetType() == typeof(LayerRect)) {
                 n = UILayerRect.Instance();
             } else {
-                n = UILayerRect.Instance();
+                n = UILayerBG.Instance();
+                GD.Print("Non supported layertype detected - added as Background layer");
             }
             AddChild(n);
         }

@@ -4,8 +4,8 @@ using System;
 public abstract class Tool : Control
 {
     public Node connectedTo;
+
     public virtual void ActivateTool(Node connectedTo, Godot.Collections.Array args = null) {
-        GD.Print("Activate Move Tool");
         foreach (Tool tool in ToolsLayer.instance.GetChildren()) {
             tool.DeactivateTool();
         }

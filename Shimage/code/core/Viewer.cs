@@ -14,7 +14,7 @@ public class Viewer : ViewportContainer {
     public Vector2 Resolution = new Vector2(1920, 1280);
 
     public override void _Ready() {
-        Apphandler.instance.RegisterViewer(this);
+        Apphandler.RegisterViewer(this);
         ViewSpacer = GetNode<Control>(NPViewSpace);
         Apphandler.currentViewer = this;
         //Recenter();
@@ -29,6 +29,10 @@ public class Viewer : ViewportContainer {
                 Layers.Add(n as ILayer);
             }
         }
+    }
+
+    public void AddLayer(ILayer layer) {
+
     }
 
     public void OnSetBlendmode(int idxBlendmode, int idxLayer) {

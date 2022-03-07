@@ -23,9 +23,9 @@ public class Apphandler : Node {
         instance = this;
     }
 
-    public void RegisterViewer(Viewer viewer) {
+    public static void RegisterViewer(Viewer viewer) {
         openViewers.Add(viewer);
-        GetNode<ViewTabs>(NPViewTabs).RedrawTabs();
+        instance.GetNode<ViewTabs>(instance.NPViewTabs).RedrawTabs();
     }
 
     public override void _Input(InputEvent e) {

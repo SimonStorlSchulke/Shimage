@@ -99,6 +99,7 @@ void fragment(){
 
         code += uniformsToAdd;
         code += shaderCodeBoilerPlate;
+        code += codeToAddDistortFilters;
         code += fragment;
         code += codeToAddColorFilters;
 

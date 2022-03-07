@@ -1,21 +1,18 @@
 {
   "format": 1,
   "restore": {
-    "A:\\dev\\Shimage\\Shimage\\Shimage.csproj": {}
+    "C:\\Users\\simon\\Dev\\GodotPhotoEdit\\Shimage\\Shimage.csproj": {}
   },
   "projects": {
-    "A:\\dev\\Shimage\\Shimage\\Shimage.csproj": {
+    "C:\\Users\\simon\\Dev\\GodotPhotoEdit\\Shimage\\Shimage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "A:\\dev\\Shimage\\Shimage\\Shimage.csproj",
+        "projectUniqueName": "C:\\Users\\simon\\Dev\\GodotPhotoEdit\\Shimage\\Shimage.csproj",
         "projectName": "Shimage",
-        "projectPath": "A:\\dev\\Shimage\\Shimage\\Shimage.csproj",
+        "projectPath": "C:\\Users\\simon\\Dev\\GodotPhotoEdit\\Shimage\\Shimage.csproj",
         "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
-        "outputPath": "A:\\dev\\Shimage\\Shimage\\.mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\simon\\Dev\\GodotPhotoEdit\\Shimage\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\simon\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
@@ -40,7 +37,15 @@
       "frameworks": {
         "net472": {
           "targetAlias": "net472",
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )",
+              "autoReferenced": true
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -8,6 +8,7 @@ public class UILayer : Node {
 
     OptionButton ObBlendmode;
     Slider SlBlendFactor;
+    [Export] protected NodePath NpLblLayerName;
 
     Color[] statusColors = new Color[3]{new Color(0,0,0,0), new Color("5273d5"), new Color("189dff")};
     public override void _Ready() {
@@ -20,6 +21,11 @@ public class UILayer : Node {
         }
         ObBlendmode.Connect("item_selected", Apphandler.currentViewer, nameof(Viewer.OnSetBlendmode), new Godot.Collections.Array(){GetIndex()});
         SlBlendFactor.Connect("value_changed", Apphandler.currentViewer, nameof(Viewer.OnSetBlendFactor), new Godot.Collections.Array(){GetIndex()});
+    }
+
+    ///<summary> Get the Layer correcsponing to this UI </summary>
+    protected ILayer GetLayer() {
+        return Apphandler.currentViewer.Layers[GetIndex()];
     }
 
     protected void UpdateSelectionStatus() {
