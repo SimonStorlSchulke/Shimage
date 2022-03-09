@@ -4,6 +4,7 @@ using System;
 public abstract class Tool : Control
 {
     public Node connectedTo;
+    public Node controlledBy;
 
     public virtual void ActivateTool(Node connectedTo, Godot.Collections.Array args = null) {
         foreach (Tool tool in ToolsLayer.instance.GetChildren()) {

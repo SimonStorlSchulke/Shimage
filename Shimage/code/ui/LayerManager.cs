@@ -44,14 +44,9 @@ public class LayerManager : Node {
         }
     }
 
-
-    public void BuildLayerStackUI() {
-        Apphandler.currentViewer.CollectLayers(); //TODO call hier? Oder umgekehrt?
-        foreach (Node n in GetChildren())
-            n.Free();
-        foreach (ILayer layer in Apphandler.currentViewer.Layers) {
-            Node n;
-            if (layer.GetType() == typeof(LayerImage)) {
+    public void AddLayerUI(ILayer layer) {
+        Node n;
+        if (layer.GetType() == typeof(LayerImage)) {
                 n = UILayerImage.Instance();
             } else if(layer.GetType() == typeof(LayerText)) {
                 n = UILayerText.Instance();
@@ -59,9 +54,18 @@ public class LayerManager : Node {
                 n = UILayerRect.Instance();
             } else {
                 n = UILayerBG.Instance();
-                GD.Print("Non supported layertype detected - added as Background layer");
+                GD.Print($"Non supported layertype {layer.GetType()} detected - added as Background layer");
             }
             AddChild(n);
+    }
+
+
+    public void BuildLayerStackUI() {
+        Apphandler.currentViewer.CollectLayers(); //TODO call hier? Oder umgekehrt?
+        foreach (Node n in GetChildren())
+            n.Free();
+        foreach (ILayer layer in Apphandler.currentViewer.Layers) {
+            AddLayerUI(layer);
         }
 
         UpdateSelectionColors();

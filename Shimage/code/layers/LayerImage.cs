@@ -42,8 +42,8 @@ public class LayerImage : Sprite, ILayer {
     }
 
 
-    public override void _Ready() {
-
+    public override void _EnterTree() {
+        UpdateLayer();
     }
 
 
@@ -67,7 +67,7 @@ public class LayerImage : Sprite, ILayer {
     layerAlpha = texture(TEXTURE, uv).a;", blendmode, Filters);
         UpdateMaterial();
         (Material as ShaderMaterial).SetShaderParam("blendFactor", blendFactor);
-        Apphandler.instance.ShowCode(shaderCode);
+        //Apphandler.instance.ShowCode(shaderCode);
     }
 
 

@@ -32,6 +32,7 @@ public static class LayerExtensions {
         filter.UI.QueueFree();
         filter.QueueFree();
         layer.UpdateLayer();
+        ToolsLayer.activeTool.DeactivateTool();
     }
 
     public static void SetFilters(this ILayer layer, List<Filter> filters) {

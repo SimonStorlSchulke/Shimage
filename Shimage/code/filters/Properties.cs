@@ -20,6 +20,13 @@ public abstract class Prop : Node {
     public static string toNotStupidString(float val) {
         return val.ToString(System.Globalization.CultureInfo.InvariantCulture);
     }
+
+    public override void _ExitTree() {
+        if (ToolsLayer.activeTool.connectedTo == this) {
+            ToolsLayer.activeTool.DeactivateTool();
+        }
+        base._ExitTree();
+    }
 }
 
 

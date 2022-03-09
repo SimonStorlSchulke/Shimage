@@ -32,7 +32,17 @@ public class Viewer : ViewportContainer {
     }
 
     public void AddLayer(ILayer layer) {
+        Layers.Add(layer);
+        GD.Print("ADD", layer.GetType());
+        LayerManager.instance.AddLayerUI(layer);
 
+        if (GetNode("Viewport").GetChildCount() > 1) {
+            BackBufferCopy bbc = new BackBufferCopy();
+            bbc.AddChild(layer as Node);
+             GetNode("Viewport").AddChild(bbc);
+             return;
+        }
+        GetNode("Viewport").AddChild(layer as Node);
     }
 
     public void OnSetBlendmode(int idxBlendmode, int idxLayer) {

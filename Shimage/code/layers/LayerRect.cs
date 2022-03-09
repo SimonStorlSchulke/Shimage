@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 
 
-public class LayerBG : Node2D, ILayer {
+public class LayerRect : Node2D, ILayer {
 
     ColorRect rect;
 
@@ -20,6 +20,14 @@ public class LayerBG : Node2D, ILayer {
     [Export]
     bool editorUpdateShader {
         get => true; set { UpdateLayer(); SetBlendFactor(blendFactor); }
+    }
+
+    
+    public override void _EnterTree() {
+        rect = new ColorRect();
+        rect.MouseFilter = Control.MouseFilterEnum.Ignore;
+        AddChild(rect); 
+        UpdateLayer();
     }
 
     public void ApplyProp(object value, string name) {
@@ -72,8 +80,8 @@ public class LayerBG : Node2D, ILayer {
         blendmode = mode;
     }
 
-    public static LayerBG New(string name, Color color = new Color()) {
-        LayerBG l = new LayerBG();
+    public static LayerRect New(string name, Color color = new Color()) {
+        LayerRect l = new LayerRect();
         l.Name = name;
         ColorRect rect = new ColorRect();
         l.AddChild(rect);
