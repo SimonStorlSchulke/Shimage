@@ -95,11 +95,15 @@ public class Viewer : ViewportContainer {
         ToolsLayer.UpdateTransform();
     }
 
-    public Vector2 GlobalCoordsToPixelPosition(Vector2 globalCords) {
+    public Vector2 GlobalToPixelCoord(Vector2 globalCords) {
         return (globalCords - RectGlobalPosition) / RectScale;
     }
 
-    public Vector2 GlobalCoordsToUVCoord(Vector2 globalCords) {
-        return GlobalCoordsToPixelPosition(globalCords) / Resolution;
+    public Vector2 PixelToGlobalCoord(Vector2 pixelCoords) {
+        return RectScale * pixelCoords + RectGlobalPosition;
+    }
+
+    public Vector2 GlobalToUVCoord(Vector2 globalCords) {
+        return GlobalToPixelCoord(globalCords) / Resolution;
     }
 }

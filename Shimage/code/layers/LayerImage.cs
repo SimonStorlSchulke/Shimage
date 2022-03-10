@@ -110,7 +110,7 @@ public class LayerImage : Sprite, ILayer {
     }
 
 
-    public Vector2 GlobalCoordToPixelCoord(Vector2 globalCoords) {
+    public Vector2 GlobalToPixelCoord(Vector2 globalCoords) {
         Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
         // Rotate Mouse Pos around Sprites Center by SPrites Rotation ammount. No idea why negative rotation has to be used
         coordVp = this.GlobalPosition + (coordVp - this.GlobalPosition).Rotated(-this.Rotation);
@@ -120,7 +120,7 @@ public class LayerImage : Sprite, ILayer {
         return coordVp;
     }
 
-    public Vector2 UVCoordToGlobalCoord(Vector2 coord) {
+    public Vector2 UVToGlobalCoord(Vector2 coord) {
         Vector2 c = (coord * GetRect().Size) + this.GlobalPosition + this.GetRect().Position;
         c = this.GlobalPosition + (c - this.GlobalPosition).Rotated(this.Rotation);
         c *= Apphandler.currentViewer.RectScale;
@@ -131,7 +131,7 @@ public class LayerImage : Sprite, ILayer {
     }
 
 
-    public Vector2 GlobalCoordToUVCoord(Vector2 globalCoords) {
-        return GlobalCoordToPixelCoord(globalCoords) / GetRect().Size;
+    public Vector2 GlobalToUVCoord(Vector2 globalCoords) {
+        return GlobalToPixelCoord(globalCoords) / GetRect().Size;
     }
 }

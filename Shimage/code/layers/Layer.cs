@@ -8,9 +8,9 @@ public interface ILayer {
     float GetBlendFactor();
     void SetBlendFactor(float fac);
     void ApplyProp(object value, string name);
-    Vector2 GlobalCoordToPixelCoord(Vector2 globalCoords);
-    Vector2 GlobalCoordToUVCoord(Vector2 globalCoords);
-    Vector2 UVCoordToGlobalCoord(Vector2 pixelCoords);
+    Vector2 GlobalToPixelCoord(Vector2 globalCoords);
+    Vector2 GlobalToUVCoord(Vector2 globalCoords);
+    Vector2 UVToGlobalCoord(Vector2 pixelCoords);
     ShaderUtil.BlendMode GetBlendmode();
     void SetBlendmode(ShaderUtil.BlendMode blendmode);
     List<Filter> Filters { get; set; }

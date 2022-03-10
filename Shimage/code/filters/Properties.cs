@@ -239,12 +239,12 @@ public class PropPosition : Prop {
     }
 
     void ShowMover() {
-        Vector2 moverStartPos = Apphandler.currentViewer.activeLayer.UVCoordToGlobalCoord((Vector2)Value);
+        Vector2 moverStartPos = Apphandler.currentViewer.activeLayer.UVToGlobalCoord((Vector2)Value);
         ToolsLayer.instance.GetNode<Mover>("Mover").ActivateTool(this, new Godot.Collections.Array{moverStartPos});
     }
 
     public void OnMoverMoved(Vector2 to) {
-        Vector2 pos = Apphandler.currentViewer.activeLayer.GlobalCoordToUVCoord(to);
+        Vector2 pos = Apphandler.currentViewer.activeLayer.GlobalToUVCoord(to);
         StatusBarInfo.Display($"Position: x={pos.x} y={pos.y}");
         Apply(pos);
     }

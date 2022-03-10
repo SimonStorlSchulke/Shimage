@@ -1,26 +1,26 @@
 using Godot;
 
-public class Mover : Tool {
-    [Signal] delegate void Moved(Vector2 to);
-    [Signal] delegate void SStartedMoving(Vector2 mouseStartPos);
+public class Rotator : Tool {
+    [Signal] delegate void Rotated(Vector2 to);
+    [Signal] delegate void SStartRotating(Vector2 mouseStartPos);
     [Export]
     Vector2 handleSize = new Vector2(22, 22);
     TextureRect handle;
-    bool moving;
+    bool rotating;
     Vector2 mouseStartPos = new Vector2();
 
     public void ActivateFromUI() {
         ActivateTool(LayerManager.instance);
-        if (!IsConnected(nameof(SStartedMoving), connectedTo, "OnMoverStarted"))
-            Connect(nameof(SStartedMoving), LayerManager.instance, "OnMoverStarted");        
+        if (!IsConnected(nameof(SStartRotating), connectedTo, "OnMoverStarted"))
+            Connect(nameof(SStartRotating), LayerManager.instance, "OnMoverStarted");        
     }
 
 
     /// <summary> If used, the first element of startPos[] must be Vector2 with global startPosition for the handle </summary>
     public override void ActivateTool(Node connectedTo, Godot.Collections.Array startPos = null) {
         base.ActivateTool(connectedTo);
-        if (!IsConnected(nameof(Moved), connectedTo, "OnMoverMoved"))
-            Connect(nameof(Moved), connectedTo, "OnMoverMoved");
+        if (!IsConnected(nameof(Rotated), connectedTo, "OnMoverMoved"))
+            Connect(nameof(Rotated), connectedTo, "OnMoverMoved");
 
         if (startPos != null) {
             handle.RectGlobalPosition = (Vector2)startPos[0] - handle.RectPivotOffset * Apphandler.currentViewer.RectScale;
@@ -29,12 +29,12 @@ public class Mover : Tool {
     }
 
     public override void DeactivateTool() {
-        moving = false;
+        rotating = false;
         if (connectedTo != null) {
 
             GD.Print("HUH");
-            Disconnect(nameof(Moved), connectedTo, "OnMoverMoved");
-            Disconnect(nameof(SStartedMoving), connectedTo, "OnMoverStarted");
+            Disconnect(nameof(Rotated), connectedTo, "OnMoverMoved");
+            Disconnect(nameof(SStartRotating), connectedTo, "OnMoverStarted");
         }
         base.DeactivateTool();
     }
@@ -54,26 +54,26 @@ public class Mover : Tool {
 
 
     public override void _Process(float delta) {
-        if (moving) Move();
+        if (rotating) Rotate();
     }
 
 
-    public void Move() {
-        EmitSignal(nameof(Moved), GetGlobalMousePosition());
+    public void Rotate() {
+        EmitSignal(nameof(Rotated), GetGlobalMousePosition());
         handle.RectGlobalPosition = GetGlobalMousePosition() - handle.RectPivotOffset * Apphandler.currentViewer.RectScale;
     }
 
-    public void StartMoving() {
-        moving = !moving;
+    public void StartRotating() {
+        rotating = !rotating;
         mouseStartPos = GetGlobalMousePosition();
-        EmitSignal(nameof(SStartedMoving), mouseStartPos);
+        EmitSignal(nameof(SStartRotating), mouseStartPos);
     }
 
 
     public void OnClick(InputEvent e) {
         if (e is InputEventMouseButton mouseEvent) {
             if (mouseEvent.ButtonIndex == 1) {
-                StartMoving();
+                StartRotating();
             }
         }
     }

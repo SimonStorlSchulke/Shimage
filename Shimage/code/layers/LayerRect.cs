@@ -92,19 +92,19 @@ public class LayerRect : Node2D, ILayer {
     }
 
 
-    public Vector2 GlobalCoordToPixelCoord(Vector2 globalCoords) {
+    public Vector2 GlobalToPixelCoord(Vector2 globalCoords) {
         //TODO not working
         Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
         Vector2 coord = coordVp - GlobalPosition - rect.RectSize;
         return coord;
     }
 
-    public Vector2 UVCoordToGlobalCoord(Vector2 pixelCoords) {
+    public Vector2 UVToGlobalCoord(Vector2 pixelCoords) {
         return Vector2.Zero;
     }
 
 
-    public Vector2 GlobalCoordToUVCoord(Vector2 globalCoords) {
+    public Vector2 GlobalToUVCoord(Vector2 globalCoords) {
         //TODO not working
         Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
         Vector2 coord = coordVp - GlobalPosition - rect.RectSize;

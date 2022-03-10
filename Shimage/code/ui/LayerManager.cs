@@ -10,6 +10,7 @@ public class LayerManager : Node {
     PackedScene UILayerText;
     [Export]
     PackedScene UILayerBG;
+    [Signal] delegate void SLayerSelected();
     public static LayerManager instance;
 
     public override void _Ready() {
@@ -29,6 +30,7 @@ public class LayerManager : Node {
             }
             i++;
         }
+        EmitSignal(nameof(SLayerSelected));
     }
 
     void UpdateSelectionColors() {
@@ -69,6 +71,36 @@ public class LayerManager : Node {
         }
 
         UpdateSelectionColors();
+    }
 
+    Vector2 mouseStartPos;
+    Vector2 layerStartPos;
+    List<Vector2> layersStartPos;
+    public void OnMoverStarted(Vector2 startPos) {
+        mouseStartPos = Apphandler.currentViewer.GlobalToPixelCoord(startPos);
+        layersStartPos = new List<Vector2>();
+        foreach (ILayer layer in Apphandler.currentViewer.selectedLayers) {
+            layersStartPos.Add((layer as Node2D).Position);
+        }
+    }
+
+    public void OnMoverMoved(Vector2 toPos) {
+        for (int i = 0; i < layersStartPos.Count; i++) {
+            (Apphandler.currentViewer.selectedLayers[i] as Node2D).Position = layersStartPos[i] + Apphandler.currentViewer.GlobalToPixelCoord(toPos) - mouseStartPos;
+        }
+    }
+
+    public void OnRotatorStarted(Vector2 startPos) {
+        mouseStartPos = Apphandler.currentViewer.GlobalToPixelCoord(startPos);
+        layersStartPos = new List<Vector2>();
+        foreach (ILayer layer in Apphandler.currentViewer.selectedLayers) {
+            layersStartPos.Add((layer as Node2D).Position);
+        }
+    }
+
+    public void OnRotatorRotated(Vector2 toPos) {
+        for (int i = 0; i < layersStartPos.Count; i++) {
+            (Apphandler.currentViewer.selectedLayers[i] as Node2D).Position = layersStartPos[i] + Apphandler.currentViewer.GlobalToPixelCoord(toPos) - mouseStartPos;
+        }
     }
 }
