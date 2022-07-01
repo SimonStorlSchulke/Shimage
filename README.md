@@ -5,8 +5,7 @@ The *Layers-Rewrite* Branch is WIP and supports multiple Projects, Layers with R
 
 Saving Images is based on [Coldragons ShaderToImage](https://github.com/Coldragon/godot-shader-to-image)
 
-
-![2022-07-01 10_31_15-main tscn - Shimage - Godot Engine](https://user-images.githubusercontent.com/25198913/176857068-037c72f3-8c77-4dcb-b74b-62014d92a715.jpg)
+![shimage](https://user-images.githubusercontent.com/25198913/176858313-97be2cdf-30f9-4f28-8417-4d7d2e2612ea.jpg)
 *Layers-Rewrite* Branch (wip)
 
 ![img](img.png)
