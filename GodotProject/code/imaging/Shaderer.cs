@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class Shaderer : Sprite {
+public partial class Shaderer : Sprite2D {
 
     public static Shaderer instance = null;
     Image img = new Image();
@@ -29,17 +29,17 @@ public class Shaderer : Sprite {
 
     public void OnLoadImage(string path) {
         AppHandler.imagePath = path;
-        OS.SetWindowTitle("GDPhotoEdit - " + path);
+        //OS.SetWindowTitle("GDPhotoEdit - " + path);
         img.Load(path);
         if (img == null)
             GD.Print("Image is Null");
-        tex.CreateFromImage(img);
+        tex = ImageTexture.CreateFromImage(img);
         this.Texture = tex;
         GetNode(ShaderToImage).Call("_on_load_image");
         OnReCenter();
     }
 
-    public void OnApplyParam(object value, string name) {
+    public void OnApplyParam(Variant value, string name) {
         Shaderer.instance.SetProp(name, value);
     }
 
@@ -47,8 +47,8 @@ public class Shaderer : Sprite {
         Shaderer.instance.SetProp("effect_slider_val", value);
     }
 
-    public void SetProp(string _name, object _value) {
-        ((ShaderMaterial)Material).SetShaderParam(_name, _value);
+    public void SetProp(string _name, Variant _value) {
+        ((ShaderMaterial)Material).SetShaderParameter(_name, _value);
     }
 
     public void GenerateShader(List<Filter> shaders) {
@@ -113,7 +113,6 @@ float fbm(vec2 x, int noiseOctaves) {
 }
 
 void fragment(){
-    const float PI = 3.14159265358979323846;
     
     //variables to use
     float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
@@ -126,7 +125,7 @@ void fragment(){
     if (UV.x > effect_slider_val) {
         uv = UV;
     }
-    COLOR *= texture(TEXTURE, uv);
+    COLOR = texture(TEXTURE, uv);
     vec4 previous = COLOR;
     
     // Color Filters-----------------------------
@@ -155,10 +154,10 @@ void fragment(){
     }
 
     public void OnReCenter() {
-        Vector2 viewportSize = this.GetParent<CenterContainer>().RectSize;
+        Vector2 viewportSize = this.GetParent<CenterContainer>().Size;
         Position = viewportSize / 2;
         Vector2 facVec = viewportSize / this.Texture.GetSize();
-        float fac = Mathf.Min(facVec.x, facVec.y);
+        float fac = Mathf.Min(facVec.X, facVec.Y);
         this.Scale = new Vector2(fac, fac);
     }
 
@@ -192,7 +191,7 @@ void fragment(){
         }
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(double delta) {
         if (dragging) {
             Vector2 mPos = GetNode<CenterContainer>(ViewportArea).GetLocalMousePosition();
             Position = startPos + mPos - startPosMouse;

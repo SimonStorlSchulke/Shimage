@@ -6,33 +6,28 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://git_api.gdns"
-} ]
-_global_script_class_icons={
-"GitAPI": ""
-}
+config_version=5
 
 [application]
 
 config/name="GodotPhotoEdit"
 run/main_scene="res://main_shader.tscn"
+config/features=PackedStringArray("4.4", "C#")
 config/icon="res://icon.png"
 
 [display]
 
-window/size/width=1600
-window/size/height=900
+window/size/viewport_width=1600
+window/size/viewport_height=900
 window/energy_saving/keep_screen_on=false
+
+[dotnet]
+
+project/assembly_name="GodotPhotoEdit"
 
 [gdnative]
 
-singletons=[ "res://git_api.gdnlib" ]
+singletons=["res://git_api.gdnlib"]
 
 [global]
 
@@ -42,25 +37,25 @@ icon=false
 
 wheel={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 zoom_in={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":4,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
 }
 zoom_out={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":5,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
 }
 MouseLeft={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
 }
 
 [rendering]
 
-environment/default_clear_color=Color( 0.2, 0.2, 0.2, 1 )
-environment/default_environment="res://default_env.tres"
+environment/defaults/default_clear_color=Color(0.2, 0.2, 0.2, 1)
+environment/defaults/default_environment="res://default_env.tres"

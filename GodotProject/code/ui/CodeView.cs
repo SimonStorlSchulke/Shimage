@@ -1,6 +1,6 @@
 using Godot;
 
-public class CodeView : TextEdit
+public partial class CodeView : TextEdit
 {
     void OnToggleCodeView(bool visibility) {
         this.Visible = visibility;

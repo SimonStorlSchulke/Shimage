@@ -1,6 +1,6 @@
 using Godot;
 
-public class MenuFile : Button
+public partial class MenuFile : Button
 {
 
     FileDialog fileDialog;
@@ -9,10 +9,8 @@ public class MenuFile : Button
     ImageTexture tex = new ImageTexture();
 
     [Signal]
-    public delegate void SLoadImage(string path);
-
-    [Signal]
-    public delegate void SSaveImage(string path);
+    public delegate void SLoadImageEventHandler(string path);
+    
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

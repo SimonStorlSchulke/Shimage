@@ -1,10 +1,11 @@
 using Godot;
 
-public class ViewArea : CenterContainer
+public partial class ViewArea : CenterContainer
 {
     public override void _Ready()
     {
-        GetTree().Connect("files_dropped", this, nameof(OnDroppedFile));
+        GetViewport().Connect("FilesDropped", new Callable(this, nameof(OnDroppedFile)));
+        
     }
 
     public void OnDroppedFile(string[] files, int screen) {

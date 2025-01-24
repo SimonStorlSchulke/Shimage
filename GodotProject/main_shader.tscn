@@ -1,19 +1,19 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=17 format=3 uid="uid://4w500uxvqoxn"]
 
-[ext_resource path="res://maintheme.tres" type="Theme" id=1]
-[ext_resource path="res://code/ui/MenuFile.cs" type="Script" id=2]
-[ext_resource path="res://code/ui/FilterStack.cs" type="Script" id=3]
-[ext_resource path="res://TestImages/lola.jpg" type="Texture" id=4]
-[ext_resource path="res://code/imaging/Shaderer.cs" type="Script" id=5]
-[ext_resource path="res://code/ui/AddFilterMenu.cs" type="Script" id=6]
-[ext_resource path="res://code/ui/CodeView.cs" type="Script" id=7]
-[ext_resource path="res://btnSave.gd" type="Script" id=8]
-[ext_resource path="res://ShaderToImage/ShaderToImage.tscn" type="PackedScene" id=9]
-[ext_resource path="res://style/stylebox_transparent.tres" type="StyleBox" id=10]
-[ext_resource path="res://style/icons/refit.png" type="Texture" id=11]
-[ext_resource path="res://code/ui/ViewArea.cs" type="Script" id=12]
+[ext_resource type="Theme" uid="uid://dgi7h5o885amu" path="res://maintheme.tres" id="1"]
+[ext_resource type="Script" uid="uid://bl5ohpa5gy1wp" path="res://code/ui/MenuFile.cs" id="2"]
+[ext_resource type="Script" uid="uid://dhn288463kcp4" path="res://code/ui/FilterStack.cs" id="3"]
+[ext_resource type="Texture2D" uid="uid://dv2wre6e3phbr" path="res://TestImages/lola.jpg" id="4"]
+[ext_resource type="Script" uid="uid://ck5l8ufhd1lm7" path="res://code/imaging/Shaderer.cs" id="5"]
+[ext_resource type="Script" uid="uid://c2ibmxjicv8pr" path="res://code/ui/AddFilterMenu.cs" id="6"]
+[ext_resource type="Script" uid="uid://ddulbgb5jmago" path="res://code/ui/CodeView.cs" id="7"]
+[ext_resource type="Script" uid="uid://b4otyeoms3foe" path="res://btnSave.gd" id="8"]
+[ext_resource type="PackedScene" path="res://ShaderToImage/ShaderToImage.tscn" id="9"]
+[ext_resource type="StyleBox" path="res://style/stylebox_transparent.tres" id="10"]
+[ext_resource type="Texture2D" uid="uid://cnpfegbmi6klw" path="res://style/icons/refit.png" id="11"]
+[ext_resource type="Script" uid="uid://b3qnhoua2gkm4" path="res://code/ui/ViewArea.cs" id="12"]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id="1"]
 code = "shader_type canvas_item;
 uniform float vignettePosX_ = 0.5;
 uniform float vignettePosY_ = 0.5;
@@ -21,9 +21,8 @@ uniform float vignettePower_ = 0.5;
 uniform float vignetteWidth_ = 0.4;
 uniform float vignetteBlur_ = 0.3;
 uniform float spotlight_ = 0;
-uniform vec4 vignetteColor_ : hint_color = vec4(0, 0, 0, 1);
+uniform vec4 vignetteColor_ : source_color = vec4(0, 0, 0, 1);
 uniform bool vignetteUseDistortion_ = false;
-
 
 
 uniform float effect_slider_val = 1.0;
@@ -68,310 +67,231 @@ float fbm(vec2 x, int noiseOctaves) {
 }
 
 void fragment(){
-    const float PI = 3.14159265358979323846;
-    
+
     //variables to use
     float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
     vec2 uv = UV;
 
 
     // Distortion Filters------------------------
-    
+
     if (UV.x > effect_slider_val) {
         uv = UV;
     }
-    COLOR *= texture(TEXTURE, uv);
+    COLOR = texture(TEXTURE, uv);
     vec4 previous = COLOR;
-    
+
     // Color Filters-----------------------------
-    
+
     //Vignette
     if (vignetteUseDistortion_) {
         f_1 = 1.0 - distance(fract(uv), vec2(vignettePosX_, 1.0 - vignettePosY_));
-    } 
+    }
     else {
         f_1 = 1.0 - distance(UV, vec2(vignettePosX_, 1.0 - vignettePosY_));
     }
     f_2 = map(f_1, 1.0 - (vignetteWidth_ + (vignetteBlur_ + 0.001) / 2.0) * 1.5, 1.0 - vignetteWidth_ * 1.5 + vignetteBlur_ + 0.001, 0.0, 1.0, true);
     f_2 = f_2 * f_2;
     COLOR = mix(vignetteColor_, COLOR, 1.0-(1.0-f_2)*vignettePower_) * vec4(1.0 + f_2 * spotlight_);
-    
+
     if (UV.x > effect_slider_val) {
         COLOR = previous;
     }
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-shader_param/vignettePosX_ = 0.5
-shader_param/vignettePosY_ = 0.5
-shader_param/vignettePower_ = 0.5
-shader_param/vignetteWidth_ = 0.4
-shader_param/vignetteBlur_ = 0.3
-shader_param/spotlight_ = 0.0
-shader_param/vignetteColor_ = Color( 0, 0, 0, 1 )
-shader_param/vignetteUseDistortion_ = false
-shader_param/effect_slider_val = 1.0
+[sub_resource type="ShaderMaterial" id="2"]
+shader = SubResource("1")
+shader_parameter/vignettePosX_ = -0.055
+shader_parameter/vignettePosY_ = 0.5
+shader_parameter/vignettePower_ = 0.5
+shader_parameter/vignetteWidth_ = 0.4
+shader_parameter/vignetteBlur_ = 0.3
+shader_parameter/spotlight_ = 0.0
+shader_parameter/vignetteColor_ = Color(0, 0, 0, 1)
+shader_parameter/vignetteUseDistortion_ = false
+shader_parameter/effect_slider_val = 1.0
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.305882, 0.305882, 0.305882, 1 )
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.305882, 0.305882, 0.305882, 1)
 expand_margin_top = 5.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.109804, 0.109804, 0.109804, 1 )
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.109804, 0.109804, 0.109804, 1)
 expand_margin_left = 10.0
 
 [node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme = ExtResource("1")
 
-[node name="ShaderToImage" parent="." instance=ExtResource( 9 )]
+[node name="ShaderToImage" parent="." instance=ExtResource("9")]
 _viewer = NodePath("../VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme_override_constants/separation = 0
 
 [node name="Topbar" type="Panel" parent="VBoxContainer"]
-margin_right = 1600.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 0, 24 )
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
 
 [node name="Menus" type="HBoxContainer" parent="VBoxContainer/Topbar"]
-margin_right = 191.0
-margin_bottom = 24.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_right = 191.0
+offset_bottom = 24.0
 
 [node name="BtnOpen" type="Button" parent="VBoxContainer/Topbar/Menus"]
-margin_right = 47.0
-margin_bottom = 24.0
+layout_mode = 2
 text = "Open"
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("2")
 
 [node name="FileDialog" type="FileDialog" parent="VBoxContainer/Topbar/Menus/BtnOpen"]
-margin_left = -39.0
-margin_right = 413.0
-margin_bottom = 379.0
-window_title = "Open a File"
-resizable = true
-mode = 0
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
 access = 2
-current_dir = "/"
-current_path = "/"
 
 [node name="BtnSave" type="Button" parent="VBoxContainer/Topbar/Menus"]
-margin_left = 51.0
-margin_right = 92.0
-margin_bottom = 24.0
+layout_mode = 2
 text = "Save"
-script = ExtResource( 8 )
+script = ExtResource("8")
 shader_to_image = NodePath("../../../../ShaderToImage")
 viewer = NodePath("../../../HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer/Viewer")
 
 [node name="FileDialogSave" type="FileDialog" parent="VBoxContainer/Topbar/Menus/BtnSave"]
-margin_left = -39.0
-margin_right = 412.0
-margin_bottom = 378.0
-resizable = true
 access = 2
-filters = PoolStringArray( "*.png" )
-current_dir = "/"
-current_path = "/"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+filters = PackedStringArray("*.png")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 1600.0
-margin_bottom = 900.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/HBoxContainer"]
-margin_right = 1346.0
-margin_bottom = 876.0
-grow_horizontal = 0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ViewerContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer"]
-margin_right = 1346.0
-margin_bottom = 876.0
-rect_clip_content = true
+clip_contents = true
+layout_mode = 2
 size_flags_horizontal = 11
 size_flags_vertical = 11
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
-margin_right = 1346.0
-margin_bottom = 822.0
+layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource( 12 )
+script = ExtResource("12")
 
-[node name="Viewer" type="Sprite" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer"]
-material = SubResource( 2 )
-position = Vector2( 650.297, 391.327 )
-scale = Vector2( 1.28535, 1.18742 )
+[node name="Viewer" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer"]
 z_index = -1
-texture = ExtResource( 4 )
-script = ExtResource( 5 )
+material = SubResource("2")
+position = Vector2(650.297, 391.327)
+scale = Vector2(1.28535, 1.18742)
+texture = ExtResource("4")
+script = ExtResource("5")
 CodeViewer = NodePath("../../../CodeView")
 ShaderToImage = NodePath("../../../../../../ShaderToImage")
 ViewportArea = NodePath("..")
 ZoomSpeed = 0.1
 
 [node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
-margin_top = 826.0
-margin_right = 1346.0
-margin_bottom = 850.0
-rect_min_size = Vector2( 0, 24 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
 
 [node name="BtnRecenter" type="Button" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer/CenterContainer2"]
-margin_left = 664.0
-margin_top = 3.0
-margin_right = 681.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 17, 17 )
-custom_styles/hover = ExtResource( 10 )
-custom_styles/pressed = ExtResource( 10 )
-custom_styles/focus = ExtResource( 10 )
-custom_styles/disabled = ExtResource( 10 )
-custom_styles/normal = ExtResource( 10 )
-icon = ExtResource( 11 )
+custom_minimum_size = Vector2(17, 17)
+layout_mode = 2
+theme_override_styles/focus = ExtResource("10")
+theme_override_styles/disabled = ExtResource("10")
+theme_override_styles/hover = ExtResource("10")
+theme_override_styles/pressed = ExtResource("10")
+theme_override_styles/normal = ExtResource("10")
+icon = ExtResource("11")
 expand_icon = true
 
 [node name="EffectSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/VSplitContainer/ViewerContainer"]
-margin_top = 854.0
-margin_right = 1346.0
-margin_bottom = 876.0
-rect_min_size = Vector2( 100, 22 )
-custom_styles/slider = SubResource( 3 )
+custom_minimum_size = Vector2(100, 22)
+layout_mode = 2
+theme_override_styles/slider = SubResource("3")
 max_value = 1.0
 step = 0.001
 value = 1.0
 
 [node name="CodeView" type="TextEdit" parent="VBoxContainer/HBoxContainer/VSplitContainer"]
 visible = false
-margin_top = 504.0
-margin_right = 12.0
-margin_bottom = 676.0
-rect_clip_content = true
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.35
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_readonly = Color( 0.772549, 0.772549, 0.772549, 1 )
+theme_override_colors/background_color = Color(0.241156, 0.241156, 0.241156, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "No Code generated yet"
-readonly = true
-smooth_scrolling = true
-hiding_enabled = true
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("7")
 
 [node name="Sidebar" type="Panel" parent="VBoxContainer/HBoxContainer"]
-margin_left = 1350.0
-margin_right = 1600.0
-margin_bottom = 876.0
-rect_min_size = Vector2( 250, 0 )
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -33.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_bottom = -33.0
 
 [node name="btnAddFilter" type="MenuButton" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer"]
-margin_right = 250.0
-margin_bottom = 22.0
+layout_mode = 2
 text = "Add Filter"
 flat = false
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer"]
-margin_top = 26.0
-margin_right = 250.0
-margin_bottom = 713.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="FilterStackContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer/ScrollContainer"]
-margin_right = 200.0
-rect_min_size = Vector2( 200, 0 )
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+script = ExtResource("3")
 
 [node name="CustomCodeEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer"]
-margin_top = 717.0
-margin_right = 250.0
-margin_bottom = 817.0
-rect_min_size = Vector2( 0, 100 )
-text = "COLOR = COLOR * 2.0;"
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_colors/background_color = Color(0.197937, 0.197937, 0.197937, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/Sidebar/VBoxContainer"]
-margin_top = 821.0
-margin_right = 250.0
-margin_bottom = 843.0
+layout_mode = 2
 text = "Compile"
 
 [node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/Sidebar"]
+custom_minimum_size = Vector2(260, 33)
+layout_mode = 0
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -260.0
-margin_top = -33.0
-rect_min_size = Vector2( 260, 33 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -260.0
+offset_top = -33.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar/Panel"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -33.0
-margin_right = 250.0
-margin_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = -33.0
+offset_right = 250.0
+offset_bottom = 1.0
 
 [node name="btnCodeView" type="CheckButton" parent="VBoxContainer/HBoxContainer/Sidebar/Panel/HBoxContainer"]
-margin_right = 54.0
-margin_bottom = 34.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 2
 
 [node name="lblCodeView" type="Label" parent="VBoxContainer/HBoxContainer/Sidebar/Panel/HBoxContainer"]
-margin_left = 58.0
-margin_top = 6.0
-margin_right = 177.0
-margin_bottom = 28.0
+layout_mode = 2
 text = "Show Shadercode"
 
 [connection signal="pressed" from="VBoxContainer/Topbar/Menus/BtnOpen" to="VBoxContainer/Topbar/Menus/BtnOpen" method="OnOpenFile"]

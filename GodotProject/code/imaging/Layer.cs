@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class Layer : Node
+public partial class Layer : Node
 {
     public string path;
     public Image image;

@@ -1,19 +1,19 @@
 using Godot;
 using System;
 
-public class ShaderToImage : Node2D
+public partial class ShaderToImage : Node2D
 {
 
     Image generatedImage;
 
-    Sprite drawer;
+    Sprite2D drawer;
     TextureRect shaderContainer;
-    Viewport viewport;
+    SubViewport viewport;
 
     public override void _Ready() {
-        drawer =  GetNode<Sprite>("Sprite");
-        shaderContainer =  GetNode<TextureRect>("Viewport/TextureRect");
-        viewport = GetNode<Viewport>("Viewport");
+        drawer =  GetNode<Sprite2D>("Sprite2D");
+        shaderContainer =  GetNode<TextureRect>("SubViewport/TextureRect");
+        viewport = GetNode<SubViewport>("SubViewport");
     }
 
     public Image GetImage() {
@@ -26,6 +26,6 @@ public class ShaderToImage : Node2D
     }
 
     public void GenerateImage(Material material, Vector2 res, float multiplier) {
-        generatedImage = (Image)drawer.Texture.GetData().Duplicate();
+        generatedImage = (Image)drawer.Texture.Duplicate();
     }
 }

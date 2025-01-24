@@ -2,10 +2,10 @@ extends Control
 # TODO rewrite in C#
 var generator
 
-export var shader_to_image: NodePath
-export var viewer: NodePath
+@export var shader_to_image: NodePath
+@export var viewer: NodePath
 
-var view: Sprite
+var view: Sprite2D
 
 var enable_time = false
 
@@ -21,7 +21,7 @@ func _on_Button_pressed():
 	# TODO set to current dir
 	$FileDialogSave.popup_centered()
 	generator.generate_image(view.material)
-	yield(generator, "generated")
+	await generator.generated
 	getted_image = generator.get_image()
 
 	var text = ImageTexture.new()

@@ -1,11 +1,11 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.3.0">
+<Project Sdk="Godot.NET.Sdk/4.4.0-beta.1">
   <PropertyGroup>
     <ProjectGuid>{7534E5E9-F493-40DE-AED6-081280893F57}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>GodotPhotoEdit</RootNamespace>
     <AssemblyName>GodotPhotoEdit</AssemblyName>
     <GodotProjectGeneratorVersion>1.0.0.0</GodotProjectGeneratorVersion>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <!--The following properties were overriden during migration to prevent errors.
     Enabling them may require other manual changes to the project and its files.-->
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -23,10 +23,10 @@
     <Compile Include="code\ShaderToImage.cs" />
     <Compile Include="code\ui\AddFilterMenu.cs" />
     <Compile Include="code\ui\CodeView.cs" />
-    <Compile Include="code\ui\Props.cs" />
     <Compile Include="code\ui\FilterStack.cs" />
     <Compile Include="code\imaging\imaging.cs" />
     <Compile Include="code\ui\MenuFile.cs" />
+    <Compile Include="code\ui\Prop.cs" />
     <Compile Include="code\ui\ViewArea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="code\imaging\Shaderer.cs" />

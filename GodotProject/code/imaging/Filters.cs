@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// use the pre-defined variables instead (f_1 - f_5, v3_1-v3_5...)
 /// Limitation: Prop NameCodes CANNOT contain the whole name of another Variable (TODO: fix - Regex?)
 /// </summary>
-public class Filters {
+public partial class Filters {
 
     public static List<Filter> List = new List<Filter>() {
         new Filter(
@@ -185,7 +185,7 @@ public class Filters {
             new PropFloat("noiseDistortAmmount", "Distort", 0.2f),
             new PropFloat("noiseDistortOffset", "Offset", 0.15f, _slider: false, _min: -10000, _max: 10000),
             new PropFloat("noiseDistortScale", "Scale", 10, _slider: false, _max: 10000),
-            new PropInt("noiseDistortOctaves", "Octaves", 3, 12),
+            new PropInt("noiseDistortOctaves", "FractalOctaves", 3, 12),
         },
     @"
     // Noise Distort

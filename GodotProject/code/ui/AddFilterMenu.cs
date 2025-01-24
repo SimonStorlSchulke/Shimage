@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class AddFilterMenu : MenuButton {
+public partial class AddFilterMenu : MenuButton {
     
     public override void _Ready() {
-        GetPopup().Connect("id_pressed", this, nameof(OnAddFilter));
+        GetPopup().Connect("id_pressed", new Callable(this, nameof(OnAddFilter)));
 
         foreach (Filter cFilter in Filters.List) {
             GetPopup().AddItem(cFilter.Name);

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Globalization;
+using Range = Godot.Range;
 
 public abstract class Prop {
     public string NameCode;
@@ -32,11 +33,9 @@ public class PropInt : Prop {
         spinBox.MinValue = 0;
         spinBox.MaxValue = this.max;
         spinBox.Value = (int)this.Value;
-            spinBox.Connect(
-            "value_changed", 
-            Shaderer.instance, 
-            nameof(Shaderer.instance.OnApplyParam),
-            new Godot.Collections.Array {this.NameCode});
+        
+        spinBox.ValueChanged += (v) => Shaderer.instance.OnApplyParam(v, this.NameCode);
+        
         return spinBox;
     }
 
@@ -56,12 +55,10 @@ public class PropBool : Prop {
     public override Control BuildUI() {
         CheckBox checkBox = new CheckBox();
         //spinBox.RectMinSize = new Vector2(120, 0);
-        checkBox.Pressed = (bool)this.Value;
-            checkBox.Connect(
-            "toggled", 
-            Shaderer.instance, 
-            nameof(Shaderer.instance.OnApplyParam),
-            new Godot.Collections.Array {this.NameCode});
+        checkBox.SetPressed((bool)this.Value);
+        
+        checkBox.Toggled += (v) => Shaderer.instance.OnApplyParam(v, this.NameCode);
+        
         return checkBox;
     }
 
@@ -91,7 +88,7 @@ public class PropFloat : Prop {
         
         if (slider) {
             inputField = new HSlider();
-            inputField.RectMinSize = new Vector2(120, 0);
+            inputField.SetCustomMinimumSize(new Vector2(120, 0)); //from RectMinSize = ... correct?
         } else {
             inputField = new SpinBox();
         }
@@ -99,11 +96,9 @@ public class PropFloat : Prop {
             inputField.MaxValue = this.Max;
             inputField.Step = 0.01;
             inputField.Value = (float)this.Value;
-            inputField.Connect(
-                "value_changed",
-                Shaderer.instance, 
-                nameof(Shaderer.instance.OnApplyParam),
-                new Godot.Collections.Array {this.NameCode});
+            
+            inputField.ValueChanged += (v) => Shaderer.instance.OnApplyParam(v, this.NameCode);
+            
         return inputField;
     }
 
@@ -122,25 +117,22 @@ public class PropRGBA : Prop {
 
     public override Control BuildUI() {
         ColorPickerButton picker = new ColorPickerButton();
-        picker.RectMinSize = new Vector2(32, 0);
+        picker.SetCustomMinimumSize(new Vector2(32, 0)); //from RectMinSize = ... correct?
         picker.Color = (Color)this.Value;
         
-        picker.Connect(
-            "color_changed",
-            Shaderer.instance, 
-            nameof(Shaderer.instance.OnApplyParam),
-            new Godot.Collections.Array {this.NameCode});
+        picker.ColorChanged += (v) => Shaderer.instance.OnApplyParam(v, this.NameCode);
+
         return picker;
     }
 
     public override string GetUniformCode() {
 
-        string r = toNotStupidString(((Color)Value).r);
-        string g = toNotStupidString(((Color)Value).g);
-        string b = toNotStupidString(((Color)Value).b);
-        string a = toNotStupidString(((Color)Value).a);
+        string r = toNotStupidString(((Color)Value).R);
+        string g = toNotStupidString(((Color)Value).G);
+        string b = toNotStupidString(((Color)Value).B);
+        string a = toNotStupidString(((Color)Value).A);
 
-        return $"uniform vec4 {this.NameCode} : hint_color = vec4({r}, {g}, {b}, {a});";
+        return $"uniform vec4 {this.NameCode} : source_color = vec4({r}, {g}, {b}, {a});";
     }
 }
 
@@ -160,28 +152,21 @@ public class PropVector2 : Prop {
         spinboxY.MaxValue = 10000;
         spinboxX.Step = 0.01;
         spinboxY.Step = 0.01;
-        spinboxX.Value = ((Vector2)this.Value).x;
-        spinboxY.Value = ((Vector2)this.Value).x;
+        spinboxX.Value = ((Vector2)this.Value).X;
+        spinboxY.Value = ((Vector2)this.Value).X;
         VecUI.AddChild(spinboxX);
         VecUI.AddChild(spinboxY);
 
         /* TODO Vec2Props currently not working because here I pass the individual spin box
         values instead of a vector2 */
-        spinboxX.Connect(
-            "value_changed", 
-            Shaderer.instance, 
-            nameof(Shaderer.instance.OnApplyParam),
-            new Godot.Collections.Array {this.NameCode});
-        spinboxY.Connect(
-            "value_changed", 
-            Shaderer.instance, 
-            nameof(Shaderer.instance.OnApplyParam),
-            new Godot.Collections.Array {this.NameCode});
+        
+        spinboxX.ValueChanged += (v) => Shaderer.instance.OnApplyParam(v, this.NameCode);
+        spinboxY.ValueChanged += (v) => Shaderer.instance.OnApplyParam(v, this.NameCode);
+
         return VecUI;
     }
 
     public override string GetUniformCode() {
-        return $"uniform vec2 {this.NameCode} = vec2({toNotStupidString(((Vector2)Value).x)}, {toNotStupidString(((Vector2)Value).y)});";
+        return $"uniform vec2 {this.NameCode} = vec2({toNotStupidString(((Vector2)Value).X)}, {toNotStupidString(((Vector2)Value).Y)});";
     }
 }
-

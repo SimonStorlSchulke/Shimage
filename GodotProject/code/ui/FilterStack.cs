@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class FilterStack : VBoxContainer {
+public partial class FilterStack : VBoxContainer {
 
     public static List<Filter> filterList = new List<Filter>();
 

@@ -6,7 +6,7 @@ public enum FilterType {
 }
 
 
-public class Filter : Node {
+public partial class Filter : Node {
     public string Code;
     public string UniformsCode;
     public Prop[] Props;
@@ -29,11 +29,11 @@ public class Filter : Node {
 
     public void BuildUI() {
         this.UI = new Panel();
-        this.UI.RectMinSize = new Vector2(240, 32 + Props.Length * 27);
-        this.UI.MarginBottom = 10;
+        this.UI.CustomMinimumSize = new Vector2(240, 32 + Props.Length * 27);
+        this.UI.OffsetBottom = 10;
 
         HBoxContainer btnRow = new HBoxContainer();
-        btnRow.RectPosition = new Vector2(141, 0);
+        btnRow.Position = new Vector2(141, 0);
 
         Button btnClose = new Button();
         btnClose.Text = " X ";
@@ -48,9 +48,11 @@ public class Filter : Node {
         btnRow.AddChild(btnDown);
         btnRow.AddChild(btnClose);
 
-        btnClose.Connect("pressed", this, nameof(OnRemove));
-        btnUp.Connect("pressed", FilterStack.instance, nameof(FilterStack.instance.MoveFilter), new Godot.Collections.Array{this, true});
-        btnDown.Connect("pressed", FilterStack.instance, nameof(FilterStack.instance.MoveFilter), new Godot.Collections.Array{this, false});
+        btnClose.Connect("pressed", new Callable(this, nameof(OnRemove)));
+        
+        btnClose.Pressed += () => OnRemove();
+        btnUp.Pressed += () => FilterStack.instance.MoveFilter(this, true);
+        btnDown.Pressed += () => FilterStack.instance.MoveFilter(this, false);
 
         GridContainer UIGrid = new GridContainer();
         UIGrid.Columns = 2;
@@ -69,7 +71,7 @@ public class Filter : Node {
             UIGrid.AddChild(propLabel);
             UIGrid.AddChild(cProp.BuildUI());
         }
-        UIGrid.RectPosition = new Vector2(0, 32);
+        UIGrid.Position = new Vector2(0, 32);
         this.UI.AddChild(UIGrid);
     }
 

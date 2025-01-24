@@ -5,15 +5,15 @@ signal generated
 #########################
 # Internal
 # Onready
-onready var _sprite = $Renderer
-onready var _textureRect = $Viewport/Shader
-onready var _viewport = $Viewport
+@onready var _sprite = $Renderer
+@onready var _textureRect = $SubViewport/Shader
+@onready var _viewport = $SubViewport
 
-export var _viewer: NodePath
+@export var _viewer: NodePath
 
 # ###
 var _genImage
-export var _texture: Texture
+@export var _texture: Texture2D
 
 func get_image() -> Image:
 	if _genImage != null:
@@ -35,18 +35,18 @@ func generate_image(material : Material):
 	# Resize generating nodes
 	var resolution = _texture.get_size()
 	_viewport.size = resolution
-	_viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
-	_textureRect.rect_size = resolution
+	_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	_textureRect.size = resolution
 	
 	# Set material type
 	_textureRect.set_material(material)
 
 	## Actually Generate Image
 	_sprite.show()
-	yield(get_tree(),"idle_frame")
-	yield(get_tree(),"idle_frame")
-	yield(get_tree(),"idle_frame")
+	await get_tree().idle_frame
+	await get_tree().idle_frame
+	await get_tree().idle_frame
 	_genImage = _sprite.get_texture().get_data().duplicate()
 	emit_signal("generated")
-	_viewport.render_target_update_mode = Viewport.UPDATE_DISABLED
+	_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 	_sprite.hide()
