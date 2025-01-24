@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class ViewTabs : Tabs {
+public partial class ViewTabs : TabBar {
     public void RedrawTabs() {
 
         for (int iTab = 0; iTab < GetTabCount(); iTab++) {

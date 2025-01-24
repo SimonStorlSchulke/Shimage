@@ -1,13 +1,13 @@
 using Godot;
 using System;
 
-public abstract class Tool : Control
+public abstract partial class Tool : Control
 {
     public Node connectedTo;
     public Node controlledBy;
 
     public override void _Ready() {
-        LayerManager.instance.Connect("SLayerSelected", this, nameof(OnLayerSelected));
+        LayerManager.instance.Connect("SLayerSelected", new Callable(this, nameof(OnLayerSelected)));
     }
 
     public virtual void ActivateTool(Node connectedTo, Godot.Collections.Array args = null) {

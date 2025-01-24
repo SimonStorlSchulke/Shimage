@@ -7,7 +7,7 @@ public interface ILayer {
     void UpdateLayer();
     float GetBlendFactor();
     void SetBlendFactor(float fac);
-    void ApplyProp(object value, string name);
+    void ApplyProp(Variant value, string name);
     Vector2 GlobalToPixelCoord(Vector2 globalCoords);
     Vector2 GlobalToUVCoord(Vector2 globalCoords);
     Vector2 UVToGlobalCoord(Vector2 pixelCoords);

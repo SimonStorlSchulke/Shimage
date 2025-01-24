@@ -1,7 +1,5 @@
-using Godot;
-using System;
 
-public class FilterSaturation : Filter {
+public partial class FilterSaturation : Filter {
     public FilterSaturation() {
 
         Name = "Saturation";

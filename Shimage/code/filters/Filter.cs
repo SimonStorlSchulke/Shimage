@@ -1,12 +1,13 @@
 using Godot;
 using System;
 
+
 public enum FilterType {
     COLOR,
     DISTORT
 }
 
-public abstract class Filter : Node
+public abstract partial class Filter : Node
 {
     public new string Name;
     public FilterType type;
@@ -54,13 +55,13 @@ public abstract class Filter : Node
         UI = new Panel();
         sb.CornerRadiusBottomLeft = sb.CornerRadiusBottomRight = sb.CornerRadiusTopLeft = sb.CornerRadiusTopRight = 10;  // TODO style only once
         sb.BgColor = new Color(0.13f, 0.13f, 0.13f, 0.65f);
-        UI.AddStyleboxOverride("panel", sb);
+        UI.AddThemeStyleboxOverride("panel", sb);
 
-        UI.MarginBottom = 10;
+        UI.OffsetBottom = 10;
 
         HBoxContainer TopRow = new HBoxContainer();
-        TopRow.RectMinSize = new Vector2(265, 24);
-        TopRow.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
+        TopRow.CustomMinimumSize = new Vector2(265, 24);
+        TopRow.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
 
         Label labelName = new Label();
         labelName.Name = "Labelname";
@@ -68,7 +69,7 @@ public abstract class Filter : Node
         TopRow.AddChild(labelName);
 
         Control spacer = new Control();
-        spacer.SizeFlagsHorizontal = (int)Control.SizeFlags.ExpandFill;
+        spacer.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         TopRow.AddChild(spacer);
 
         Button btnUp = new Button();
@@ -83,7 +84,7 @@ public abstract class Filter : Node
         btnClose.Text = " X ";
         TopRow.AddChild(btnClose);
 
-        btnClose.Connect("pressed", this, nameof(OnRemove));
+        btnClose.Connect("pressed", new Callable(this, nameof(OnRemove)));
         //btnUp.Connect("pressed", FilterStack.instance, nameof(FilterStack.instance.MoveFilter), new Godot.Collections.Array{this, true});
         //btnDown.Connect("pressed", FilterStack.instance, nameof(FilterStack.instance.MoveFilter), new Godot.Collections.Array{this, false});
 
@@ -101,9 +102,9 @@ public abstract class Filter : Node
             // TODO add custom PropUI here
             UIGrid.AddChild(cProp.BuildUI());
         }
-        UIGrid.RectPosition = new Vector2(0, 48);
+        UIGrid.Position = new Vector2(0, 48);
         UI.AddChild(UIGrid);
-        UI.RectMinSize = UIGrid.RectSize + new Vector2(0, UIGrid.RectPosition.y + 5);
+        UI.CustomMinimumSize = UIGrid.Size + new Vector2(0, UIGrid.Position.Y + 5);
         return UI;
     }
 }

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class ViewportControls : Control {
+public partial class ViewportControls : Control {
     public void OnInput(InputEvent e) {
         if (e.IsAction("zoom_in")) {
             Apphandler.currentViewer.Zoom(1.2f);
@@ -13,10 +13,10 @@ public class ViewportControls : Control {
 
         //Drag Viewer
         if (e is InputEventMouseButton) {
-            if ((e as InputEventMouseButton).ButtonIndex == 3) {
+            if ((e as InputEventMouseButton).ButtonIndex == MouseButton.Middle) {
                 Apphandler.currentViewer.draggingView = !Apphandler.currentViewer.draggingView;
                 Apphandler.currentViewer.mouseStartPos = GetGlobalMousePosition();
-                Apphandler.currentViewer.ViewerStartPos = Apphandler.currentViewer.RectPosition;
+                Apphandler.currentViewer.ViewerStartPos = Apphandler.currentViewer.Position;
             }
         }
     }

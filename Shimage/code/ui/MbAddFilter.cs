@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class MbAddFilter : MenuButton {
+public partial class MbAddFilter : MenuButton {
     Tuple<string, string, Type>[] filterMenuList = new Tuple<string, string, Type>[] {
         new Tuple<string, string, Type>("Exposure", "Color", typeof(FilterExposure)),
         new Tuple<string, string, Type>("Vignette", "Color", typeof(FilterVignette)),
@@ -19,7 +19,7 @@ public class MbAddFilter : MenuButton {
             GetPopup().AddItem(cFilterEntry.Item1);
             filterIdx++;
         }
-        GetPopup().Connect("id_pressed", this, nameof(AddFilterFromUI));
+        GetPopup().Connect("id_pressed", new Callable(this, nameof(AddFilterFromUI)));
     }
 
     public void AddFilterFromUI(int filterIdx) {

@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-public class FilterTile : Filter {
+
+public partial class FilterTile : Filter {
     public FilterTile() {
 
         Name = "Exposure";

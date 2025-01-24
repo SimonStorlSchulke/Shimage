@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-public class FilterVibrancy : Filter {
+
+public partial class FilterVibrancy : Filter {
     public FilterVibrancy() {
 
         Name = "Vibrancy";

@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 
 
-public class LayerRect : Node2D, ILayer {
+public partial class LayerRect : Node2D, ILayer {
 
     ColorRect rect;
 
@@ -30,8 +30,8 @@ public class LayerRect : Node2D, ILayer {
         UpdateLayer();
     }
 
-    public void ApplyProp(object value, string name) {
-        ((ShaderMaterial)rect.Material).SetShaderParam(name, value);
+    public void ApplyProp(Variant value, string name) {
+        ((ShaderMaterial)rect.Material).SetShaderParameter(name, value);
     }
 
     public void OnChangeColor(Color cl) {
@@ -48,7 +48,7 @@ public class LayerRect : Node2D, ILayer {
         sh.Code = shaderCode;
         mat.Shader = sh;
         rect.Material = mat;
-        (rect.Material as ShaderMaterial).SetShaderParam("blendFactor", blendFactor);
+        (rect.Material as ShaderMaterial).SetShaderParameter("blendFactor", blendFactor);
     }
 
     public void UpdateMaterial() {
@@ -65,7 +65,7 @@ public class LayerRect : Node2D, ILayer {
 
     public void SetBlendFactor(float fac) {
         blendFactor = fac;
-        (rect.Material as ShaderMaterial).SetShaderParam("blendFactor", blendFactor);
+        (rect.Material as ShaderMaterial).SetShaderParameter("blendFactor", blendFactor);
     }
 
     public float GetBlendFactor() {
@@ -94,8 +94,8 @@ public class LayerRect : Node2D, ILayer {
 
     public Vector2 GlobalToPixelCoord(Vector2 globalCoords) {
         //TODO not working
-        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
-        Vector2 coord = coordVp - GlobalPosition - rect.RectSize;
+        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.GlobalPosition) / Apphandler.currentViewer.Scale;
+        Vector2 coord = coordVp - GlobalPosition - rect.Size;
         return coord;
     }
 
@@ -106,9 +106,9 @@ public class LayerRect : Node2D, ILayer {
 
     public Vector2 GlobalToUVCoord(Vector2 globalCoords) {
         //TODO not working
-        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
-        Vector2 coord = coordVp - GlobalPosition - rect.RectSize;
-        coord /= rect.RectScale;
+        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.GlobalPosition) / Apphandler.currentViewer.Scale;
+        Vector2 coord = coordVp - GlobalPosition - rect.Size;
+        coord /= rect.Scale;
         return coord;
     }
 }

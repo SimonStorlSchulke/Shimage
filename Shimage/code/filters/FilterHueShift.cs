@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-public class FilterHueShift : Filter {
+
+public partial class FilterHueShift : Filter {
     public FilterHueShift() {
 
         Name = "Exposure";

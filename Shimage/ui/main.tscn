@@ -1,46 +1,46 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=48 format=3 uid="uid://5hwqodsjpwni"]
 
-[ext_resource path="res://testimages/Maki.jpg" type="Texture" id=1]
-[ext_resource path="res://theme/font_statusbar.tres" type="DynamicFont" id=2]
-[ext_resource path="res://theme/icons/refit.png" type="Texture" id=3]
-[ext_resource path="res://code/core/Viewer.cs" type="Script" id=4]
-[ext_resource path="res://code/layers/LayerImage.cs" type="Script" id=5]
-[ext_resource path="res://AppHandler.tscn" type="PackedScene" id=6]
-[ext_resource path="res://ui/ViewportControls.cs" type="Script" id=7]
-[ext_resource path="res://ui/WindowTitleBar.cs" type="Script" id=8]
-[ext_resource path="res://ui/ResizeHandler.cs" type="Script" id=9]
-[ext_resource path="res://ui/ViewTabs.cs" type="Script" id=10]
-[ext_resource path="res://testimages/lola.jpg" type="Texture" id=11]
-[ext_resource path="res://testimages/Rockingchair_01.png" type="Texture" id=12]
-[ext_resource path="res://ui/Layer/UILayerRect.tscn" type="PackedScene" id=13]
-[ext_resource path="res://code/ui/FilterManager.cs" type="Script" id=14]
-[ext_resource path="res://code/ui/LayerManager.cs" type="Script" id=15]
-[ext_resource path="res://code/layers/LayerText.cs" type="Script" id=16]
-[ext_resource path="res://code/layers/LayerRect.cs" type="Script" id=17]
-[ext_resource path="res://ui/Layer/UILayerImage.tscn" type="PackedScene" id=18]
-[ext_resource path="res://ui/Layer/UILayerText.tscn" type="PackedScene" id=19]
-[ext_resource path="res://code/ui/MbAddFilter.cs" type="Script" id=20]
-[ext_resource path="res://code/ui/tools/Mover.cs" type="Script" id=21]
-[ext_resource path="res://code/ui/tools/ToolsLayer.cs" type="Script" id=22]
-[ext_resource path="res://code/ui/StatusBarInfo.cs" type="Script" id=23]
-[ext_resource path="res://theme/icons/mover.png" type="Texture" id=24]
-[ext_resource path="res://code/core/ImageIO.cs" type="Script" id=25]
-[ext_resource path="res://code/layers/LayerBG.cs" type="Script" id=26]
-[ext_resource path="res://ui/Layer/UILayerBG.tscn" type="PackedScene" id=27]
-[ext_resource path="res://code/ui/PnlShaderCode.cs" type="Script" id=28]
-[ext_resource path="res://theme/icons/carret.png" type="Texture" id=29]
-[ext_resource path="res://code/ui/MbAddLayer.cs" type="Script" id=30]
-[ext_resource path="res://code/ui/tools/Rotator.cs" type="Script" id=31]
+[ext_resource type="Texture2D" uid="uid://cdif2k6ottk3j" path="res://testimages/Maki.jpg" id="1"]
+[ext_resource type="FontFile" path="res://theme/font_statusbar.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://eoe8l4af0p2q" path="res://theme/icons/refit.png" id="3"]
+[ext_resource type="Script" uid="uid://b1h6rex11lttr" path="res://code/core/Viewer.cs" id="4"]
+[ext_resource type="Script" uid="uid://bd6q0o4es4e5s" path="res://code/layers/LayerImage.cs" id="5"]
+[ext_resource type="PackedScene" path="res://AppHandler.tscn" id="6"]
+[ext_resource type="Script" uid="uid://dpi5cj8ybvkln" path="res://ui/ViewportControls.cs" id="7"]
+[ext_resource type="Script" uid="uid://cnjja87tid27n" path="res://ui/WindowTitleBar.cs" id="8"]
+[ext_resource type="Script" uid="uid://bmar8myjkkp4r" path="res://ui/ResizeHandler.cs" id="9"]
+[ext_resource type="Script" uid="uid://cfx3oi2j8c2xb" path="res://ui/ViewTabs.cs" id="10"]
+[ext_resource type="Texture2D" uid="uid://dub46knpstmo3" path="res://testimages/lola.jpg" id="11"]
+[ext_resource type="Texture2D" uid="uid://dp5md2brjaqo" path="res://testimages/Rockingchair_01.png" id="12"]
+[ext_resource type="PackedScene" path="res://ui/Layer/UILayerRect.tscn" id="13"]
+[ext_resource type="Script" uid="uid://c8t1ybs8w5er2" path="res://code/ui/FilterManager.cs" id="14"]
+[ext_resource type="Script" uid="uid://b7fkap2ttorud" path="res://code/ui/LayerManager.cs" id="15"]
+[ext_resource type="Script" uid="uid://dfttsvffmhv7b" path="res://code/layers/LayerText.cs" id="16"]
+[ext_resource type="Script" uid="uid://u8yc8ob3dn77" path="res://code/layers/LayerRect.cs" id="17"]
+[ext_resource type="PackedScene" uid="uid://bc615iv3mtks4" path="res://ui/Layer/UILayerImage.tscn" id="18"]
+[ext_resource type="PackedScene" path="res://ui/Layer/UILayerText.tscn" id="19"]
+[ext_resource type="Script" uid="uid://bcvpprw54a6w7" path="res://code/ui/MbAddFilter.cs" id="20"]
+[ext_resource type="Script" uid="uid://fjyk8yx7qecc" path="res://code/ui/tools/Mover.cs" id="21"]
+[ext_resource type="Script" uid="uid://cje03ska70i4d" path="res://code/ui/tools/ToolsLayer.cs" id="22"]
+[ext_resource type="Script" uid="uid://ciasuqv1e466a" path="res://code/ui/StatusBarInfo.cs" id="23"]
+[ext_resource type="Texture2D" uid="uid://cagnq55nlgxyd" path="res://theme/icons/mover.png" id="24"]
+[ext_resource type="Script" uid="uid://7674rrx5nruj" path="res://code/core/ImageIO.cs" id="25"]
+[ext_resource type="Script" uid="uid://7wosevjdax7w" path="res://code/layers/LayerBG.cs" id="26"]
+[ext_resource type="PackedScene" path="res://ui/Layer/UILayerBG.tscn" id="27"]
+[ext_resource type="Script" uid="uid://bvx3y36jvawq2" path="res://code/ui/PnlShaderCode.cs" id="28"]
+[ext_resource type="Texture2D" uid="uid://c21aqf37qihlf" path="res://theme/icons/carret.png" id="29"]
+[ext_resource type="Script" uid="uid://vsa86ta7jw1j" path="res://code/ui/MbAddLayer.cs" id="30"]
+[ext_resource type="Script" uid="uid://bgwrb22bs3ejo" path="res://code/ui/tools/Rotator.cs" id="31"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.13, 0.13, 0.13, 1 )
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.13, 0.13, 0.13, 1)
 
-[sub_resource type="Shader" id=29]
+[sub_resource type="Shader" id="29"]
 code = "shader_type canvas_item;
 uniform float exposure15531553 = 1;
 uniform float exposure15561556 = 1;
 uniform float blendFactor = 1.0;
-const float PI = 3.14159265359;
+uniform sampler2D screenTexture : hint_screen_texture, filter_linear_mipmap;
 
 float map_range(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
     float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
@@ -103,7 +103,7 @@ float luminance(vec3 col) {
 }
 
 void fragment(){
-    vec3 bg = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    vec3 bg = texture(screenTexture, SCREEN_UV).rgb;
     float layerAlpha = 1.0;
     vec3 fg = texture(TEXTURE, UV).rgb;
     layerAlpha = texture(TEXTURE, UV).a;
@@ -111,16 +111,16 @@ void fragment(){
     COLOR.a = layerAlpha * blendFactor;
 }"
 
-[sub_resource type="ShaderMaterial" id=30]
-shader = SubResource( 29 )
-shader_param/exposure15531553 = 1.0
-shader_param/exposure15561556 = 1.0
-shader_param/blendFactor = 1.0
+[sub_resource type="ShaderMaterial" id="30"]
+shader = SubResource("29")
+shader_parameter/exposure15531553 = 1.0
+shader_parameter/exposure15561556 = 1.0
+shader_parameter/blendFactor = 1.0
 
-[sub_resource type="Shader" id=23]
+[sub_resource type="Shader" id="23"]
 code = "shader_type canvas_item;
 uniform float blendFactor = 1.0;
-const float PI = 3.14159265359;
+uniform sampler2D screenTexture : hint_screen_texture, filter_linear_mipmap;
 
 float map_range(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
     float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
@@ -183,7 +183,7 @@ float luminance(vec3 col) {
 }
 
 void fragment(){
-    vec3 bg = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    vec3 bg = texture(screenTexture, SCREEN_UV).rgb;
     float layerAlpha = 1.0;
     vec3 fg = texture(TEXTURE, UV).rgb;
     layerAlpha = texture(TEXTURE, UV).a;
@@ -191,14 +191,14 @@ void fragment(){
     COLOR.a = layerAlpha * blendFactor;
 }"
 
-[sub_resource type="ShaderMaterial" id=24]
-shader = SubResource( 23 )
-shader_param/blendFactor = 1.0
+[sub_resource type="ShaderMaterial" id="24"]
+shader = SubResource("23")
+shader_parameter/blendFactor = 1.0
 
-[sub_resource type="Shader" id=21]
+[sub_resource type="Shader" id="21"]
 code = "shader_type canvas_item;
 uniform float blendFactor = 1.0;
-const float PI = 3.14159265359;
+uniform sampler2D screenTexture : hint_screen_texture, filter_linear_mipmap;
 
 float map_range(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
     float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
@@ -261,7 +261,7 @@ float luminance(vec3 col) {
 }
 
 void fragment(){
-    vec3 bg = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    vec3 bg = texture(screenTexture, SCREEN_UV).rgb;
     float layerAlpha = 1.0;
     vec3 fg = texture(TEXTURE, UV).rgb;
     layerAlpha = texture(TEXTURE, UV).a;
@@ -269,14 +269,14 @@ void fragment(){
     COLOR.a = layerAlpha * blendFactor;
 }"
 
-[sub_resource type="ShaderMaterial" id=22]
-shader = SubResource( 21 )
-shader_param/blendFactor = 0.5
+[sub_resource type="ShaderMaterial" id="22"]
+shader = SubResource("21")
+shader_parameter/blendFactor = 1.0
 
-[sub_resource type="Shader" id=25]
+[sub_resource type="Shader" id="25"]
 code = "shader_type canvas_item;
 uniform float blendFactor = 1.0;
-const float PI = 3.14159265359;
+uniform sampler2D screenTexture : hint_screen_texture, filter_linear_mipmap;
 
 float map_range(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
     float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
@@ -339,7 +339,7 @@ float luminance(vec3 col) {
 }
 
 void fragment(){
-    vec3 bg = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    vec3 bg = texture(screenTexture, SCREEN_UV).rgb;
     float layerAlpha = 1.0;
     vec3 fg = vec4(0.9372549, 0, 1, 1).rgb;
     layerAlpha = texture(TEXTURE, UV).a;
@@ -351,14 +351,14 @@ void fragment(){
     COLOR.a = layerAlpha * blendFactor;
 }"
 
-[sub_resource type="ShaderMaterial" id=26]
-shader = SubResource( 25 )
-shader_param/blendFactor = 0.5
+[sub_resource type="ShaderMaterial" id="26"]
+shader = SubResource("25")
+shader_parameter/blendFactor = 0.5
 
-[sub_resource type="Shader" id=27]
+[sub_resource type="Shader" id="27"]
 code = "shader_type canvas_item;
 uniform float blendFactor = 1.0;
-const float PI = 3.14159265359;
+uniform sampler2D screenTexture : hint_screen_texture, filter_linear_mipmap;
 
 float map_range(float value, float min1, float max1, float min2, float max2, bool clamp_result) {
     float res = min2 + (value - min1) * (max2 - min2) / (max1 - min1);
@@ -421,7 +421,7 @@ float luminance(vec3 col) {
 }
 
 void fragment(){
-    vec3 bg = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    vec3 bg = texture(screenTexture, SCREEN_UV).rgb;
     float layerAlpha = 1.0;
     vec3 fg = vec4(0.6235294, 0, 0, 1).rgb;
     layerAlpha = texture(TEXTURE, UV).a;
@@ -429,14 +429,14 @@ void fragment(){
     COLOR.a = layerAlpha * blendFactor;
 }"
 
-[sub_resource type="ShaderMaterial" id=28]
-shader = SubResource( 27 )
-shader_param/blendFactor = 1.0
+[sub_resource type="ShaderMaterial" id="28"]
+shader = SubResource("27")
+shader_parameter/blendFactor = 1.0
 
-[sub_resource type="Shader" id=2]
+[sub_resource type="Shader" id="2"]
 code = "shader_type canvas_item;
 uniform float noiseDistortAmmount3850 = 0.39;uniform float noiseDistortOffset3850 = -10000;uniform float noiseDistortScale3850 = 10;uniform int noiseDistortOctaves3850 = 3;uniform float blendFactor = 1.0;
-const float PI = 3.14159265359;
+uniform sampler2D screenTexture : hint_screen_texture, filter_linear_mipmap;
 
 //variables to use
 
@@ -503,7 +503,7 @@ float luminance(vec3 col) {
 void fragment(){
     float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
     vec2 uv = UV;
-    vec3 bg = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    vec3 bg = texture(sampler2D, SCREEN_UV).rgb;
     float layerAlpha = 1.0;
     //vec3 fg = texture(TEXTURE, uv).rgb;
     layerAlpha = texture(TEXTURE, uv).a;
@@ -515,597 +515,478 @@ void fragment(){
 	COLOR = textureLod(TEXTURE, UV, 3.0);
 }"
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
-shader_param/noiseDistortAmmount3850 = 0.39
-shader_param/noiseDistortOffset3850 = -10000.0
-shader_param/noiseDistortScale3850 = 10.0
-shader_param/noiseDistortOctaves3850 = 3
-shader_param/blendFactor = 1.0
+[sub_resource type="ShaderMaterial" id="3"]
+shader = SubResource("2")
 
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
+[sub_resource type="StyleBoxFlat" id="6"]
+bg_color = Color(0.137255, 0.137255, 0.137255, 1)
 
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.156863, 0.156863, 0.156863, 0.678431 )
+[sub_resource type="StyleBoxFlat" id="13"]
+bg_color = Color(0.156863, 0.156863, 0.156863, 0.678431)
 
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0, 0, 0, 0 )
+[sub_resource type="StyleBoxFlat" id="14"]
+bg_color = Color(0, 0, 0, 0)
 
 [node name="Main" type="Panel"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme_override_styles/panel = SubResource("1")
 
-[node name="Viewport" type="Control" parent="."]
+[node name="SubViewport" type="Control" parent="."]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Maki" type="ViewportContainer" parent="Viewport"]
+[node name="Maki" type="SubViewportContainer" parent="SubViewport"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 320.0
-margin_top = 117.0
-margin_right = 640.0
-margin_bottom = 497.0
-rect_scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 320.0
+offset_top = 117.0
+offset_right = 640.0
+offset_bottom = 497.0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4")
 NPViewSpace = NodePath("../../VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace")
 
-[node name="Viewport" type="Viewport" parent="Viewport/Maki"]
-size = Vector2( 1920, 1280 )
+[node name="SubViewport" type="SubViewport" parent="SubViewport/Maki"]
 handle_input_locally = false
-usage = 0
-render_target_update_mode = 3
+size = Vector2i(1920, 1280)
+render_target_update_mode = 4
 
-[node name="Maki" type="Sprite" parent="Viewport/Maki/Viewport"]
-material = SubResource( 30 )
-position = Vector2( 960, 640 )
-texture = ExtResource( 1 )
-script = ExtResource( 5 )
+[node name="Maki" type="Sprite2D" parent="SubViewport/Maki/SubViewport"]
+material = SubResource("30")
+position = Vector2(960, 640)
+texture = ExtResource("1")
+script = ExtResource("5")
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="Viewport/Maki/Viewport"]
+[node name="BackBufferCopy" type="BackBufferCopy" parent="SubViewport/Maki/SubViewport"]
 copy_mode = 2
 
-[node name="Chair" type="Sprite" parent="Viewport/Maki/Viewport/BackBufferCopy"]
-material = SubResource( 24 )
-texture = ExtResource( 12 )
-script = ExtResource( 5 )
+[node name="Chair" type="Sprite2D" parent="SubViewport/Maki/SubViewport/BackBufferCopy"]
+material = SubResource("24")
+texture = ExtResource("12")
+script = ExtResource("5")
 
-[node name="BackBufferCopy3" type="BackBufferCopy" parent="Viewport/Maki/Viewport"]
+[node name="BackBufferCopy3" type="BackBufferCopy" parent="SubViewport/Maki/SubViewport"]
 copy_mode = 2
 
-[node name="Text" type="Node2D" parent="Viewport/Maki/Viewport/BackBufferCopy3"]
-material = SubResource( 22 )
-script = ExtResource( 16 )
-color = Color( 0.937255, 0, 1, 1 )
+[node name="Text" type="Node2D" parent="SubViewport/Maki/SubViewport/BackBufferCopy3"]
+material = SubResource("22")
+script = ExtResource("16")
+color = Color(0.937255, 0, 1, 1)
 blendmode = 5
 blendFactor = 0.5
 
-[node name="Horn" type="Label" parent="Viewport/Maki/Viewport/BackBufferCopy3/Text"]
-material = SubResource( 26 )
-margin_right = 247.0
-margin_bottom = 35.0
+[node name="Horn" type="Label" parent="SubViewport/Maki/SubViewport/BackBufferCopy3/Text"]
+material = SubResource("26")
+offset_right = 247.0
+offset_bottom = 35.0
 text = "Yoooooooooooooooooo whazzup"
 
-[node name="BackBufferCopy4" type="BackBufferCopy" parent="Viewport/Maki/Viewport"]
+[node name="BackBufferCopy4" type="BackBufferCopy" parent="SubViewport/Maki/SubViewport"]
 copy_mode = 2
 
-[node name="Node2D" type="Node2D" parent="Viewport/Maki/Viewport/BackBufferCopy4"]
-position = Vector2( 400, 400 )
+[node name="Node2D" type="Node2D" parent="SubViewport/Maki/SubViewport/BackBufferCopy4"]
+position = Vector2(400, 400)
 rotation = -0.256563
-script = ExtResource( 17 )
-color = Color( 0.623529, 0, 0, 1 )
+script = ExtResource("17")
+color = Color(0.623529, 0, 0, 1)
 blendmode = 8
 
-[node name="ColorRect" type="ColorRect" parent="Viewport/Maki/Viewport/BackBufferCopy4/Node2D"]
-material = SubResource( 28 )
-margin_right = 500.0
-margin_bottom = 500.0
+[node name="ColorRect" type="ColorRect" parent="SubViewport/Maki/SubViewport/BackBufferCopy4/Node2D"]
+material = SubResource("28")
+offset_right = 500.0
+offset_bottom = 500.0
 mouse_filter = 2
 
-[node name="BackBufferCopy5" type="BackBufferCopy" parent="Viewport/Maki/Viewport"]
+[node name="BackBufferCopy5" type="BackBufferCopy" parent="SubViewport/Maki/SubViewport"]
 copy_mode = 2
 
-[node name="Node2D" type="Node2D" parent="Viewport/Maki/Viewport/BackBufferCopy5"]
-script = ExtResource( 26 )
+[node name="Node2D" type="Node2D" parent="SubViewport/Maki/SubViewport/BackBufferCopy5"]
+script = ExtResource("26")
 
-[node name="ColorRect" type="ColorRect" parent="Viewport/Maki/Viewport/BackBufferCopy5/Node2D"]
-material = SubResource( 28 )
-margin_right = 2.14748e+09
-margin_bottom = 2.14748e+09
-rect_min_size = Vector2( 2.14748e+09, 2.14748e+09 )
+[node name="ColorRect" type="ColorRect" parent="SubViewport/Maki/SubViewport/BackBufferCopy5/Node2D"]
+material = SubResource("28")
+custom_minimum_size = Vector2(2.14748e+09, 2.14748e+09)
+offset_right = 2.14748e+09
+offset_bottom = 2.14748e+09
 mouse_filter = 2
 
-[node name="Lola" type="ViewportContainer" parent="Viewport"]
+[node name="Lola" type="SubViewportContainer" parent="SubViewport"]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 448.0
-margin_top = 283.0
-margin_right = 768.0
-margin_bottom = 663.0
-rect_scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 448.0
+offset_top = 283.0
+offset_right = 768.0
+offset_bottom = 663.0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4")
 NPViewSpace = NodePath("../../VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace")
 
-[node name="Viewport" type="Viewport" parent="Viewport/Lola"]
-size = Vector2( 1920, 1280 )
+[node name="SubViewport" type="SubViewport" parent="SubViewport/Lola"]
 handle_input_locally = false
-usage = 0
+size = Vector2i(1920, 1280)
 render_target_update_mode = 0
 
-[node name="Lola" type="Sprite" parent="Viewport/Lola/Viewport"]
-material = SubResource( 3 )
-position = Vector2( 900, 600 )
+[node name="Lola" type="Sprite2D" parent="SubViewport/Lola/SubViewport"]
+material = SubResource("3")
+position = Vector2(900, 600)
 rotation = 1.14668
-texture = ExtResource( 11 )
-script = ExtResource( 5 )
+texture = ExtResource("11")
+script = ExtResource("5")
 
-[node name="BackBufferCopy5" type="BackBufferCopy" parent="Viewport/Lola/Viewport"]
+[node name="BackBufferCopy5" type="BackBufferCopy" parent="SubViewport/Lola/SubViewport"]
 copy_mode = 2
 
-[node name="Node2D" type="Node2D" parent="Viewport/Lola/Viewport/BackBufferCopy5"]
-script = ExtResource( 26 )
+[node name="Node2D" type="Node2D" parent="SubViewport/Lola/SubViewport/BackBufferCopy5"]
+script = ExtResource("26")
 
-[node name="ColorRect" type="ColorRect" parent="Viewport/Lola/Viewport/BackBufferCopy5/Node2D"]
-material = SubResource( 28 )
-margin_right = 2.14748e+09
-margin_bottom = 2.14748e+09
-rect_min_size = Vector2( 2.14748e+09, 2.14748e+09 )
+[node name="ColorRect" type="ColorRect" parent="SubViewport/Lola/SubViewport/BackBufferCopy5/Node2D"]
+material = SubResource("28")
+custom_minimum_size = Vector2(2.14748e+09, 2.14748e+09)
+offset_right = 2.14748e+09
+offset_bottom = 2.14748e+09
 mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MenuBar" type="Panel" parent="VBoxContainer"]
-margin_right = 1920.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 24, 48 )
-custom_styles/panel = SubResource( 6 )
+custom_minimum_size = Vector2(24, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("6")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MenuBar"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MbFile" type="MenuButton" parent="VBoxContainer/MenuBar/HBoxContainer"]
-margin_right = 42.0
-margin_bottom = 48.0
+layout_mode = 2
 text = "File"
 switch_on_hover = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MbEdit" type="MenuButton" parent="VBoxContainer/MenuBar/HBoxContainer"]
-margin_left = 42.0
-margin_right = 86.0
-margin_bottom = 48.0
+layout_mode = 2
 focus_mode = 2
 text = "Edit"
 switch_on_hover = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Button" type="Button" parent="VBoxContainer/MenuBar/HBoxContainer"]
-margin_left = 86.0
-margin_right = 143.0
-margin_bottom = 48.0
+layout_mode = 2
 text = "Move"
 
 [node name="Button2" type="Button" parent="VBoxContainer/MenuBar/HBoxContainer"]
-margin_left = 143.0
-margin_right = 206.0
-margin_bottom = 48.0
+layout_mode = 2
 text = "Rotate"
 
 [node name="WindowFrame" type="Control" parent="VBoxContainer/MenuBar/HBoxContainer"]
-margin_left = 206.0
-margin_right = 1920.0
-margin_bottom = 48.0
+layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="BtnMinimize" type="Button" parent="VBoxContainer/MenuBar/HBoxContainer"]
 visible = false
-margin_left = 1888.0
-margin_right = 1920.0
-margin_bottom = 35.0
+layout_mode = 2
 text = " - "
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BtnMaximize" type="Button" parent="VBoxContainer/MenuBar/HBoxContainer"]
 visible = false
-margin_left = 1890.0
-margin_right = 1920.0
-margin_bottom = 35.0
+layout_mode = 2
 text = "O"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BtnClose" type="Button" parent="VBoxContainer/MenuBar/HBoxContainer"]
 visible = false
-margin_left = 1885.0
-margin_right = 1920.0
-margin_bottom = 35.0
+layout_mode = 2
 text = " X "
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 1920.0
-margin_bottom = 1056.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PnlLeft" type="Panel" parent="VBoxContainer/HBoxContainer"]
-margin_right = 300.0
-margin_bottom = 1008.0
-rect_min_size = Vector2( 300, 0 )
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="TabsLeft" type="TabContainer" parent="VBoxContainer/HBoxContainer/PnlLeft"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 200, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+current_tab = 0
 
 [node name="Layers" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/PnlLeft/TabsLeft"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 7.5
-margin_top = 44.5
-margin_right = -7.5
-margin_bottom = -7.5
+layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PnlLeft/TabsLeft/Layers"]
-margin_right = 285.0
-margin_bottom = 956.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MbAddLayer" type="MenuButton" parent="VBoxContainer/HBoxContainer/PnlLeft/TabsLeft/Layers/VBoxContainer"]
-margin_right = 285.0
-margin_bottom = 35.0
+layout_mode = 2
 text = "Add Layer"
-script = ExtResource( 30 )
+script = ExtResource("30")
 
 [node name="LayerManager" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PnlLeft/TabsLeft/Layers/VBoxContainer"]
-margin_top = 35.0
-margin_right = 285.0
-margin_bottom = 956.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 10
-script = ExtResource( 15 )
-UILayerImage = ExtResource( 18 )
-UILayerRect = ExtResource( 13 )
-UILayerText = ExtResource( 19 )
-UILayerBG = ExtResource( 27 )
+theme_override_constants/separation = 10
+script = ExtResource("15")
+UILayerImage = ExtResource("18")
+UILayerRect = ExtResource("13")
+UILayerText = ExtResource("19")
+UILayerBG = ExtResource("27")
 
 [node name="Masks" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/PnlLeft/TabsLeft"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 7.5
-margin_top = 44.5
-margin_right = -7.5
-margin_bottom = -7.5
+layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="Masks" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PnlLeft/TabsLeft/Masks"]
-margin_right = 285.0
-margin_bottom = 956.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
-margin_left = 300.0
-margin_right = 1920.0
-margin_bottom = 1008.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_right = 1620.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 0, 38 )
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="ViewTabs" type="Tabs" parent="VBoxContainer/HBoxContainer/VBoxContainer/Panel"]
+[node name="ViewTabs" type="TabBar" parent="VBoxContainer/HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -1.0
+offset_bottom = -1.0
 size_flags_horizontal = 3
-script = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
+script = ExtResource("10")
 
 [node name="ViewSpace" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 38.0
-margin_right = 1620.0
-margin_bottom = 976.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("7")
 
 [node name="Tools" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace"]
-script = ExtResource( 22 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+anchors_preset = 0
+script = ExtResource("22")
 
 [node name="Mover" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace/Tools"]
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 21 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("21")
 
 [node name="ColorRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace/Tools/Mover"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 495.0
-margin_top = 409.0
-margin_right = 543.0
-margin_bottom = 457.0
-rect_pivot_offset = Vector2( 24, 24 )
+offset_left = 495.0
+offset_top = 409.0
+offset_right = 543.0
+offset_bottom = 457.0
+pivot_offset = Vector2(24, 24)
 mouse_default_cursor_shape = 3
-texture = ExtResource( 24 )
-expand = true
+texture = ExtResource("24")
+expand_mode = 1
 
 [node name="Rotator" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace/Tools"]
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 31 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("31")
 
 [node name="ColorRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace/Tools/Rotator"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 495.0
-margin_top = 409.0
-margin_right = 543.0
-margin_bottom = 457.0
-rect_pivot_offset = Vector2( 24, 24 )
+offset_left = 495.0
+offset_top = 409.0
+offset_right = 543.0
+offset_bottom = 457.0
+pivot_offset = Vector2(24, 24)
 mouse_default_cursor_shape = 3
-texture = ExtResource( 24 )
-expand = true
+texture = ExtResource("24")
+expand_mode = 1
 
 [node name="Control" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 976.0
-margin_right = 1620.0
-margin_bottom = 1008.0
-rect_min_size = Vector2( 0, 32 )
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
 
 [node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/Control"]
-margin_left = 794.0
-margin_right = 826.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-texture_normal = ExtResource( 3 )
-expand = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture_normal = ExtResource("3")
 
 [node name="StatusBar" type="Panel" parent="VBoxContainer"]
-margin_top = 1056.0
-margin_right = 1920.0
-margin_bottom = 1080.0
-rect_min_size = Vector2( 0, 24 )
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/StatusBar"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -4.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = -4.0
 
 [node name="Label" type="Label" parent="VBoxContainer/StatusBar/HBoxContainer"]
-margin_right = 67.0
-margin_bottom = 31.0
-custom_fonts/font = ExtResource( 2 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
 text = "Statusbar"
-script = ExtResource( 23 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("23")
 
 [node name="ResizeHandler" type="Control" parent="."]
 visible = false
+custom_minimum_size = Vector2(0, 3)
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 0, 3 )
 mouse_filter = 2
-script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("9")
 borderWidth = 1
 
 [node name="WindowBorderTop" type="ColorRect" parent="ResizeHandler"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 0
 anchor_right = 1.0
-rect_min_size = Vector2( 0, 5 )
-color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [node name="WindowBorderRight" type="ColorRect" parent="ResizeHandler"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -5.0
+offset_left = -5.0
 grow_horizontal = 0
-rect_min_size = Vector2( 5, 0 )
-color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [node name="WindowBorderBot" type="ColorRect" parent="ResizeHandler"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
-rect_min_size = Vector2( 0, 5 )
-color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [node name="WindowBorderLeft" type="ColorRect" parent="ResizeHandler"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 5, 0 )
-color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [node name="PnlFilter" type="Control" parent="."]
-margin_left = 300.0
-margin_top = 86.0
-margin_right = 600.0
-margin_bottom = 1024.0
-rect_min_size = Vector2( 300, 0 )
-mouse_filter = 2
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 0
+offset_left = 300.0
+offset_top = 86.0
+offset_right = 600.0
+offset_bottom = 1024.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+mouse_filter = 2
 
 [node name="FilterStackUI" type="VBoxContainer" parent="PnlFilter"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -35.0
-mouse_filter = 2
+offset_right = -35.0
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+mouse_filter = 2
 
 [node name="Button" type="MenuButton" parent="PnlFilter/FilterStackUI"]
-margin_right = 265.0
-margin_bottom = 35.0
+layout_mode = 2
 text = "Add Filter"
-script = ExtResource( 20 )
+script = ExtResource("20")
 
 [node name="Filters" type="ScrollContainer" parent="PnlFilter/FilterStackUI"]
-margin_top = 35.0
-margin_right = 265.0
-margin_bottom = 938.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_vertical = 3
-scroll_horizontal_enabled = false
+mouse_filter = 2
 
 [node name="FilterManager" type="VBoxContainer" parent="PnlFilter/FilterStackUI/Filters"]
-margin_right = 265.0
-margin_bottom = 903.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 8
-script = ExtResource( 14 )
+mouse_filter = 2
+theme_override_constants/separation = 8
+script = ExtResource("14")
 
 [node name="PnlShaderCode" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -632.0
-margin_top = 86.0
-margin_bottom = -24.0
-rect_min_size = Vector2( 600, 0 )
-custom_styles/panel = SubResource( 13 )
-script = ExtResource( 28 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -632.0
+offset_top = 86.0
+offset_bottom = -24.0
+theme_override_styles/panel = SubResource("13")
+script = ExtResource("28")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PnlShaderCode"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CenterContainer" type="CenterContainer" parent="PnlShaderCode/HBoxContainer"]
-margin_right = 32.0
-margin_bottom = 970.0
+layout_mode = 2
 
 [node name="BtnCollapse" type="TextureButton" parent="PnlShaderCode/HBoxContainer/CenterContainer"]
-margin_top = 469.0
-margin_right = 32.0
-margin_bottom = 501.0
-rect_min_size = Vector2( 32, 32 )
-texture_normal = ExtResource( 29 )
-expand = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture_normal = ExtResource("29")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PnlShaderCode/HBoxContainer"]
-margin_left = 32.0
-margin_right = 632.0
-margin_bottom = 970.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="PnlShaderCode/HBoxContainer/VBoxContainer"]
-margin_right = 600.0
-margin_bottom = 35.0
+layout_mode = 2
 text = "Shadercode"
 
 [node name="TEShaderCode" type="TextEdit" parent="PnlShaderCode/HBoxContainer/VBoxContainer"]
-margin_top = 35.0
-margin_right = 600.0
-margin_bottom = 935.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/read_only = SubResource( 14 )
-custom_styles/focus = SubResource( 14 )
-custom_styles/normal = SubResource( 14 )
-custom_styles/completion = SubResource( 14 )
+theme_override_styles/normal = SubResource("14")
+theme_override_styles/focus = SubResource("14")
+theme_override_styles/read_only = SubResource("14")
 
 [node name="Button" type="Button" parent="PnlShaderCode/HBoxContainer/VBoxContainer"]
-margin_top = 935.0
-margin_right = 600.0
-margin_bottom = 970.0
+layout_mode = 2
 text = "Compile"
 
-[node name="AppHandler" parent="." instance=ExtResource( 6 )]
+[node name="AppHandler" parent="." instance=ExtResource("6")]
 NPViewTabs = NodePath("../VBoxContainer/HBoxContainer/VBoxContainer/Panel/ViewTabs")
-NpViewport = NodePath("../Viewport")
+NpViewport = NodePath("../SubViewport")
 shaderCodePanel = NodePath("../PnlShaderCode/HBoxContainer/VBoxContainer/TEShaderCode")
 
 [node name="Node" type="Node" parent="."]
-script = ExtResource( 25 )
+script = ExtResource("25")
 
 [connection signal="pressed" from="VBoxContainer/MenuBar/HBoxContainer/Button" to="VBoxContainer/HBoxContainer/VBoxContainer/ViewSpace/Tools/Mover" method="ActivateFromUI"]
 [connection signal="gui_input" from="VBoxContainer/MenuBar/HBoxContainer/WindowFrame" to="VBoxContainer/MenuBar/HBoxContainer/WindowFrame" method="OnInput"]

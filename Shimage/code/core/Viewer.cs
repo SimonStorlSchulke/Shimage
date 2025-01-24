@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class Viewer : ViewportContainer {
+public partial class Viewer : SubViewportContainer {
 
     [Export]
     NodePath NPViewSpace;
@@ -22,7 +22,7 @@ public class Viewer : ViewportContainer {
 
     public void CollectLayers() {
         Layers = new List<ILayer>();
-        foreach(Node n in GetNode("Viewport").GetChildren()) {
+        foreach(Node n in GetNode("SubViewport").GetChildren()) {
             if (n is BackBufferCopy) {
                 Layers.Add(n.GetChild<ILayer>(0));
             } else {
@@ -36,13 +36,13 @@ public class Viewer : ViewportContainer {
         GD.Print("ADD", layer.GetType());
         LayerManager.instance.AddLayerUI(layer);
 
-        if (GetNode("Viewport").GetChildCount() > 1) {
+        if (GetNode("SubViewport").GetChildCount() > 1) {
             BackBufferCopy bbc = new BackBufferCopy();
             bbc.AddChild(layer as Node);
-             GetNode("Viewport").AddChild(bbc);
+             GetNode("SubViewport").AddChild(bbc);
              return;
         }
-        GetNode("Viewport").AddChild(layer as Node);
+        GetNode("SubViewport").AddChild(layer as Node);
     }
 
     public void OnSetBlendmode(int idxBlendmode, int idxLayer) {
@@ -55,19 +55,19 @@ public class Viewer : ViewportContainer {
     }
 
     public void Recenter() {
-        float sx = ViewSpacer.RectSize.x / Resolution.x;
-        float sy = ViewSpacer.RectSize.y / Resolution.y;
+        float sx = ViewSpacer.Size.X / Resolution.X;
+        float sy = ViewSpacer.Size.Y / Resolution.Y;
         float fac = Mathf.Min(sx, sy);
 
-        RectPosition = ViewSpacer.RectGlobalPosition;
-        RectScale = new Vector2(fac, fac);
+        Position = ViewSpacer.GlobalPosition;
+        Scale = new Vector2(fac, fac);
 
         if (sx > sy) {
-            float f = ViewSpacer.RectSize.x / 2 - ((Resolution.x * RectScale.x) / 2);
-            RectPosition += new Vector2(f, 0);
+            float f = ViewSpacer.Size.X / 2 - ((Resolution.X * Scale.X) / 2);
+            Position += new Vector2(f, 0);
         } else {
-            float f = ViewSpacer.RectSize.y / 2 - ((Resolution.y * RectScale.y) / 2);
-            RectPosition += new Vector2(0, f);
+            float f = ViewSpacer.Size.Y / 2 - ((Resolution.Y * Scale.Y) / 2);
+            Position += new Vector2(0, f);
         }
         ToolsLayer.UpdateTransform();
     }
@@ -76,13 +76,13 @@ public class Viewer : ViewportContainer {
     public Vector2 mouseStartPos;
     public Vector2 ViewerStartPos;
     void DragView() {
-        RectPosition = ViewerStartPos + GetGlobalMousePosition() - mouseStartPos;
+        Position = ViewerStartPos + GetGlobalMousePosition() - mouseStartPos;
         ToolsLayer.UpdateTransform();
     }
 
 
     public bool draggingView;
-    public override void _Process(float delta) {
+    public override void _Process(double delta) {
         if (draggingView)
             DragView();
     }
@@ -90,17 +90,17 @@ public class Viewer : ViewportContainer {
 
     public void Zoom(float factor) {
         Vector2 mousePosGloabal = ViewSpacer.GetGlobalMousePosition();
-        RectScale *= factor;
-        RectPosition = mousePosGloabal - (Resolution * RectScale) / 2 + (mousePosGloabal - RectPosition) * factor;
+        Scale *= factor;
+        Position = mousePosGloabal - (Resolution * Scale) / 2 + (mousePosGloabal - Position) * factor;
         ToolsLayer.UpdateTransform();
     }
 
     public Vector2 GlobalToPixelCoord(Vector2 globalCords) {
-        return (globalCords - RectGlobalPosition) / RectScale;
+        return (globalCords - GlobalPosition) / Scale;
     }
 
     public Vector2 PixelToGlobalCoord(Vector2 pixelCoords) {
-        return RectScale * pixelCoords + RectGlobalPosition;
+        return Scale * pixelCoords + GlobalPosition;
     }
 
     public Vector2 GlobalToUVCoord(Vector2 globalCords) {

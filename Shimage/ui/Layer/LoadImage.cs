@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class LoadImage : FileDialog {
+public partial class LoadImage : FileDialog {
     public void OnShowPopup() {
         PopupCentered();
     }

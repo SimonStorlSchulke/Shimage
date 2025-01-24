@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-public class FilterVignette : Filter
+
+public partial class FilterVignette : Filter
 {
     public FilterVignette() {
 

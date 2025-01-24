@@ -1,8 +1,8 @@
 using Godot;
 
-public class Rotator : Tool {
-    [Signal] delegate void Rotated(Vector2 to);
-    [Signal] delegate void SStartRotating(Vector2 mouseStartPos);
+public partial class Rotator : Tool {
+    [Signal] delegate void RotatedEventHandler(Vector2 to);
+    [Signal] delegate void SStartRotatingEventHandler(Vector2 mouseStartPos);
     [Export]
     Vector2 handleSize = new Vector2(22, 22);
     TextureRect handle;
@@ -11,19 +11,19 @@ public class Rotator : Tool {
 
     public void ActivateFromUI() {
         ActivateTool(LayerManager.instance);
-        if (!IsConnected(nameof(SStartRotating), connectedTo, "OnMoverStarted"))
-            Connect(nameof(SStartRotating), LayerManager.instance, "OnMoverStarted");        
+        if (!IsConnected(nameof(SStartRotatingEventHandler), new Callable(connectedTo, "OnMoverStarted")))
+            Connect(nameof(SStartRotatingEventHandler), new Callable(LayerManager.instance, "OnMoverStarted"));        
     }
 
 
     /// <summary> If used, the first element of startPos[] must be Vector2 with global startPosition for the handle </summary>
     public override void ActivateTool(Node connectedTo, Godot.Collections.Array startPos = null) {
         base.ActivateTool(connectedTo);
-        if (!IsConnected(nameof(Rotated), connectedTo, "OnMoverMoved"))
-            Connect(nameof(Rotated), connectedTo, "OnMoverMoved");
+        if (!IsConnected(nameof(RotatedEventHandler), new Callable(connectedTo, "OnMoverMoved")))
+            Connect(nameof(RotatedEventHandler), new Callable(connectedTo, "OnMoverMoved"));
 
         if (startPos != null) {
-            handle.RectGlobalPosition = (Vector2)startPos[0] - handle.RectPivotOffset * Apphandler.currentViewer.RectScale;
+            handle.GlobalPosition = (Vector2)startPos[0] - handle.PivotOffset * Apphandler.currentViewer.Scale;
         }
         SetProcess(true);
     }
@@ -33,8 +33,8 @@ public class Rotator : Tool {
         if (connectedTo != null) {
 
             GD.Print("HUH");
-            Disconnect(nameof(Rotated), connectedTo, "OnMoverMoved");
-            Disconnect(nameof(SStartRotating), connectedTo, "OnMoverStarted");
+            Disconnect(nameof(RotatedEventHandler), new Callable(connectedTo, "OnMoverMoved"));
+            Disconnect(nameof(SStartRotatingEventHandler), new Callable(connectedTo, "OnMoverStarted"));
         }
         base.DeactivateTool();
     }
@@ -43,36 +43,36 @@ public class Rotator : Tool {
     public override void _Ready() {
         base._Ready();
         handle = GetNode<TextureRect>("ColorRect");
-        handle.Connect("gui_input", this, nameof(OnClick));
+        handle.Connect("gui_input", new Callable(this, nameof(OnClick)));
         ToolsLayer.activeTool = this;
     }
 
     public override void OnLayerSelected() {
         base.OnLayerSelected();
-        handle.RectGlobalPosition =  Apphandler.currentViewer.PixelToGlobalCoord((Apphandler.currentViewer.activeLayer as Node2D).Position);
+        handle.GlobalPosition =  Apphandler.currentViewer.PixelToGlobalCoord((Apphandler.currentViewer.activeLayer as Node2D).Position);
     }
 
 
-    public override void _Process(float delta) {
+    public override void _Process(double delta) {
         if (rotating) Rotate();
     }
 
 
     public void Rotate() {
-        EmitSignal(nameof(Rotated), GetGlobalMousePosition());
-        handle.RectGlobalPosition = GetGlobalMousePosition() - handle.RectPivotOffset * Apphandler.currentViewer.RectScale;
+        EmitSignal(nameof(RotatedEventHandler), GetGlobalMousePosition());
+        handle.GlobalPosition = GetGlobalMousePosition() - handle.PivotOffset * Apphandler.currentViewer.Scale;
     }
 
     public void StartRotating() {
         rotating = !rotating;
         mouseStartPos = GetGlobalMousePosition();
-        EmitSignal(nameof(SStartRotating), mouseStartPos);
+        EmitSignal(nameof(SStartRotatingEventHandler), mouseStartPos);
     }
 
 
     public void OnClick(InputEvent e) {
         if (e is InputEventMouseButton mouseEvent) {
-            if (mouseEvent.ButtonIndex == 1) {
+            if (mouseEvent.ButtonIndex == MouseButton.Left) {
                 StartRotating();
             }
         }

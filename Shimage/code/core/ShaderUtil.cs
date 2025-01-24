@@ -1,11 +1,12 @@
 using Godot;
 using System.Collections.Generic;
 
+
 public static class ShaderUtil {
 
     public static string shaderCodeBoilerPlate =
 @"uniform float blendFactor = 1.0;
-const float PI = 3.14159265359;
+uniform sampler2D screenTexture : hint_screen_texture, filter_linear_mipmap;
 
 //variables to use
 
@@ -72,7 +73,7 @@ float luminance(vec3 col) {
 void fragment(){
     float f_1;float f_2;float f_3;float f_4;float f_5;vec2 v2_1;vec2 v2_2;vec3 v3_1;vec3 v3_2;vec3 v3_3;
     vec2 uv = UV;
-    vec3 bg = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    vec3 bg = texture(screenTexture, SCREEN_UV).rgb;
     float layerAlpha = 1.0;
     ";
 
@@ -129,10 +130,10 @@ void fragment(){
 
     /// <summary> Godot Color to vec4 string </summary>
     public static string ColorToVec4(Color col) {
-        string r = Prop.toNotStupidString(((Color)col).r);
-        string g = Prop.toNotStupidString(((Color)col).g);
-        string b = Prop.toNotStupidString(((Color)col).b);
-        string a = Prop.toNotStupidString(((Color)col).a);
+        string r = Prop.ToNotStupidString(((Color)col).R);
+        string g = Prop.ToNotStupidString(((Color)col).G);
+        string b = Prop.ToNotStupidString(((Color)col).B);
+        string a = Prop.ToNotStupidString(((Color)col).A);
 
         return $"vec4({r}, {g}, {b}, {a})";
     }

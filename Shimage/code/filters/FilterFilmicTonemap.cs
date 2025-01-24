@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-public class FilterFilmicTonemap : Filter {
+
+public partial class FilterFilmicTonemap : Filter {
     public FilterFilmicTonemap() {
 
         Name = "Filmic Tonemap";

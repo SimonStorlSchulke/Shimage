@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class UILayer : Node {
+public partial class UILayer : Node {
 
     public bool active = false;
     public bool selected = false;
@@ -19,8 +19,9 @@ public class UILayer : Node {
         foreach (ShaderUtil.BlendMode item in Enum.GetValues(typeof(ShaderUtil.BlendMode))) {
             ObBlendmode.AddItem(Enum.GetName(typeof(ShaderUtil.BlendMode), item));
         }
-        ObBlendmode.Connect("item_selected", Apphandler.currentViewer, nameof(Viewer.OnSetBlendmode), new Godot.Collections.Array(){GetIndex()});
-        SlBlendFactor.Connect("value_changed", Apphandler.currentViewer, nameof(Viewer.OnSetBlendFactor), new Godot.Collections.Array(){GetIndex()});
+
+        ObBlendmode.ItemSelected += (v) => Apphandler.currentViewer.OnSetBlendmode((int)v, GetIndex()); 
+        SlBlendFactor.ValueChanged += (v) => Apphandler.currentViewer.OnSetBlendFactor((int)v, GetIndex()); 
     }
 
     ///<summary> Get the Layer correcsponing to this UI </summary>
@@ -29,7 +30,7 @@ public class UILayer : Node {
     }
 
     protected void UpdateSelectionStatus() {
-        if (Input.IsKeyPressed((int)KeyList.Shift)) {
+        if (Input.IsKeyPressed(Key.Shift)) {
             //whith Shift Key
             if (active) {
                 selected = active = false;
@@ -71,7 +72,7 @@ public class UILayer : Node {
 
     public void OnInput(InputEvent e) {
         if (e is InputEventMouseButton) {
-            if ((e as InputEventMouseButton).ButtonIndex == 1 && (e as InputEventMouseButton).Pressed) {
+            if ((e as InputEventMouseButton).ButtonIndex == MouseButton.Left && (e as InputEventMouseButton).Pressed) {
                 UpdateSelectionStatus();
             }
         }

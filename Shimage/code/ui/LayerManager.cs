@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class LayerManager : Node {
+public partial class LayerManager : Node {
     [Export]
     PackedScene UILayerImage;
     [Export]
@@ -10,7 +10,7 @@ public class LayerManager : Node {
     PackedScene UILayerText;
     [Export]
     PackedScene UILayerBG;
-    [Signal] delegate void SLayerSelected();
+    [Signal] delegate void SLayerSelectedEventHandler();
     public static LayerManager instance;
 
     public override void _Ready() {
@@ -30,7 +30,7 @@ public class LayerManager : Node {
             }
             i++;
         }
-        EmitSignal(nameof(SLayerSelected));
+        EmitSignal(nameof(SLayerSelectedEventHandler));
     }
 
     void UpdateSelectionColors() {
@@ -49,13 +49,13 @@ public class LayerManager : Node {
     public void AddLayerUI(ILayer layer) {
         Node n;
         if (layer.GetType() == typeof(LayerImage)) {
-                n = UILayerImage.Instance();
+                n = UILayerImage.Instantiate();
             } else if(layer.GetType() == typeof(LayerText)) {
-                n = UILayerText.Instance();
+                n = UILayerText.Instantiate();
             } else if (layer.GetType() == typeof(LayerRect)) {
-                n = UILayerRect.Instance();
+                n = UILayerRect.Instantiate();
             } else {
-                n = UILayerBG.Instance();
+                n = UILayerBG.Instantiate();
                 GD.Print($"Non supported layertype {layer.GetType()} detected - added as Background layer");
             }
             AddChild(n);

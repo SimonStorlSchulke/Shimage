@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-public class FilterExposure : Filter
+
+public partial class FilterExposure : Filter
 {
     public FilterExposure() {
 

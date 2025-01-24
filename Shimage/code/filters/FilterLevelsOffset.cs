@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-public class FilterLevelsoffset : Filter
+
+public partial class FilterLevelsoffset : Filter
 {
     public FilterLevelsoffset() {
 

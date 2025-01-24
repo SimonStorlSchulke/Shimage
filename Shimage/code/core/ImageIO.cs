@@ -1,6 +1,6 @@
 using Godot;
 
-public class ImageIO : Node {
+public partial class ImageIO : Node {
     public static ImageIO instance;
 
     public override void _Ready() {

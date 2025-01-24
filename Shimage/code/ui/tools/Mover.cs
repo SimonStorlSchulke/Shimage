@@ -1,8 +1,8 @@
 using Godot;
 
-public class Mover : Tool {
-    [Signal] delegate void Moved(Vector2 to);
-    [Signal] delegate void SStartedMoving(Vector2 mouseStartPos);
+public partial class Mover : Tool {
+    [Signal] delegate void MovedEventHandler(Vector2 to);
+    [Signal] delegate void SStartedMovingEventHandler(Vector2 mouseStartPos);
     [Export]
     Vector2 handleSize = new Vector2(22, 22);
     TextureRect handle;
@@ -11,19 +11,19 @@ public class Mover : Tool {
 
     public void ActivateFromUI() {
         ActivateTool(LayerManager.instance);
-        if (!IsConnected(nameof(SStartedMoving), connectedTo, "OnMoverStarted"))
-            Connect(nameof(SStartedMoving), LayerManager.instance, "OnMoverStarted");        
+        if (!IsConnected(nameof(SStartedMovingEventHandler), new Callable(connectedTo, "OnMoverStarted")))
+            Connect(nameof(SStartedMovingEventHandler), new Callable(LayerManager.instance, "OnMoverStarted"));        
     }
 
 
     /// <summary> If used, the first element of startPos[] must be Vector2 with global startPosition for the handle </summary>
     public override void ActivateTool(Node connectedTo, Godot.Collections.Array startPos = null) {
         base.ActivateTool(connectedTo);
-        if (!IsConnected(nameof(Moved), connectedTo, "OnMoverMoved"))
-            Connect(nameof(Moved), connectedTo, "OnMoverMoved");
+        if (!IsConnected(nameof(MovedEventHandler), new Callable(connectedTo, "OnMoverMoved")))
+            Connect(nameof(MovedEventHandler), new Callable(connectedTo, "OnMoverMoved"));
 
         if (startPos != null) {
-            handle.RectGlobalPosition = (Vector2)startPos[0] - handle.RectPivotOffset * Apphandler.currentViewer.RectScale;
+            handle.GlobalPosition = (Vector2)startPos[0] - handle.PivotOffset * Apphandler.currentViewer.Scale;
         }
         SetProcess(true);
     }
@@ -33,8 +33,8 @@ public class Mover : Tool {
         if (connectedTo != null) {
 
             GD.Print("HUH");
-            Disconnect(nameof(Moved), connectedTo, "OnMoverMoved");
-            Disconnect(nameof(SStartedMoving), connectedTo, "OnMoverStarted");
+            Disconnect(nameof(MovedEventHandler), new Callable(connectedTo, "OnMoverMoved"));
+            Disconnect(nameof(SStartedMovingEventHandler), new Callable(connectedTo, "OnMoverStarted"));
         }
         base.DeactivateTool();
     }
@@ -43,36 +43,36 @@ public class Mover : Tool {
     public override void _Ready() {
         base._Ready();
         handle = GetNode<TextureRect>("ColorRect");
-        handle.Connect("gui_input", this, nameof(OnClick));
+        handle.Connect("gui_input", new Callable(this, nameof(OnClick)));
         ToolsLayer.activeTool = this;
     }
 
     public override void OnLayerSelected() {
         base.OnLayerSelected();
-        handle.RectGlobalPosition =  Apphandler.currentViewer.PixelToGlobalCoord((Apphandler.currentViewer.activeLayer as Node2D).Position);
+        handle.GlobalPosition =  Apphandler.currentViewer.PixelToGlobalCoord((Apphandler.currentViewer.activeLayer as Node2D).Position);
     }
 
 
-    public override void _Process(float delta) {
+    public override void _Process(double delta) {
         if (moving) Move();
     }
 
 
     public void Move() {
-        EmitSignal(nameof(Moved), GetGlobalMousePosition());
-        handle.RectGlobalPosition = GetGlobalMousePosition() - handle.RectPivotOffset * Apphandler.currentViewer.RectScale;
+        EmitSignal(nameof(MovedEventHandler), GetGlobalMousePosition());
+        handle.GlobalPosition = GetGlobalMousePosition() - handle.PivotOffset * Apphandler.currentViewer.Scale;
     }
 
     public void StartMoving() {
         moving = !moving;
         mouseStartPos = GetGlobalMousePosition();
-        EmitSignal(nameof(SStartedMoving), mouseStartPos);
+        EmitSignal(nameof(SStartedMovingEventHandler), mouseStartPos);
     }
 
 
     public void OnClick(InputEvent e) {
         if (e is InputEventMouseButton mouseEvent) {
-            if (mouseEvent.ButtonIndex == 1) {
+            if (mouseEvent.ButtonIndex == MouseButton.Left) {
                 StartMoving();
             }
         }

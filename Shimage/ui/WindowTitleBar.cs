@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class WindowTitleBar : Control {
+public partial class WindowTitleBar : Control {
 
     bool dragging = false;
     Vector2 mouseStartPos;
@@ -12,24 +12,24 @@ public class WindowTitleBar : Control {
 
     public void OnInput(InputEvent e) {
         if (e is InputEventMouseButton) {
-            if ((e as InputEventMouseButton).ButtonIndex == 1) {
+            if ((e as InputEventMouseButton).ButtonIndex == MouseButton.Left) {
                 dragging = !dragging;
                 mouseStartPos = GetGlobalMousePosition();
             }
         }
     }
 
-    public override void _Process(float delta) {
+    public override void _Process(double delta) {
         if (dragging && !ResizeHandler.resizing) {
-            OS.WindowPosition = OS.WindowPosition + GetGlobalMousePosition() - mouseStartPos;
+            DisplayServer.WindowSetPosition(DisplayServer.WindowGetPosition() + (Vector2I)GetGlobalMousePosition() - (Vector2I)mouseStartPos);
         }
     }
 
     public void ToggleMaximize() {
-        OS.WindowMaximized = !OS.WindowMaximized;
+        //OS.WindowMaximized = !OS.WindowMaximized;
     }
 
     public void Minimize() {
-        OS.WindowMinimized = true;
+       // OS.WindowMinimized = true;
     }
 }

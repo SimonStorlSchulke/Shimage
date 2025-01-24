@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 
 
-public class LayerText : Node2D, ILayer {
+public partial class LayerText : Node2D, ILayer {
 
     Label lbl;
 
@@ -35,7 +35,7 @@ public class LayerText : Node2D, ILayer {
     }
 
     public void SetFont(Font font) {
-        lbl.AddFontOverride("font", font);
+        lbl.AddThemeFontOverride("font", font);
     }
 
     public void UpdateMaterial() {
@@ -46,8 +46,8 @@ public class LayerText : Node2D, ILayer {
         lbl.Material = mat;
     }
 
-    public void ApplyProp(object value, string name) {
-        ((ShaderMaterial)lbl.Material).SetShaderParam(name, value);
+    public void ApplyProp(Variant value, string name) {
+        ((ShaderMaterial)lbl.Material).SetShaderParameter(name, value);
     }
 
     public void UpdateLayer() {
@@ -55,7 +55,7 @@ public class LayerText : Node2D, ILayer {
     $@"vec3 fg = {ShaderUtil.ColorToVec4(color)}.rgb;
     layerAlpha = texture(TEXTURE, uv).a;", blendmode, Filters);
         UpdateMaterial();
-        (lbl.Material as ShaderMaterial).SetShaderParam("blendFactor", blendFactor);
+        (lbl.Material as ShaderMaterial).SetShaderParameter("blendFactor", blendFactor);
     }
     public override void _Ready() {
         lbl = GetChild<Label>(0);
@@ -67,7 +67,7 @@ public class LayerText : Node2D, ILayer {
 
     public void SetBlendFactor(float fac) {
         blendFactor = fac;
-        (lbl.Material as ShaderMaterial).SetShaderParam("blendFactor", blendFactor);
+        (lbl.Material as ShaderMaterial).SetShaderParameter("blendFactor", blendFactor);
     }
 
     public ShaderUtil.BlendMode GetBlendmode() {
@@ -81,16 +81,16 @@ public class LayerText : Node2D, ILayer {
 
     public Vector2 GlobalToPixelCoord(Vector2 globalCoords) {
         // TODO not working
-        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
-        Vector2 coord = coordVp - GlobalPosition - lbl.RectScale;
+        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.GlobalPosition) / Apphandler.currentViewer.Scale;
+        Vector2 coord = coordVp - GlobalPosition - lbl.Scale;
         return coord;
     }
 
 
     public Vector2 GlobalToUVCoord(Vector2 globalCoords) {
         // TODO not working
-        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
-        Vector2 coord = coordVp - GlobalPosition - lbl.RectScale;
+        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.GlobalPosition) / Apphandler.currentViewer.Scale;
+        Vector2 coord = coordVp - GlobalPosition - lbl.Scale;
         //coord /= this.GetRect().Size;
         return coord;
     }

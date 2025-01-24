@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class MbAddLayer : MenuButton
+public partial class MbAddLayer : MenuButton
 {
     Tuple<string, Type>[] layerMenuList = new Tuple<string, Type>[] {
         new Tuple<string, Type>("Image", typeof(LayerImage)),
@@ -20,7 +20,7 @@ public class MbAddLayer : MenuButton
             GetPopup().AddItem(cLayerEntry.Item1);
             filterIdx++;
         }
-        GetPopup().Connect("id_pressed", this, nameof(AddLayerFromUI));
+        GetPopup().Connect("id_pressed", new Callable(this, nameof(AddLayerFromUI)));
     }
 
     public void AddLayerFromUI(int layeridx) {

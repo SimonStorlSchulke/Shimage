@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class ResizeHandler : Control {
+public partial class ResizeHandler : Control {
     [Export]
     int borderWidth = 5;
 
@@ -16,12 +16,12 @@ public class ResizeHandler : Control {
     /// <summary>Returns 1-8 if Cursor is in Topleft Corner, Top, Topright Corner, Right, Bottomright Corner... and 0 if not in any.</summary>
     int GetMouseInArea() {
         Vector2 mPos = GetLocalMousePosition() * 1.15f; // apparently has to be multiplied by window shrink factor... sad.
-        Vector2 wSize = OS.WindowSize;
-        bool left = mPos.y < borderWidth;
-        bool top = mPos.y < borderWidth;
-        bool right = mPos.x > (wSize.x - borderWidth);
-        bool bottom = mPos.y > (wSize.y - borderWidth);
-        GD.Print(mPos.x, "   ", wSize.x - borderWidth);
+        Vector2 wSize = DisplayServer.WindowGetSize();
+        bool left = mPos.Y < borderWidth;
+        bool top = mPos.Y < borderWidth;
+        bool right = mPos.X > (wSize.X - borderWidth);
+        bool bottom = mPos.Y > (wSize.Y - borderWidth);
+        GD.Print(mPos.X, "   ", wSize.X - borderWidth);
 
 
         if (left && top)
@@ -45,7 +45,7 @@ public class ResizeHandler : Control {
 
     void Resize(int mArea) {
         if (mArea == 1) {
-            OS.WindowSize = new Vector2(OS.WindowSize.x, OS.WindowSize.y + GetGlobalMousePosition().y - mouseStartPos.y);
+            DisplayServer.WindowSetSize(new Vector2I(DisplayServer.WindowGetSize().X, DisplayServer.WindowGetSize().Y + (int)GetGlobalMousePosition().Y - (int)mouseStartPos.Y));
         }
     }
 

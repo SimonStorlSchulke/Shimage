@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class ToolsLayer : Control {
+public partial class ToolsLayer : Control {
     public static ToolsLayer instance;
 
     public static Tool activeTool;
@@ -17,15 +17,15 @@ public class ToolsLayer : Control {
 
     public static void UpdateTransform() {
         if (activeTool != null)
-            instance.RectScale = Apphandler.currentViewer.RectScale;
-            instance.RectGlobalPosition = Apphandler.currentViewer.RectGlobalPosition;
+            instance.Scale = Apphandler.currentViewer.Scale;
+            instance.GlobalPosition = Apphandler.currentViewer.GlobalPosition;
             Control handle = activeTool.GetChild<Control>(0);
-            handle.RectScale = Vector2.One / Apphandler.currentViewer.RectScale;
+            handle.Scale = Vector2.One / Apphandler.currentViewer.Scale;
     }
 
     public override void _Input(InputEvent e) {
         if (e is InputEventMouseButton me) {
-            if (me.ButtonIndex == (int)ButtonList.Right && me.Pressed) {
+            if (me.ButtonIndex == MouseButton.Right && me.Pressed) {
                 activeTool.DeactivateTool();
             }
         }

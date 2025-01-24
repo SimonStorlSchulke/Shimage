@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class FilterManager : Node {
+public partial class FilterManager : Node {
     public static FilterManager instance;
 
     public override void _Ready() {

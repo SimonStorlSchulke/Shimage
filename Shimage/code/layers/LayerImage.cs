@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 
 
-public class LayerImage : Sprite, ILayer {
+public partial class LayerImage : Sprite2D, ILayer {
 
     [Export]
     string path;
@@ -37,7 +37,7 @@ public class LayerImage : Sprite, ILayer {
             GD.Print("Image is Null");
             return;
         }
-        tex.CreateFromImage(img);
+        tex = ImageTexture.CreateFromImage(img);
         this.Texture = tex;
     }
 
@@ -56,8 +56,8 @@ public class LayerImage : Sprite, ILayer {
     }
 
 
-    public void ApplyProp(object value, string name) {
-        (Material as ShaderMaterial).SetShaderParam(name, value);
+    public void ApplyProp(Variant value, string name) {
+        (Material as ShaderMaterial).SetShaderParameter(name, value);
     }
 
 
@@ -66,7 +66,7 @@ public class LayerImage : Sprite, ILayer {
     @"vec3 fg = texture(TEXTURE, uv).rgb;
     layerAlpha = texture(TEXTURE, uv).a;", blendmode, Filters);
         UpdateMaterial();
-        (Material as ShaderMaterial).SetShaderParam("blendFactor", blendFactor);
+        (Material as ShaderMaterial).SetShaderParameter("blendFactor", blendFactor);
         //Apphandler.instance.ShowCode(shaderCode);
     }
 
@@ -75,7 +75,7 @@ public class LayerImage : Sprite, ILayer {
         img.Load(path);
         if (img == null)
             GD.Print("Image is Null");
-        tex.CreateFromImage(img);
+        tex = ImageTexture.CreateFromImage(img);
         Texture = tex;
     }
 
@@ -87,7 +87,7 @@ public class LayerImage : Sprite, ILayer {
 
     public virtual void SetBlendFactor(float fac) {
         blendFactor = fac;
-        (Material as ShaderMaterial).SetShaderParam("blendFactor", blendFactor);
+        (Material as ShaderMaterial).SetShaderParameter("blendFactor", blendFactor);
     }
 
 
@@ -104,14 +104,14 @@ public class LayerImage : Sprite, ILayer {
     public Vector2 PixelCoordToGlobalCoord(Vector2 coord) {
         Vector2 c = coord + this.GlobalPosition + this.GetRect().Position;
         c = this.GlobalPosition + (c - this.GlobalPosition).Rotated(this.Rotation);
-        c *= Apphandler.currentViewer.RectScale;
-        c += Apphandler.currentViewer.RectGlobalPosition;
+        c *= Apphandler.currentViewer.Scale;
+        c += Apphandler.currentViewer.GlobalPosition;
         return c;
     }
 
 
     public Vector2 GlobalToPixelCoord(Vector2 globalCoords) {
-        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.RectGlobalPosition) / Apphandler.currentViewer.RectScale;
+        Vector2 coordVp = (globalCoords - Apphandler.currentViewer.GlobalPosition) / Apphandler.currentViewer.Scale;
         // Rotate Mouse Pos around Sprites Center by SPrites Rotation ammount. No idea why negative rotation has to be used
         coordVp = this.GlobalPosition + (coordVp - this.GlobalPosition).Rotated(-this.Rotation);
         coordVp = coordVp - this.GlobalPosition - this.GetRect().Position;
@@ -123,8 +123,8 @@ public class LayerImage : Sprite, ILayer {
     public Vector2 UVToGlobalCoord(Vector2 coord) {
         Vector2 c = (coord * GetRect().Size) + this.GlobalPosition + this.GetRect().Position;
         c = this.GlobalPosition + (c - this.GlobalPosition).Rotated(this.Rotation);
-        c *= Apphandler.currentViewer.RectScale;
-        c += Apphandler.currentViewer.RectGlobalPosition;
+        c *= Apphandler.currentViewer.Scale;
+        c += Apphandler.currentViewer.GlobalPosition;
 
         // My brain hurts even more now :)
         return c;

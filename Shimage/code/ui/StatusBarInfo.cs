@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class StatusBarInfo : Label {
+public partial class StatusBarInfo : Label {
     public static StatusBarInfo instance;
 
 
